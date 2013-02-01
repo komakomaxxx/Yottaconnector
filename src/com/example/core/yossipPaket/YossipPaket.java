@@ -1,4 +1,4 @@
-package yossipPaket;
+package com.example.core.yossipPaket;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -6,9 +6,9 @@ import java.util.Date;
 
 import android.util.Log;
 
-import com.example.client_test2.Client_test2;
-import com.example.client_test2.Packet;
-import com.example.client_test2.SendSocket;
+import com.example.yottaconnecter.YottaConnector;
+import com.example.core.Packet;
+import com.example.core.SendSocket;
 
 public class YossipPaket {
 	private final static String tag = "YossipPacket";
@@ -50,7 +50,7 @@ public class YossipPaket {
 		/*
 		 パケット生成
 		 */
-		recvPacket.setSourceMac(Client_test2.myNodeData.getMACAddr());
+		recvPacket.setSourceMac(YottaConnector.myNodeData.getMACAddr());
 		
 		new SendSocket().makeRaleyPacket(recvPacket);
 	}
@@ -65,7 +65,7 @@ public class YossipPaket {
 		ArrayList<String> dataList = new ArrayList<String>();
 		dataList.add(yos);
 		dataList.add(time);
-		dataList.add(String.valueOf(Client_test2.myNodeData.getName()));
+		dataList.add(String.valueOf(YottaConnector.myNodeData.getName()));
 		
 		/*
 		 パケット生成
@@ -74,7 +74,7 @@ public class YossipPaket {
 		 hoplimit　MAX
 		 シーケンス番号
 		 */
-		String srcMac = Client_test2.myNodeData.getMACAddr();
+		String srcMac = YottaConnector.myNodeData.getMACAddr();
 		String dstMac = Packet.broadCastMACaddr;
 		int hopLimit=Packet.HopLimitMax;
 		Packet sendPacket = new Packet(Packet.Yossip,srcMac,dstMac,srcMac,	dstMac,hopLimit,0,null);
