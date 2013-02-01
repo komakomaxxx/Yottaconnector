@@ -83,19 +83,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 						dialog.show(getActivity().getFragmentManager(), null);
 					}
 				});
-		getActivity().findViewById(R.id.receive_test_button2)
-				.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						ReceiveMessageManager.addReceiveMessage(new MessageManager.Message(
-								"aa:aa:aa:aa:aa", 0, "message", new Date(),false,0));
-					}
-				});
-		getActivity().findViewById(R.id.receive_test_button1)
-				.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						ReceiveMessageManager.clearReceiveMessage();
-					}
-				});
+
 	}
 
 	public void onReceiveChangeListener(final int len) {
