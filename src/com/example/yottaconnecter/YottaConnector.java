@@ -182,12 +182,12 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		icon[4] = BitmapFactory.decodeResource(getResources(), R.drawable.t4);
 		icon[5] = BitmapFactory.decodeResource(getResources(), R.drawable.t5);
 		
-		nl.testMakeNodeList(35.625219, 139.341520, "東郷 茂朗",icon[2]);
-		nl.testMakeNodeList(35.624870, 139.341257, "花輪 龍之介",icon[3]);
-		nl.testMakeNodeList(35.624569, 139.341740, "長谷川 和樹",icon[4]);
-		nl.testMakeNodeList(35.624626, 139.342631, "小林 凌",icon[5]);
-		nl.testMakeNodeList(35.625144, 139.343269, "大滝 みや子",icon[1]);
-		nl.testMakeNodeList(35.625986,139.342695, "駒井 覚",icon[0]);
+		nl.testMakeNodeList(35.625219, 139.341520, "東郷 茂朗",icon[2],"ディズニーランド好きです！");
+		nl.testMakeNodeList(35.624870, 139.341257, "花輪 龍之介",icon[3],"山梨出身です！");
+		nl.testMakeNodeList(35.624569, 139.341740, "長谷川 和樹",icon[4],"今日はチェック柄～");
+		nl.testMakeNodeList(35.624626, 139.342631, "小林 凌",icon[5],"髪染めました！");
+		nl.testMakeNodeList(35.625144, 139.343269, "大滝 みや子",icon[1],"私も山梨～");
+		nl.testMakeNodeList(35.625986,139.342695, "駒井 覚",icon[0],"今日は研究の発表会");
 		                                                                                                                                                                                                                                                    
 	}
 

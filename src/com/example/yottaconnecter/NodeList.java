@@ -158,13 +158,13 @@ public class NodeList {
 				));
 	}
 	
-	public void testMakeNodeList(double ido,double keido,String name,Bitmap icon){
+	public void testMakeNodeList(double ido,double keido,String name,Bitmap icon,String profile){
 		nodelist.add(new Node("Mac" + name,
 				name,
 				ido,
 				keido,
 				icon,
-				name + "です！"
+				profile
 				));
 	}
 }
