@@ -172,7 +172,7 @@ public class Packet {
 
 		
 		String regex = "\\" + String.valueOf(sChar) + ".+?\\"+String.valueOf(eChar);
-		Pattern pattern = Pattern.compile(regex,Pattern.MULTILINE);
+		Pattern pattern = Pattern.compile(regex,Pattern.DOTALL);
 		Matcher matcher = pattern.matcher(this.Data);
 		
 		while(matcher.find()){
