@@ -1,10 +1,10 @@
-package com.example.sample;
+package com.example.yottaconnecter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.example.sample.Node;
+import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.R;
 
 import android.content.res.Resources;

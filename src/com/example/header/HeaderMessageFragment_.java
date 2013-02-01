@@ -14,14 +14,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.sample.Node;
-import com.example.yottaconnecter.R;
-import com.example.sample.Yossip;
+import com.example.yottaconnecter.*;
 import com.example.sample.user.UserFragment;
 
-public class HeaderMessageFragment extends Fragment{
+public class HeaderMessageFragment_ extends Fragment{
 
-	HeaderMessageFragment my;
+	HeaderMessageFragment_ my;
 	ArrayAdapter<Yossip> adapter;
 	ListView messageList;
 
@@ -56,19 +54,19 @@ public class HeaderMessageFragment extends Fragment{
 
 	}
 
-	private void setMessageList() {
-		messageList = (ListView) getActivity().findViewById(
-				R.id.header_message_list);
-		adapter = new HeaderMessageAdapter(getActivity(),
-				R.layout.header_message_row,
-				ReceiveMessageManager.getReceiveList());
-		ReceiveMessageManager.addReceiveMessage(new Yossip("a", new Date(),
-				"NODEA", "11", Bitmap.createBitmap(30, 30, Config.RGB_565)));
-		ReceiveMessageManager.addReceiveMessage(new Yossip("b", new Date(),
-				"NODEB", "22", Bitmap.createBitmap(30, 30, Config.RGB_565)));
-		ReceiveMessageManager.addReceiveMessage(new Yossip("c", new Date(),
-				"NODEC", "33", Bitmap.createBitmap(30, 30, Config.RGB_565)));
-		messageList.setAdapter(adapter);
+	public void setMessageList() {
+//		messageList = (ListView) getActivity().findViewById(
+//				R.id.h_MessageList);
+//		adapter = new HeaderMessageAdapter(getActivity(),
+//				R.layout.header_message_row,
+//				ReceiveMessageManager.getReceiveList());
+//		ReceiveMessageManager.addReceiveMessage(new Yossip("a", new Date(),
+//				"NODEA", "11", Bitmap.createBitmap(30, 30, Config.RGB_565)));
+//		ReceiveMessageManager.addReceiveMessage(new Yossip("b", new Date(),
+//				"NODEB", "22", Bitmap.createBitmap(30, 30, Config.RGB_565)));
+//		ReceiveMessageManager.addReceiveMessage(new Yossip("c", new Date(),
+//				"NODEC", "33", Bitmap.createBitmap(30, 30, Config.RGB_565)));
+//		messageList.setAdapter(adapter);
 	}
 
 	class ClickEvent implements OnItemClickListener {

@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.example.yottaconnecter.*;
-import com.example.sample.Yossip;
-import com.example.sample.YossipList;
 
 import android.content.Context;
 import android.os.Handler;

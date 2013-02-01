@@ -3,8 +3,6 @@ package com.example.sample.timeline;
 import java.util.Date;
 
 import com.example.yottaconnecter.*;
-import com.example.sample.Yossip;
-import com.example.sample.YossipList;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

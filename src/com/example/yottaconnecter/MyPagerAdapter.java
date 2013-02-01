@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.yottaconnecter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

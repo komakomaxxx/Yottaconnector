@@ -1,6 +1,6 @@
 package com.example.sample.friendlist;
 
-import com.example.sample.Node;
+import com.example.yottaconnecter.Node;
 
 /**
  *

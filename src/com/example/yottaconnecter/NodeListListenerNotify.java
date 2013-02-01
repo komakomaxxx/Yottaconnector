@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.yottaconnecter;
 
 
 public class NodeListListenerNotify implements Runnable{

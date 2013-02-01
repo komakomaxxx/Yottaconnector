@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.sample.Node;
-import com.example.sample.NodeList;
+import com.example.yottaconnecter.Node;
+import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.R;
 
 public class NodeListAdapter extends ArrayAdapter<Node> {

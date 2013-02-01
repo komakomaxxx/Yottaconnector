@@ -24,10 +24,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.example.sample.Node;
-import com.example.sample.NodeList;
-import com.example.sample.NodeListListener;
-import com.example.sample.NodeListListenerNotify;
+import com.example.yottaconnecter.Node;
+import com.example.yottaconnecter.NodeList;
+import com.example.yottaconnecter.NodeListListener;
+import com.example.yottaconnecter.NodeListListenerNotify;
 import com.example.yottaconnecter.R;
 import com.example.sample.user.UserFragment;
 

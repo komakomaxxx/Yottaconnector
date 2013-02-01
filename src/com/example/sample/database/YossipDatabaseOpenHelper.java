@@ -21,8 +21,8 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 
-import com.example.sample.Node;
 import com.example.sample.friendlist.FriendNode;
+import com.example.yottaconnecter.Node;
 
 /**
  *

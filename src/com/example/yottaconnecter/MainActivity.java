@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.yottaconnecter;
 
 import java.io.File;
 import java.io.FileInputStream;

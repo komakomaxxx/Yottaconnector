@@ -21,10 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.sample.Node;
 import com.example.yottaconnecter.*;
-import com.example.sample.Yossip;
-import com.example.sample.YossipList;
 import com.example.sample.friendlist.FriendListManager;
 import com.example.sample.message.MessageFragment;
 

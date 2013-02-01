@@ -1,7 +1,7 @@
 package com.example.sample.Radar;
 
-import com.example.sample.Node;
-import com.example.sample.NodeList;
+import com.example.yottaconnecter.Node;
+import com.example.yottaconnecter.NodeList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
