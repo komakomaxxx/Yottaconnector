@@ -6,6 +6,8 @@ import java.util.Date;
 
 import android.util.Log;
 
+import com.example.yottaconnecter.Yossip;
+import com.example.yottaconnecter.YossipList;
 import com.example.yottaconnecter.YottaConnector;
 import com.example.core.Packet;
 import com.example.core.SendSocket;
@@ -50,7 +52,7 @@ public class YossipPaket {
 		/*
 		 パケット生成
 		 */
-		recvPacket.setSourceMac(YottaConnector.myNodeData.getMACAddr());
+		recvPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		
 		new SendSocket().makeRaleyPacket(recvPacket);
 	}
@@ -65,7 +67,7 @@ public class YossipPaket {
 		ArrayList<String> dataList = new ArrayList<String>();
 		dataList.add(yos);
 		dataList.add(time);
-		dataList.add(String.valueOf(YottaConnector.myNodeData.getName()));
+		dataList.add(String.valueOf(YottaConnector.MyNode.getName()));
 		
 		/*
 		 パケット生成
@@ -74,7 +76,7 @@ public class YossipPaket {
 		 hoplimit　MAX
 		 シーケンス番号
 		 */
-		String srcMac = YottaConnector.myNodeData.getMACAddr();
+		String srcMac = YottaConnector.MyNode.getMACAddr();
 		String dstMac = Packet.broadCastMACaddr;
 		int hopLimit=Packet.HopLimitMax;
 		Packet sendPacket = new Packet(Packet.Yossip,srcMac,dstMac,srcMac,	dstMac,hopLimit,0,null);
