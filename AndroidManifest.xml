@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.yottaconnecter.YottaConnector"
+            android:name=".YottaConnector"
             android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_main" 
             android:screenOrientation="portrait">
