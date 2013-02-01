@@ -15,7 +15,7 @@ public class HelloAck {
 	
 	public static void recv(Packet recvPacket) {
 		
-		if(YottaConnector.myNodeData.getMACAddr().equals(recvPacket.getOriginalDestinationMac()) ){
+		if(YottaConnector.MyNode.getMACAddr().equals(recvPacket.getOriginalDestinationMac()) ){
 			int sessionNum = recvPacket.getTypeNum();
 			
 			
@@ -51,14 +51,14 @@ public class HelloAck {
 		 */
 		//data 作成		
 		ArrayList<String> dataList = new ArrayList<String>();
-		dataList.add(YottaConnector.myNodeData.getName());
-		dataList.add(String.valueOf(YottaConnector.myNodeData.getIdo()));
-		dataList.add(String.valueOf(YottaConnector.myNodeData.getKeido()));
-		dataList.add(YottaConnector.myNodeData.getProfile());
+		dataList.add(YottaConnector.MyNode.getName());
+		dataList.add(String.valueOf(YottaConnector.MyNode.getIdo()));
+		dataList.add(String.valueOf(YottaConnector.MyNode.getKeido()));
+		dataList.add(YottaConnector.MyNode.getProfile());
 		
 		int sessionNum = recvPacket.getTypeNum();
 		int hopLimit =0;
-		String srcMac = YottaConnector.myNodeData.getMACAddr();
+		String srcMac = YottaConnector.MyNode.getMACAddr();
 		String dstMac = Packet.broadCastMACaddr;
 		
 		//paketと生成
