@@ -36,6 +36,8 @@ import android.view.Menu;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.core.Socket_listen;
 import com.example.sample.Radar.RadarFragment;
 import com.example.sample.friendlist.FriendListManager;
 import com.example.sample.timeline.TimelineFragment;
@@ -43,7 +45,7 @@ import com.example.yottaconnecter.R;
 
 
 
-public class YottaConnector extends FragmentActivity implements SensorEventListener,LocationListener,SocketListener {
+public class YottaConnector extends FragmentActivity implements SensorEventListener,LocationListener{
 
 	private RadarFragment rf;
 	private SensorManager sensorManager;
@@ -82,7 +84,8 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		nl = new NodeList();
 		//nl.testMakeNodeList();
 		//testNodeCreate(nl);
-		SocketListenerNotify sln = new SocketListenerNotify(this);
+		
+		new Socket_listen(ip);
 		
 		rf = (RadarFragment) mAdapter.getRadarFragment();
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -192,10 +195,6 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		                                                                                                                                                                                                                                                    
 	}
 
-	public void onSocketListener(String s) {
-		// TODO 自動生成されたメソッド・スタブ
-		new SettingGetData(s);
-	}
 	
 	private void getMyNodeData(){
 		
