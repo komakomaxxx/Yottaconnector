@@ -1,4 +1,5 @@
-package Hello;
+package com.example.core.Hello;
+
 
 
 import java.util.ArrayList;
@@ -7,11 +8,11 @@ import java.util.TimerTask;
 
 import android.util.Log;
 
-import com.example.client_test2.Client_test2;
-import com.example.client_test2.Node;
-import com.example.client_test2.NodeList;
-import com.example.client_test2.Packet;
-import com.example.client_test2.SendSocket;
+import com.example.core.Packet;
+import com.example.core.SendSocket;
+import com.example.yottaconnecter.Node;
+import com.example.yottaconnecter.NodeList;
+import com.example.yottaconnecter.YottaConnector;
 
 
 public class Hello {
@@ -51,14 +52,14 @@ public class Hello {
 		
 		/*data 作成*/		
 		ArrayList<String> dataList = new ArrayList<String>();
-		dataList.add(Client_test2.myNodeData.getName());
-		dataList.add(String.valueOf(Client_test2.myNodeData.getIdo()));
-		dataList.add(String.valueOf(Client_test2.myNodeData.getKeido()));
-		dataList.add(Client_test2.myNodeData.getProfile());
+		dataList.add(YottaConnector.myNodeData.getName());
+		dataList.add(String.valueOf(YottaConnector.myNodeData.getIdo()));
+		dataList.add(String.valueOf(YottaConnector.myNodeData.getKeido()));
+		dataList.add(YottaConnector.myNodeData.getProfile());
 		
 		int sessionNum = getTypeSession();
 		int hopLimit =0;
-		String srcMac = Client_test2.myNodeData.getMACAddr();
+		String srcMac = YottaConnector.myNodeData.getMACAddr();
 		String dstMac = Packet.broadCastMACaddr;
 		
 		//paketと生成
