@@ -105,7 +105,7 @@ public class NodeListFragment extends Fragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		int state = (YottaConnector.mPager.getCurrentItem() % 4);
+		int state = YottaConnector.mPager.getCurrentItem() % 4;
 		switch (state) {
 		case 0:
 			HeaderFragment.setFragmentName("Rader");

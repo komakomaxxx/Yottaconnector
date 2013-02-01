@@ -40,7 +40,7 @@ public class RadarFragment extends Fragment  {
 	@Override
 	public void onResume() {
 		super.onResume();
-		int state = (YottaConnector.mPager.getCurrentItem() % 4);
+		int state = YottaConnector.mPager.getCurrentItem() % 4;
 		switch (state) {
 		case 0:
 			HeaderFragment.setFragmentName("Rader");
@@ -50,14 +50,11 @@ public class RadarFragment extends Fragment  {
 			break;
 		case 2:
 			HeaderFragment.setFragmentName("FriendList");
-
 			break;
 		case 3:
 			HeaderFragment.setFragmentName("NodeList");
-
 			break;
 		}
-
 	}	
 	
 	public void setSensorVales(SensorEvent event,boolean flag) {

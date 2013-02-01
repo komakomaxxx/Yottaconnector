@@ -59,11 +59,14 @@ public final class TimelineFragment extends Fragment implements OnClickListener,
     	
         return timelineLayoutView;
     }
-    
+	public void onStart(){
+		super.onStart();
+		
+	}
 	@Override
 	public void onResume() {
 		super.onResume();
-		int state = (YottaConnector.mPager.getCurrentItem() % 4);
+		int state = YottaConnector.mPager.getCurrentItem() % 4;
 		switch (state) {
 		case 0:
 			HeaderFragment.setFragmentName("Rader");
@@ -73,14 +76,11 @@ public final class TimelineFragment extends Fragment implements OnClickListener,
 			break;
 		case 2:
 			HeaderFragment.setFragmentName("FriendList");
-
 			break;
 		case 3:
 			HeaderFragment.setFragmentName("NodeList");
-
 			break;
 		}
-
 	}
     
     /**
