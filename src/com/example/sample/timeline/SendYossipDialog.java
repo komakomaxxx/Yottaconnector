@@ -2,6 +2,7 @@ package com.example.sample.timeline;
 
 import java.util.Date;
 
+import com.example.core.yossipPaket.YossipPaket;
 import com.example.yottaconnecter.*;
 
 import android.app.AlertDialog;
@@ -122,6 +123,7 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
 				break;
 			case R.id._SendYossipYossipButton:
 				// TODO Send Yossip
+				YossipPaket.sendYossip(edt.getText().toString());
 				addYossip(edt.getText().toString());
 				onDialogClose();
 				break;
