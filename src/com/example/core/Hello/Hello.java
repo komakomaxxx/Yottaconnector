@@ -7,12 +7,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.util.Log;
-
 import com.example.core.Packet;
 import com.example.core.SendSocket;
 import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.YottaConnector;
+
 
 
 public class Hello {

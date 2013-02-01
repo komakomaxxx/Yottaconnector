@@ -5,12 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import yossipPaket.YossipPaket;
-import Message.*;
-import Hello.*;
-import Image.*;
-import NodeExchange.*;
-import Session.SessionCtl;
+import com.example.core.yossipPaket.*;
+import com.example.core.Message.*;
+import com.example.core.Hello.*;
+import com.example.core.Image.*;
+import com.example.core.NodeExchange.*;
+import com.example.core.Session.*;
 import android.provider.MediaStore.Images;
 import android.service.textservice.SpellCheckerService.Session;
 import android.util.Log;
@@ -52,8 +52,7 @@ public class SettingData implements Runnable{
 		// TODO 自動生成されたメソッド・スタブ
 		
 		Packet packet = new Packet();
-		//packet.setRawPacket(iBuf);
-		
+
 		//ヘッダ取得
 		int HeaderSize = 67;
 		char[] cbuf = new char[HeaderSize];
@@ -104,7 +103,7 @@ public class SettingData implements Runnable{
 		packet.setSequenceNum(Integer.parseInt(tmpSN,16));
 		packet.setTypeNum(Integer.parseInt(tmpTN,16));
 		packet.setData(tmpData);
-		
+				
 	
 		int type = packet.getType();
 		if (type == Packet.Hello) {
@@ -122,6 +121,7 @@ public class SettingData implements Runnable{
 		} else if (type == Packet.NodeExREP) {
 			NodeExchangeReplay.recv(packet);
 		} else if (type == Packet.ImageSYN) {
+			
 			ImageSessionSYN.cntrol(packet);
 		} else if (type == Packet.ImageACK) {
 			ImageSessionACK.cntrol(packet);
