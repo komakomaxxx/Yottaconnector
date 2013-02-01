@@ -51,8 +51,7 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 		for(Node node: NodeList.nodelist) {
 			YossipList.y_list.add(new Yossip("私は"+node.getName(), new Date(), node.getMACAddr(), node.getName(), node.getRadarIcon()));
 		}
-		for(int i = NodeList.nodelist.size() - 1; 0 <= i; i-- ) {
-			Node node = NodeList.nodelist.get(i);
+		for(Node node: NodeList.nodelist) {
 			YossipList.y_list.add(new Yossip(node.getProfile(), new Date(), node.getMACAddr(), node.getName(), node.getRadarIcon()));
 		}
 	}
