@@ -65,8 +65,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
       	setContentView(R.layout.main_activity);
 
-      	//Helloの定期送信
-      	Hello.startSendHello(10000);
+
 
       	MyPagerAdapter mAdapter = new MyPagerAdapter(getSupportFragmentManager());
 		ViewPager mPager = (ViewPager)findViewById(R.id.pager);
@@ -97,6 +96,9 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
         // フレンドリスト読み込み
         FriendListManager.onLoadFriendList(this);
         getMyNodeData();
+
+      	//Helloの定期送信
+      	Hello.startSendHello(10000);
     }
 
     @Override
