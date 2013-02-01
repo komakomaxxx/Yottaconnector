@@ -1,6 +1,6 @@
 package com.example.sample.Radar;
 
-import com.example.yottaconnecter.*;
+import com.example.yottaconnecter.R;
 import android.support.v4.app.Fragment;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
