@@ -1,6 +1,6 @@
 package com.example.sample.friendlist;
 
-import com.example.sample.R;
+import com.example.yottaconnecter.R;
 import com.example.sample.user.UserFragment;
 
 import android.os.Bundle;

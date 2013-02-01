@@ -10,7 +10,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.example.sample.Node;
-import com.example.sample.R;
+import com.example.yottaconnecter.R;
 import com.example.sample.database.YossipDatabaseOpenHelper;
 
 /**

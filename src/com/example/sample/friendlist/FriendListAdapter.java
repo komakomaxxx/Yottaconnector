@@ -1,7 +1,7 @@
 package com.example.sample.friendlist;
 
 import java.util.List;
-import com.example.sample.R;
+import com.example.yottaconnecter.R;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
