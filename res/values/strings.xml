@@ -3,7 +3,7 @@
     <string name="app_name">sample</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">YottaConnector</string>
     <string name="cancel_button_string">Cancel</string>
     <string name="yossip_button_string">Yossip</string>
     <string name="yossip_upper_limit">150</string>
