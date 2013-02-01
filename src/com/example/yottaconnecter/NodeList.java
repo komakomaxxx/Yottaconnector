@@ -37,6 +37,7 @@ public class NodeList {
 		//差分を削除する(消えたNodeの削除)
 		removelist.removeAll(newNearNodeList);
 		nodelist.removeAll(removelist);
+		
 		nearnodelist = new ArrayList<Node>(newNearNodeList);
 	
 	}
@@ -73,12 +74,11 @@ public class NodeList {
 	}
 	
 	public synchronized static void addNode(Node n) {
-		int i;
-		i = nodelist.indexOf(n);
-		
-		if(i == -1){
-			nodelist.add(n);
-		}	
+		for(Node node: nodelist) {
+			if(node.getMACAddr().equals(n.getMACAddr()))
+				return;
+		}
+		nodelist.add(n);
 	}
 	
 	/**

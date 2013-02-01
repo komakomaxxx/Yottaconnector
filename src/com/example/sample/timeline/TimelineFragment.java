@@ -64,7 +64,6 @@ public final class TimelineFragment extends Fragment implements OnClickListener,
      */
     private void setAdapter() {
     	adapter = new TimelineAdapter(getActivity(), R.layout.timeline_list_row);
-    	adapter.setList();
     }
     
     /**

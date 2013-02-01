@@ -3,6 +3,8 @@ package com.example.yottaconnecter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.sample.timeline.TimelineAdapter;
+
 public class YossipList {
 	public static List<Yossip> y_list;
 
@@ -11,6 +13,6 @@ public class YossipList {
 		y_list = new ArrayList<Yossip>();
 	}
 	public synchronized static void addYossip(Yossip y) {
-		y_list.add(y);		
+		y_list.add(y);
 	}
 }

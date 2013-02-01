@@ -101,16 +101,6 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 	}
 	
 	/**
-	 * リストをセットする
-	 */
-	public void setList() {
-		Iterator<Yossip> i = tList.iterator();
-		while(i.hasNext()) {
-			YossipList.addYossip(i.next());
-		}
-	}
-	
-	/**
 	 * 追加されるヨシップが前回のヨシップでないか確認
 	 * 
 	 * @param yossip ヨシップ
@@ -119,6 +109,7 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 		Iterator<Yossip> i = tList.iterator();
 		while(i.hasNext()) {
 			Yossip cYossip = i.next();
+			if(yossip.getYossipUser() != null)
 			if(cYossip.getYossipUser().equals(yossip.getYossipUser())
 					&& cYossip.getYossipText().equals(yossip.getYossipText())
 						&& cYossip.getYossipTime().equals(yossip.getYossipTime())) {
