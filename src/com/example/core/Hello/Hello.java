@@ -36,7 +36,7 @@ public class Hello {
 		Node n = new Node(macAddr,name,ido,keido,null,profile);
 		//node に追加
 		NodeList.addNode(n);
-		addNode(n);
+		addNearNode(n);
 		HelloAck.sendHelloAck(recvPacket);
 	}
 	private static void sendHello() {
@@ -70,7 +70,7 @@ public class Hello {
 		//送信
 		new SendSocket().makeNewPacket(sendPacket);
 	}
-	public synchronized static void  addNode(Node n) {
+	public synchronized static void  addNearNode(Node n) {
 		
 		nearNodeList.add(n);
 	}	
