@@ -47,7 +47,7 @@ public class NodeExchangeReqest {
 		int tMun =recvPacket.getTypeNum();
 		addSession(oSrcMac,srcMac,tMun);
 		//ヘッダ作成
-		recvPacket.setSourceMac(YottaConnector.myNodeData.getMACAddr());
+		recvPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		
 		//送信
 		new SendSocket().makeRaleyPacket(recvPacket);
@@ -56,13 +56,13 @@ public class NodeExchangeReqest {
 	public static void  sendReqest() {
 		
 		//自分発のセッションがないことを確認
-		if(searchSession(YottaConnector.myNodeData.getMACAddr(),0) != null){
+		if(searchSession(YottaConnector.MyNode.getMACAddr(),0) != null){
 			return;
 		}
 		//NodeListの初期化
 		newNodeList.clear();
 		
-		String srcMac = YottaConnector.myNodeData.getMACAddr();
+		String srcMac = YottaConnector.MyNode.getMACAddr();
 		String dstMac = Packet.broadCastMACaddr;
 		
 		int hopLimit =Packet.HopLimitMax;
@@ -124,7 +124,7 @@ public class NodeExchangeReqest {
 		/*
 		 一致するsessionDataをListから破棄する
 		 */
-		if(YottaConnector.myNodeData.getMACAddr().equals(sd.getSrcMac())){
+		if(YottaConnector.MyNode.getMACAddr().equals(sd.getSrcMac())){
 			NodeList.updateNodeList(newNodeList);
 		}
 		sessionList.remove(sd);	
