@@ -22,7 +22,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.sample.Node;
-import com.example.sample.R;
+import com.example.yottaconnecter.*;
 import com.example.sample.Yossip;
 import com.example.sample.YossipList;
 import com.example.sample.friendlist.FriendListManager;

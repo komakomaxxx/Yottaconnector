@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.sample.R;
+import com.example.yottaconnecter.*;
 import com.example.sample.Yossip;
 
 public class YossipListAdapter extends ArrayAdapter<Yossip> {

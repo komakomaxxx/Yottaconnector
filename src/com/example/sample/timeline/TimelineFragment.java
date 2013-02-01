@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import com.example.sample.Node;
 import com.example.sample.NodeList;
-import com.example.sample.R;
+import com.example.yottaconnecter.*;
 import com.example.sample.Yossip;
 import com.example.sample.YossipListenerNotify;
 import com.example.sample.Yossiplistener;
