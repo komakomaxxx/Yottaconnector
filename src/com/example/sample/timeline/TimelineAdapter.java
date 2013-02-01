@@ -1,7 +1,6 @@
 package com.example.sample.timeline;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,16 +43,6 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 	public TimelineAdapter(Context context, int textViewResourceId) {
 		super(context, textViewResourceId, tList);
 		handler = new Handler();
-		makeTestYossip();
-	}
-	
-	public void makeTestYossip() {
-		for(Node node: NodeList.nodelist) {
-			YossipList.y_list.add(new Yossip("私は"+node.getName(), new Date(), node.getMACAddr(), node.getName(), node.getRadarIcon()));
-		}
-		for(Node node: NodeList.nodelist) {
-			YossipList.y_list.add(new Yossip(node.getProfile(), new Date(), node.getMACAddr(), node.getName(), node.getRadarIcon()));
-		}
 	}
 	
 	/**
