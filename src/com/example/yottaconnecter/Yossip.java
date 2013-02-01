@@ -14,7 +14,7 @@ public class Yossip {
 	private String yossipUser;
 	private String yossipUserMac;
 	private Bitmap yossipIcon;
-	public SimpleDateFormat timeFormat = new SimpleDateFormat("kk'時'mm'分'ss'秒'");
+	public static SimpleDateFormat timeFormat = new SimpleDateFormat("kk'時'mm'分'ss'秒'");
 
 
 	public Yossip(String y, Date yt, String ym, String yu) {
@@ -22,6 +22,12 @@ public class Yossip {
 		yossipTime = yt;
 		yossipUserMac = ym;
 		yossipUser = yu;
+	}
+	public Yossip(String y,Date yt,String yu, Bitmap yi) {
+		yossip = y;
+		yossipTime = yt;
+		yossipUser = yu;
+		yossipIcon = yi;
 	}
 	public Yossip(String y, Date yt, String ym, String yu, Bitmap yi) {
 		yossip = y;
