@@ -2,12 +2,12 @@ package com.example.sample.header;
 
 import java.util.Date;
 
-import com.example.yottaconnecter.*;
-import com.example.sample.header.ReceiveMessageListener;
-import com.example.sample.header.ReceiveMessageManager;
-import com.example.sample.header.ReceiveMessageNotify;
+
 import com.example.sample.message.MessageFragment;
 import com.example.sample.message.MessageManager;
+import com.example.yottaconnecter.R;
+import com.example.yottaconnecter.Setting_fragment;
+
 import android.support.v4.app.Fragment;
 
 import android.app.DialogFragment;
@@ -30,11 +30,12 @@ import android.widget.AdapterView.OnItemClickListener;
 public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 	private ImageView receiveMessageIcon;
 	private TextView receiveCount;
-	private TextView fragmentName;
 	Handler handler;
 
 	ArrayAdapter<MessageManager.Message> adapter;
 	ListView messageList;
+	static TextView fragmentName;
+	Button sliderButton;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +52,8 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 		messageList = (ListView) getActivity().findViewById(R.id.h_MessageList);
 		messageList.setOnItemClickListener(new ClickEvent());
 		
+		sliderButton = (Button)getActivity().findViewById(R.id.h_MessagePull);
+		
 		new ReceiveMessageNotify(this);
 		handler = new Handler();
 
@@ -58,15 +61,12 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 		
 		receiveCount = (TextView) getActivity().findViewById(
 				R.id.receive_message_countIcon);
-		fragmentName = (TextView) getActivity().findViewById(
-				R.id.fragment_name);
+		 fragmentName= (TextView) getActivity().findViewById(R.id.fragment_name);
 
 		getActivity().findViewById(R.id.H_Message_icon).setOnClickListener(
 				new OnClickListener() {
 					public void onClick(View v) {
-						
-						Button b = (Button)getActivity().findViewById(R.id.h_MessagePull);
-						b.callOnClick();
+						callSlider();
 					}
 				});
 		getActivity().findViewById(R.id.h_Message).setOnTouchListener(
@@ -86,10 +86,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 						dialog.show(getActivity().getFragmentManager(), null);
 					}
 				});
-
-	}
-	public void setFragmentName(String s) {
-		fragmentName.setText(s);
+		
 	}
 
 	public void onReceiveChangeListener(final int len) {
@@ -112,16 +109,26 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 		});
 
 	}
+	public static void  setFragmentName(String s) {
+		fragmentName.setText(s);
+		
+	}
+	private void callSlider() {
+		sliderButton.callOnClick();
+	}
 	class ClickEvent implements OnItemClickListener {
 		// onItemClickメソッドには、AdapterView(adapter)、選択した項目View、選択された位置のint値、IDを示すlong値が渡される
 		public void onItemClick(AdapterView<?> adapter, View view,
 				int position, long id) {
 			ListView listView = (ListView) adapter;
 			MessageManager.Message item = (MessageManager.Message) listView.getItemAtPosition(position);
-			
 			ReceiveMessageManager.removeReceiveMessage(item);
+			
 			MessageManager.setContext(getActivity());
 			new MessageFragment(item.getMACAddr()).show(getFragmentManager(), getTag());
+			if(ReceiveMessageManager.size() == 0){
+				callSlider();
+			}
 		}
 	}
 }
