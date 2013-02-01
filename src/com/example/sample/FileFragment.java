@@ -1,7 +1,6 @@
 package com.example.sample;
 
-import com.example.sample.R;
-import com.example.sample.R.layout;
+import com.example.yottaconnecter.*;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;

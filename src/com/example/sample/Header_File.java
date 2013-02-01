@@ -3,10 +3,7 @@ package com.example.sample;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.example.sample.R;
-import com.example.sample.R.drawable;
-import com.example.sample.R.id;
-import com.example.sample.R.layout;
+import com.example.yottaconnecter.*;
 
 
 

@@ -39,6 +39,7 @@ import android.widget.Toast;
 import com.example.sample.Radar.RadarFragment;
 import com.example.sample.friendlist.FriendListManager;
 import com.example.sample.timeline.TimelineFragment;
+import com.example.yottaconnecter.R;
 
 
 
