@@ -62,7 +62,7 @@ public class HelloAck {
 		int sessionNum = recvPacket.getTypeNum();
 		int hopLimit =0;
 		String srcMac = YottaConnector.MyNode.getMACAddr();
-		String dstMac = recvPacket.getOriginalSourceMac()();
+		String dstMac = recvPacket.getOriginalSourceMac();
 		
 		//paketと生成
 		Packet sendPack = new Packet(Packet.HelloAck,srcMac,dstMac,srcMac,	dstMac,hopLimit,sessionNum);
