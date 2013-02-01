@@ -14,6 +14,7 @@ public class HelloAck {
 	private final static String tag = "HelloAck";
 	
 	public static void recv(Packet recvPacket) {
+		Log.d(tag,"aaa"+ recvPacket.getOriginalDestinationMac());
 		
 		if(YottaConnector.MyNode.getMACAddr().equals(recvPacket.getOriginalDestinationMac()) ){
 			int sessionNum = recvPacket.getTypeNum();
@@ -28,8 +29,10 @@ public class HelloAck {
 			String profile = dataList.get(3);
 			
 			Node n = new Node(macAddr,name,ido,keido,null,profile);
+			n.setNodeDirection(YottaConnector.MyNode.getIdo(),YottaConnector.MyNode.getKeido() );
 			//node に追加
 			Hello.addNode(n);
+			
 			
 			Log.d(tag,"tNum = "+sessionNum + "[" +macAddr+":"+name+":"+ido+":"+keido+":"+profile  );
 			

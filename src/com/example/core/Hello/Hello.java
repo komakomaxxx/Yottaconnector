@@ -34,6 +34,7 @@ public class Hello {
 		
 		Log.d(tag,"[" +macAddr+":"+name+":"+ido+":"+keido+":"+profile  );
 		Node n = new Node(macAddr,name,ido,keido,null,profile);
+		n.setNodeDirection(YottaConnector.MyNode.getIdo(),YottaConnector.MyNode.getKeido() );
 		//node に追加
 		NodeList.addNode(n);
 		addNode(n);
@@ -68,7 +69,6 @@ public class Hello {
 		//data部設定
 		sendPacket.createData(dataList);		
 		//送信
-		//new testSendSocket(ip,sendPacket);
 		new SendSocket().makeNewPacket(sendPacket);
 	}
 	public synchronized static void  addNode(Node n) {
