@@ -13,12 +13,14 @@ import com.example.sample.message.*;
 public class Message {
 	public static final int INT_SHIFT;
 	public static final int bitMask;
+	public static final int SESSION_MAX;
 	public static final SimpleDateFormat timeFormat;
 	
 	static{
 		INT_SHIFT = Integer.SIZE-1;
 		bitMask = 0x80000000;
 		timeFormat = new SimpleDateFormat("kk'時'mm'分'ss'秒'");
+		SESSION_MAX = 0x7FFFFFFF;
 	}
 	
 	//パケット受信時動作振り分けルーチン
@@ -58,7 +60,7 @@ public class Message {
 		MessageManager.add(oDestMac, message, true);
 		
 		//メッセージ番号を取得(先頭ビット１)
-		typeNum = 0x00000001;//あとで変更
+		typeNum = MessageManager.getCount(oDestMac) % SESSION_MAX;
 		
 		//ルーティングテーブル検索
 		root = MessageRootTable.getRoot(myMacAddr,oDestMac);
