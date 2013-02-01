@@ -28,7 +28,7 @@ import com.example.sample.Node;
 import com.example.sample.NodeList;
 import com.example.sample.NodeListListener;
 import com.example.sample.NodeListListenerNotify;
-import com.example.sample.R;
+import com.example.yottaconnecter.R;
 import com.example.sample.user.UserFragment;
 
 public class NodeListFragment extends Fragment implements OnFocusChangeListener, NodeListListener {

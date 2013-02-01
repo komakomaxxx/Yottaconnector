@@ -1,7 +1,7 @@
 package com.example.sample.message;
 
 import com.example.sample.NodeList;
-import com.example.sample.R;
+import com.example.yottaconnecter.R;
 
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;

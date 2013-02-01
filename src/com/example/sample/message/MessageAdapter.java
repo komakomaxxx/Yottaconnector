@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.sample.NodeList;
-import com.example.sample.R;
+import com.example.yottaconnecter.R;
 import com.example.sample.message.MessageManager.Message;
 
 import android.content.Context;

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.sample.Node;
 import com.example.sample.NodeList;
-import com.example.sample.R;
+import com.example.yottaconnecter.R;
 
 public class NodeListAdapter extends ArrayAdapter<Node> {
 
