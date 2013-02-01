@@ -177,9 +177,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 			EditText edt = (EditText) getDialog().getWindow().findViewById(R.id._MessageTextArea);
 			adapter.add(edt.getText().toString());
 			edt.getEditableText().clear();
-			ListView lview = (ListView) getDialog().getWindow().findViewById(R.id._MessageListView);
-			lview.setSelection(lview.getCount());
-			notify.start();
+//			notify.start();
 		}
 	}
 	

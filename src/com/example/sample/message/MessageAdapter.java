@@ -9,6 +9,8 @@ import com.example.yottaconnecter.R;
 import com.example.sample.message.MessageManager.Message;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,7 +118,7 @@ public class MessageAdapter extends BaseAdapter {
 		ViewHolder holder;
 		View v = convertView;
 		Message currentMessage = (Message) getItem(location);
-		if(currentMessage.isMine()==false) {
+		if(currentMessage.isMine()) {
 			if(v == null || v.getId() != R.layout.message_mine_row) {
 				LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = inflater.inflate(R.layout.message_mine_row, null);
@@ -140,7 +142,8 @@ public class MessageAdapter extends BaseAdapter {
 			} else {
 				holder = (ViewHolder) v.getTag();
 			}
-			holder.viewIcon.setImageBitmap(NodeList.searchIcon(parent.getResources(), currentMessage.getMACAddr()));
+			IconTask task = new IconTask(holder.viewIcon);
+			task.execute(NodeList.searchIcon(parent.getResources(), currentMessage.getMACAddr()));
 			holder.viewUserId.setText(NodeList.searchId(currentMessage.getMACAddr()));
 		}
 		holder.viewMesText.setText(currentMessage.getMessageText());
@@ -172,5 +175,26 @@ public class MessageAdapter extends BaseAdapter {
 		 * ユーザアイコンイメージビュー
 		 */
 		public ImageView viewIcon;
+	}
+	
+	/**
+	 * 
+	 * @author Kazuki Hasegawa
+	 * @version 1
+	 * @since 2/1/2013
+	 */
+	private class IconTask extends AsyncTask<Bitmap, Void, Bitmap> {
+		private ImageView mView;
+		public IconTask(ImageView view) {
+			this.mView = view;
+		}
+		@Override
+	    protected void onPostExecute(Bitmap result) {
+	        mView.setImageBitmap(result);
+	    }
+		@Override
+		protected Bitmap doInBackground(Bitmap... params) {
+			return params[0];
+		}
 	}
 }

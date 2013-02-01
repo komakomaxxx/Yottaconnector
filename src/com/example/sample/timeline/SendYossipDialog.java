@@ -29,7 +29,7 @@ import android.widget.TextView;
  * ヨシップ送信ダイアログクラス
  *
  * @author  Kazuki Hasegawa
- * @version 3
+ * @version 4
  */
 public class SendYossipDialog extends DialogFragment implements View.OnClickListener, TextWatcher, OnKeyListener{
 	/**
@@ -167,7 +167,7 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
 	 * @param countText 文字カウントを表示しているTextViewのViewを保持しておく変数
 	 *
 	 */
-	public void afterTextChanged(Editable s) {
+	public synchronized void afterTextChanged(Editable s) {
 		int textWordCount = s.length();
     	Button yossipButton = (Button)getDialog().getWindow().findViewById(R.id._SendYossipYossipButton);
     	TextView countText = (TextView)getDialog().getWindow().findViewById(R.id._SendYossipCounters);
@@ -200,7 +200,7 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
 		String name = YottaConnector.MyNode.getName();
 		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
 		if(YottaConnector.MyNode.getIcon() != null)
-			icon = YottaConnector.MyNode.getIcon();
+			icon = YottaConnector.MyNode.getRadarIcon();
 		YossipList.addYossip(new Yossip(s, new Date(), YottaConnector.MyNode.getMACAddr(), name, icon));
 	}
 
@@ -214,8 +214,7 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
 	 *
 	 * @return bool
 	 */
-	private boolean isStringLengthInTheEditText(View v)
-	{
+	private boolean isStringLengthInTheEditText(View v) {
 		EditText ed = (EditText)getDialog().getWindow().findViewById(R.id._SendYossipText);
 		boolean bool = false;
 

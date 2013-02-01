@@ -29,10 +29,10 @@ public class YossipListenerNotify implements Runnable{
 				e.printStackTrace();
 			}
 			synchronized(YossipList.y_list) {
-				if(length != YossipList.y_list.size()) {
-					length = YossipList.y_list.size();
-						listener.onNewYossipGetListener(YossipList.y_list.get(length - 1));
-						listener.onYossipListChangeListener(YossipList.y_list.size());
+				if(length < YossipList.y_list.size()) {
+					length++;
+					listener.onNewYossipGetListener(YossipList.y_list.get(length - 1));
+					listener.onYossipListChangeListener(YossipList.y_list.size());
 				}
 			}
         }

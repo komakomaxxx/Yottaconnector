@@ -1,12 +1,15 @@
 package com.example.sample.timeline;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import com.example.yottaconnecter.*;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +44,17 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 	public TimelineAdapter(Context context, int textViewResourceId) {
 		super(context, textViewResourceId, tList);
 		handler = new Handler();
+		makeTestYossip();
+	}
+	
+	public void makeTestYossip() {
+		for(Node node: NodeList.nodelist) {
+			YossipList.y_list.add(new Yossip("私は"+node.getName(), new Date(), node.getMACAddr(), node.getName(), node.getRadarIcon()));
+		}
+		for(int i = NodeList.nodelist.size() - 1; 0 <= i; i-- ) {
+			Node node = NodeList.nodelist.get(i);
+			YossipList.y_list.add(new Yossip(node.getProfile(), new Date(), node.getMACAddr(), node.getName(), node.getRadarIcon()));
+		}
 	}
 	
 	/**
@@ -76,6 +90,7 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		View v = convertView;
+		Yossip currentYossip = (Yossip) getItem(position);
 		
 		if(v == null) {
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -90,9 +105,8 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 			holder = (ViewHolder) v.getTag();
 			holder.timelineYossip.setSingleLine(false);
 		}
-		
-	    Yossip currentYossip = (Yossip) getItem(position);
-	    holder.timelineIcon.setImageBitmap(currentYossip.getYossipIcon());
+		IconTask task = new IconTask(holder.timelineIcon);
+		task.execute(currentYossip.getYossipIcon());
 	    holder.timelineName.setText(currentYossip.getYossipUser());
 	    holder.timelineYossipTime.setText(currentYossip.yossipTimeFarmat());
 	    holder.timelineYossip.setText(currentYossip.getYossipText());
@@ -104,12 +118,13 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 	 * 追加されるヨシップが前回のヨシップでないか確認
 	 * 
 	 * @param yossip ヨシップ
+	 * 
+	 * @return 追加されていないヨシップならばtrueを、追加されているヨシップならばfalseを返す
 	 */
-	public boolean sameYossip(Yossip yossip) {
+	public synchronized boolean sameYossip(Yossip yossip) {
 		Iterator<Yossip> i = tList.iterator();
 		while(i.hasNext()) {
 			Yossip cYossip = i.next();
-			if(yossip.getYossipUser() != null)
 			if(cYossip.getYossipUser().equals(yossip.getYossipUser())
 					&& cYossip.getYossipText().equals(yossip.getYossipText())
 						&& cYossip.getYossipTime().equals(yossip.getYossipTime())) {
@@ -126,7 +141,7 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 	 * @version 2
 	 * @since 1/8/2013
 	 */
-	private static class ViewHolder {
+	private class ViewHolder {
 		/**
 		 * アイコンイメージビュー
 		 */
@@ -143,5 +158,26 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 		 * ヨシップテキストビュー
 		 */
 		public TextView timelineYossip;
+	}
+	
+	/**
+	 * 
+	 * @author Kazuki Hasegawa
+	 * @version 1
+	 * @since 2/1/2013
+	 */
+	private class IconTask extends AsyncTask<Bitmap, Void, Bitmap> {
+		private ImageView mView;
+		public IconTask(ImageView view) {
+			this.mView = view;
+		}
+		@Override
+	    protected void onPostExecute(Bitmap result) {
+	        mView.setImageBitmap(result);
+	    }
+		@Override
+		protected Bitmap doInBackground(Bitmap... params) {
+			return params[0];
+		}
 	}
 }

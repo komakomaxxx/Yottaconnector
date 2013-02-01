@@ -4,7 +4,9 @@ import java.util.List;
 import com.example.yottaconnecter.R;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.*;
 import android.widget.*;
 
@@ -64,9 +66,11 @@ public final class FriendListAdapter extends ArrayAdapter<FriendNode> {
 		
 	    FriendNode currentFriendNode = getItem(position);
 	    if(currentFriendNode.isOnline()) {
-		 	holder.friendOnlineState.setImageBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.online));
+	    	IconTask statTask = new IconTask(holder.friendOnlineState);
+	    	statTask.execute(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.online));
 	    }
-	    holder.friendIcon.setImageBitmap(currentFriendNode.getIcon());
+	    IconTask task = new IconTask(holder.friendIcon);
+	    task.execute(currentFriendNode.getIcon());
 	    holder.friendName.setText(currentFriendNode.getName());
 	    holder.friendProfile.setText(currentFriendNode.getProfile());
 	    
@@ -85,5 +89,26 @@ public final class FriendListAdapter extends ArrayAdapter<FriendNode> {
 		public ImageView friendIcon;
 		public TextView friendName;
 		public TextView friendProfile;
+	}
+	
+	/**
+	 * 
+	 * @author Kazuki Hasegawa
+	 * @version 1
+	 * @since 2/1/2013
+	 */
+	private class IconTask extends AsyncTask<Bitmap, Void, Bitmap> {
+		private ImageView mView;
+		public IconTask(ImageView view) {
+			this.mView = view;
+		}
+		@Override
+	    protected void onPostExecute(Bitmap result) {
+	        mView.setImageBitmap(result);
+	    }
+		@Override
+		protected Bitmap doInBackground(Bitmap... params) {
+			return params[0];
+		}
 	}
 }
