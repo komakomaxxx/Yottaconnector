@@ -30,31 +30,32 @@ import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.NodeListListener;
 import com.example.yottaconnecter.NodeListListenerNotify;
 import com.example.yottaconnecter.R;
+import com.example.yottaconnecter.YottaConnector;
 import com.example.sample.header.HeaderFragment;
 import com.example.sample.user.UserFragment;
 
-public class NodeListFragment extends Fragment implements OnFocusChangeListener, NodeListListener {
-	//------------------------------
-	//private GridView nodeListView;
+public class NodeListFragment extends Fragment implements
+		OnFocusChangeListener, NodeListListener {
+	// ------------------------------
+	// private GridView nodeListView;
 	private ListView nodeListView;
 	private ArrayAdapter<Node> adapter;
 	private NodeListListenerNotify nlln;
 	private EditText searchBox;
 	private ImageButton updata;
 
-	//------------------------------
+	// ------------------------------
 
 	@Override
-	public View onCreateView(
-			LayoutInflater inflater,
-			ViewGroup container,
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
 		nlln = new NodeListListenerNotify(NodeList.nodelist.size());
 		nlln.setListener(this);
 
 		return inflater.inflate(R.layout.nodelist_fragment, container, false);
-		//return inflater.inflate(R.layout.nodelist_fragment_var2, container, false);
+		// return inflater.inflate(R.layout.nodelist_fragment_var2, container,
+		// false);
 	}
 
 	@Override
@@ -65,8 +66,10 @@ public class NodeListFragment extends Fragment implements OnFocusChangeListener,
 		searchBox.addTextChangedListener(new UITextWatcher());
 		searchBox.setOnFocusChangeListener(this);
 		searchBox.setOnEditorActionListener(new OnEditorActionListener() {
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				if (event != null
+						&& event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 					adapter.clear();
 					for (Node nodeitem : NodeList.nodelist) {
 						if (nodeitem.getName().indexOf(v.getText().toString()) != -1) {
@@ -93,17 +96,35 @@ public class NodeListFragment extends Fragment implements OnFocusChangeListener,
 		});
 
 	}
-	
-	public void onStart(){
+
+	public void onStart() {
 		super.onStart();
 		setNodeList();
 	}
-	
+
 	@Override
-	public void onPause(){
-		super.onPause();
-		HeaderFragment.setFragmentName("TimeLine");
+	public void onResume() {
+		super.onResume();
+		int state = (YottaConnector.mPager.getCurrentItem() % 4);
+		switch (state) {
+		case 0:
+			HeaderFragment.setFragmentName("Rader");
+			break;
+		case 1:
+			HeaderFragment.setFragmentName("TimeLine");
+			break;
+		case 2:
+			HeaderFragment.setFragmentName("FriendList");
+
+			break;
+		case 3:
+			HeaderFragment.setFragmentName("NodeList");
+
+			break;
+		}
+
 	}
+
 
 	public void onMyListenerEvent() {
 		// TODO Auto-generated method stub
@@ -111,21 +132,24 @@ public class NodeListFragment extends Fragment implements OnFocusChangeListener,
 	}
 
 	private void setNodeList() {
-		List<Node> tempnl= new ArrayList<Node>();
+		List<Node> tempnl = new ArrayList<Node>();
 		for (Node item : NodeList.nodelist) {
 			tempnl.add(item);
 		}
 		adapter = new NodeListAdapter(getActivity(), R.layout.nodelist, tempnl);
 		nodeListView = (ListView) getActivity().findViewById(R.id.nodelist);
-		//nodeListView = (GridView) getActivity().findViewById(R.id.nodelist_var2);
+		// nodeListView = (GridView)
+		// getActivity().findViewById(R.id.nodelist_var2);
 		nodeListView.setAdapter(adapter);
 		nodeListView.setOnItemClickListener(new ClickEvent());
 	}
 
 	public void onFocusChange(View v, boolean hasFocus) {
 		if (hasFocus == false) {
-			InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			InputMethodManager imm = (InputMethodManager) getActivity()
+					.getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(v.getWindowToken(),
+					InputMethodManager.HIDE_NOT_ALWAYS);
 		}
 	}
 
@@ -138,23 +162,25 @@ public class NodeListFragment extends Fragment implements OnFocusChangeListener,
 	public void onNodeChangeListener(int length) {
 	}
 
-	//-------------------------inner--------------------------------
+	// -------------------------inner--------------------------------
 	class ClickEvent implements OnItemClickListener {
 		// onItemClickメソッドには、AdapterView(adapter)、選択した項目View、選択された位置のint値、IDを示すlong値が渡される
-		public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+		public void onItemClick(AdapterView<?> adapter, View view,
+				int position, long id) {
 			ListView listView = (ListView) adapter;
 			Node item = (Node) listView.getItemAtPosition(position);
 			userDialogShow(item);
 		}
-	    private void userDialogShow(Node node) {
-	    	UserFragment.Builder builder = new UserFragment.Builder();
-            builder.setNode(node);
-            //builder.create().show(getActivity().getFragmentManager(), null);
-            builder.create().show(getFragmentManager(), getTag());
-	    }
+
+		private void userDialogShow(Node node) {
+			UserFragment.Builder builder = new UserFragment.Builder();
+			builder.setNode(node);
+			// builder.create().show(getActivity().getFragmentManager(), null);
+			builder.create().show(getFragmentManager(), getTag());
+		}
 	}
 
-	//--------------------------inner---------------------------------
+	// --------------------------inner---------------------------------
 	public class UITextWatcher implements TextWatcher {
 		public void afterTextChanged(Editable s) {
 			adapter.clear();
@@ -166,11 +192,13 @@ public class NodeListFragment extends Fragment implements OnFocusChangeListener,
 			nodeListView.setAdapter(adapter);
 		}
 
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
 
 		}
 
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
 
 		}
 	}

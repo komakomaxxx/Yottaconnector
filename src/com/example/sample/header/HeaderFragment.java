@@ -62,8 +62,6 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 		receiveCount = (TextView) getActivity().findViewById(
 				R.id.receive_message_countIcon);
 		 fragmentName= (TextView) getActivity().findViewById(R.id.fragment_name);
-
-		setFragmentName("Rader");
 		 
 		getActivity().findViewById(R.id.H_Message_icon).setOnClickListener(
 				new OnClickListener() {

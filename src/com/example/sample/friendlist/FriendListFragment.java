@@ -1,6 +1,7 @@
 package com.example.sample.friendlist;
 
 import com.example.yottaconnecter.R;
+import com.example.yottaconnecter.YottaConnector;
 import com.example.sample.header.HeaderFragment;
 import com.example.sample.user.UserFragment;
 
@@ -53,15 +54,27 @@ public final class FriendListFragment extends Fragment implements OnItemClickLis
 		return friendView;
 	}
 	
-	public void onStart(){
-		super.onStart();
-		//Toast.makeText(getActivity(), "FriendL", Toast.LENGTH_SHORT).show();
-	}
-	
 	@Override
-	public void onPause(){
-		super.onPause();
-		HeaderFragment.setFragmentName("Redar");
+	public void onResume() {
+		super.onResume();
+		int state = (YottaConnector.mPager.getCurrentItem() % 4);
+		switch (state) {
+		case 0:
+			HeaderFragment.setFragmentName("Rader");
+			break;
+		case 1:
+			HeaderFragment.setFragmentName("TimeLine");
+			break;
+		case 2:
+			HeaderFragment.setFragmentName("FriendList");
+
+			break;
+		case 3:
+			HeaderFragment.setFragmentName("NodeList");
+
+			break;
+		}
+
 	}
 	
 	/**
