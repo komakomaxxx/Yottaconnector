@@ -37,7 +37,7 @@ public class NodeList {
 		//差分を削除する(消えたNodeの削除)
 		removelist.removeAll(newNearNodeList);
 		nodelist.removeAll(removelist);
-		
+		nodelist.addAll(newNearNodeList);
 		nearnodelist = new ArrayList<Node>(newNearNodeList);
 	
 	}
