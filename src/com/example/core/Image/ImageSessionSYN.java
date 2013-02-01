@@ -1,10 +1,8 @@
-package Image;
+package com.example.core.Image;
 
-import com.example.client_test2.Client_test2;
-import com.example.client_test2.Node;
-import com.example.client_test2.NodeList;
-import com.example.client_test2.Packet;
-import com.example.client_test2.SendSocket;
+import com.example.yottaconnecter.*;
+import com.example.core.Packet;
+import com.example.core.SendSocket;
 
 public class ImageSessionSYN {
 	
@@ -21,7 +19,7 @@ public class ImageSessionSYN {
 		ImageSessionList.addSession(packet);
 		
 		//OriginalDestinationMacが自分宛のパケットでない場合
-		if(packet.getOriginalDestinationMac().compareTo(Client_test2.myNodeData.getMACAddr()) != 0){
+		if(packet.getOriginalDestinationMac().compareTo(YottaConnector.MyNode.getMACAddr()) != 0){
 			
 			//要求ノードの画像を自分が保持していれば
 			Node node = NodeList.getNode(packet.getOriginalDestinationMac());
@@ -45,7 +43,7 @@ public class ImageSessionSYN {
 		Node node;
 		
 		int type = Packet.ImageSYN;
-		String oSrcMac = Client_test2.myNodeData.getMACAddr();
+		String oSrcMac = YottaConnector.MyNode.getMACAddr();
 		String oDestMac = null;
 		String srcMac = oSrcMac;
 		String destMac = Packet.broadCastMACaddr;
@@ -79,16 +77,16 @@ public class ImageSessionSYN {
 		ImageSessionList.addSession(sendPacket);
 		
 		//パケット送信
-		SendSocket send = new SendSocket(Client_test2.ip);
+		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeNewPacket(sendPacket);
 	}
 	
 	//パケット中継ルーチン
 	private static void packetRelay(Packet packet){
-		packet.setSourceMac(Client_test2.myNodeData.getMACAddr());
+		packet.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		
 		//パケット送信
-		SendSocket send = new SendSocket(Client_test2.ip);
+		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeRaleyPacket(packet);
 	}
 	

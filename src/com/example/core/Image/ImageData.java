@@ -1,4 +1,4 @@
-package Image;
+package com.example.core.Image;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -6,11 +6,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import com.example.client_test2.Client_test2;
-import com.example.client_test2.NodeList;
-import com.example.client_test2.Packet;
-import com.example.client_test2.SendSocket;
-import com.example.client_test2.SplitImage;
+import com.example.yottaconnecter.*;
+import com.example.core.Packet;
+import com.example.core.SendSocket;
+import com.example.core.SplitImage;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -64,8 +63,8 @@ public class ImageData{
 	
 	//パケット振り分け
 	public static void setImagePacket(Packet p,List<Integer> imageBuf){
-		//Log.d("ImageData", p.getOriginalDestinationMac() + "==" + Client_test2.myNodeData.getMACAddr());
-		if(p.getOriginalDestinationMac().equals(Client_test2.myNodeData.getMACAddr())){
+		//Log.d("ImageData", p.getOriginalDestinationMac() + "==" + YottaConnector.MyNode.getMACAddr());
+		if(p.getOriginalDestinationMac().equals(YottaConnector.MyNode.getMACAddr())){
 			ImageSession is = ImageSessionList.getSession(p);
 			ImageSessionList.resetTimeOut(is);
 			if(imageBuf.size() == 0){
@@ -73,9 +72,9 @@ public class ImageData{
 					is.setStatus(0x02);
 					Packet sendPacket = new Packet();
 					sendPacket.setType(9);
-					sendPacket.setOriginalSourceMac(Client_test2.myNodeData.getMACAddr());
+					sendPacket.setOriginalSourceMac(YottaConnector.MyNode.getMACAddr());
 					sendPacket.setOriginalDestinationMac(p.getOriginalSourceMac());
-					sendPacket.setSourceMac(Client_test2.myNodeData.getMACAddr());
+					sendPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 					sendPacket.setDestinationMac(p.getSourceMac());
 					sendPacket.setTypeNum(p.getTypeNum());
 					
@@ -109,13 +108,13 @@ public class ImageData{
 			if(imageBuf.size() == 0){
 				if(is != null && is.getStatus() == 0x01){
 					is.setStatus(0x02);
-					p.setSourceMac(Client_test2.myNodeData.getMACAddr());
+					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
 					setRaleyPacket(p);
 				}
 			}else{
 				if(is != null && is.getStatus() == 0x03){
 					p.setDestinationMac(is.getSourceMac());
-					p.setSourceMac(Client_test2.myNodeData.getMACAddr());
+					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
 					setRaleyPacket(p);	
 				}
 			}
@@ -126,9 +125,9 @@ public class ImageData{
 	
 	//パケット中継
 	private static void setRaleyPacket(Packet p){
-		SendSocket ss =new SendSocket(Client_test2.ip);
+		SendSocket ss =new SendSocket(YottaConnector.ip);
 		
-		p.setSourceMac(Client_test2.myNodeData.getMACAddr());
+		p.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		ss.makeRaleyPacket(p);
 	}
 	
@@ -143,7 +142,7 @@ public class ImageData{
 		
 		packet.exOriginalMac();
 		
-		packet.setSourceMac(Client_test2.myNodeData.getMACAddr());
+		packet.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		
 		packet.setDestinationMac(Packet.broadCastMACaddr);
 		
@@ -157,7 +156,7 @@ public class ImageData{
 		packet.setImageArray(kara);
 		
 		
-		SendSocket ss = new SendSocket(Client_test2.ip);
+		SendSocket ss = new SendSocket(YottaConnector.ip);
 		ss.makeNewPacket(packet);
 	}
 	
@@ -180,7 +179,7 @@ public class ImageData{
 				Thread.sleep(5);
 				p.setData(String.valueOf(sChar) + i + String.valueOf(eChar) + String.valueOf(sChar) +  tmpList.size() + String.valueOf(eChar));
 				p.setImageArray(tmpList.get(i));
-				SendSocket ss = new SendSocket(Client_test2.ip);	
+				SendSocket ss = new SendSocket(YottaConnector.ip);	
 				ss.makeNewPacket(p);
 			} catch (InterruptedException e) {
 				// TODO 自動生成された catch ブロック

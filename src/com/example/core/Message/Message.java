@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.example.yottaconnecter;
+import com.example.yottaconnecter.*;
 import com.example.core.Packet;
 import com.example.core.SendSocket;
+import com.example.sample.message.*;
 
 public class Message {
 	public static final int INT_SHIFT;
@@ -29,7 +30,7 @@ public class Message {
 		}
 		
 		//OriginalDestinationMacが自分宛のパケットでない場合
-		if(packet.getOriginalDestinationMac().compareTo(Client_test2.myNodeData.getMACAddr()) != 0){
+		if(packet.getOriginalDestinationMac().compareTo(YottaConnector.MyNode.getMACAddr()) != 0){
 			
 			//転送処理
 			packetRelay(packet);
@@ -47,7 +48,7 @@ public class Message {
 	public static void sendMessage(String message,String oDestMac){
 		MessageRoot root;
 		int type = Packet.Message;
-		String myMacAddr = Client_test2.myNodeData.getMACAddr();
+		String myMacAddr = YottaConnector.MyNode.getMACAddr();
 		String srcMac = myMacAddr;
 		String destMac = Packet.broadCastMACaddr;
 		int hopLimit = Packet.HopLimitMax;
@@ -85,7 +86,7 @@ public class Message {
 		MessageSessionList.addSession(sendPacket);
 		
 		//パケット送信
-		SendSocket send = new SendSocket(Client_test2.ip);
+		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeNewPacket(sendPacket);
 	}
 	
@@ -124,7 +125,7 @@ public class Message {
 			MessageSessionList.addSession(packet);
 			
 			//パケットセット(SourceMacを自分のアドレスに)
-			packet.setSourceMac(Client_test2.myNodeData.getMACAddr());
+			packet.setSourceMac(YottaConnector.MyNode.getMACAddr());
 			
 		}else{
 		//ルーティングテーブル使用であれば
@@ -140,14 +141,14 @@ public class Message {
 			MessageRootTable.resetTimeOut(packet);
 			
 			//パケットセット(SouceMacを自分のアドレスに)
-			packet.setSourceMac(Client_test2.myNodeData.getMACAddr());
+			packet.setSourceMac(YottaConnector.MyNode.getMACAddr());
 			
 			//パケットセット（DestinationMacをルーティングテーブルからセット）
 			packet.setDestinationMac(root.getForwardMac());
 		}
 		
 		//パケット送信
-		SendSocket send = new SendSocket(Client_test2.ip);
+		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeRaleyPacket(packet);
 	}
 	

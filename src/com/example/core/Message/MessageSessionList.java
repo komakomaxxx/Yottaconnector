@@ -1,9 +1,10 @@
-package Message;
+package com.example.core.Message;
 
 import java.util.ArrayList;
 
-import com.example.client_test2.Client_test2;
-import com.example.client_test2.Packet;
+import com.example.yottaconnecter.*;
+import com.example.core.Packet;
+import com.example.sample.message.*;
 
 public class MessageSessionList {
 
@@ -49,7 +50,7 @@ public class MessageSessionList {
 	static public synchronized void removeSession(MessageSession messageSession){
 		messageSession.timerClear();
 		SessionList.remove(messageSession);
-		if(messageSession.getOriginalSourceMac().compareTo(Client_test2.myNodeData.getMACAddr()) == 0){
+		if(messageSession.getOriginalSourceMac().compareTo(YottaConnector.MyNode.getMACAddr()) == 0){
 			//メッセージマネージャから該当のメッセージの状態を送信失敗に変更する
 			MessageManager.getWaitMessage().setState(MessageManager.Message.FAILED);
 		}

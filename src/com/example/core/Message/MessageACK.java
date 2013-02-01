@@ -2,16 +2,17 @@ package com.example.core.Message;
 
 import java.util.ArrayList;
 
-import com.example.yottaconnecter;
+import com.example.yottaconnecter.*;
 import com.example.core.Packet;
 import com.example.core.SendSocket;
+import com.example.sample.message.*;
 
 public class MessageACK {
 	
 	public static void cntrol(Packet packet){
 		
 		//OriginalDestinationMacが自分宛のパケットでない場合
-		if(packet.getOriginalDestinationMac().compareTo(Client_test2.myNodeData.getMACAddr()) != 0){
+		if(packet.getOriginalDestinationMac().compareTo(YottaConnector.MyNode.getMACAddr()) != 0){
 			
 			//転送処理
 			packetRelay(packet);
@@ -33,7 +34,7 @@ public class MessageACK {
 		//ルートテーブル作成であれば
 		if(Message.checkFlg(packet.getTypeNum())){
 			setSimplexRootTable(packet);
-			packet.setDestinationMac(Client_test2.myNodeData.getMACAddr());
+			packet.setDestinationMac(YottaConnector.MyNode.getMACAddr());
 		}else{
 		//ルートテーブル使用であれば
 			root = updateSimplexRootTable(packet);
@@ -47,7 +48,7 @@ public class MessageACK {
 		packet.setData(null);
 		
 		//パケット送信
-		SendSocket send = new SendSocket(Client_test2.ip);
+		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeNewPacket(packet);
 	}
 	
@@ -102,7 +103,7 @@ public class MessageACK {
 			updateDuplexRootTable(packet);
 		}
 		
-		SendSocket send = new SendSocket(Client_test2.ip);
+		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeRaleyPacket(packet);
 	}
 	

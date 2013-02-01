@@ -1,9 +1,9 @@
-package Image;
+package com.example.core.Image;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.client_test2.Packet;
+import com.example.core.Packet;
 
 public class ImageSession extends TimerTask {
 	public static final int STS_SYN = 0x00;

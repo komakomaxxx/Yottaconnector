@@ -3,7 +3,7 @@ package com.example.core.Message;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.client_test2.Packet;
+import com.example.core.Packet;
 
 
 class MessageSession extends TimerTask {

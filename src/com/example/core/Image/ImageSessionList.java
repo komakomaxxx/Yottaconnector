@@ -1,9 +1,9 @@
-package Image;
+package com.example.core.Image;
 
 import java.util.ArrayList;
 
-import com.example.client_test2.Client_test2;
-import com.example.client_test2.Packet;
+import com.example.yottaconnecter.*;
+import com.example.core.Packet;
 
 public class ImageSessionList {
 	
@@ -57,7 +57,7 @@ public class ImageSessionList {
 	static public synchronized void removeSession(ImageSession imageSession){
 		imageSession.timerClear();
 		SessionList.remove(imageSession);
-		if(imageSession.getOriginalSourceMac().compareTo(Client_test2.myNodeData.getMACAddr()) == 0){
+		if(imageSession.getOriginalSourceMac().compareTo(YottaConnector.MyNode.getMACAddr()) == 0){
 			//ImageSYNクラスを実行する
 		}
 	}

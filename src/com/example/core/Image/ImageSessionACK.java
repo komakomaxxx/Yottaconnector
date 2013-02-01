@@ -1,8 +1,8 @@
-package Image;
+package com.example.core.Image;
 
-import com.example.client_test2.Client_test2;
-import com.example.client_test2.Packet;
-import com.example.client_test2.SendSocket;
+import com.example.yottaconnecter.*;
+import com.example.core.Packet;
+import com.example.core.SendSocket;
 
 public class ImageSessionACK {
 
@@ -19,7 +19,7 @@ public class ImageSessionACK {
 		sessionReplace(session,packet);
 		ImageSessionList.resetTimeOut(session);
 		
-		if(packet.getOriginalDestinationMac().compareTo(Client_test2.myNodeData.getMACAddr()) != 0){
+		if(packet.getOriginalDestinationMac().compareTo(YottaConnector.MyNode.getMACAddr()) != 0){
 			packetRelay(session,packet);
 		}else{
 			ImageData.SynAckPacketSend(packet);
@@ -40,20 +40,20 @@ public class ImageSessionACK {
 		session.setFindMac(packet.getOriginalDestinationMac());
 		
 		//画像提供MACアドレスをオリジナルディスティネーションに;
-		session.setOriginalDestinationMac(Client_test2.myNodeData.getMACAddr());
+		session.setOriginalDestinationMac(YottaConnector.MyNode.getMACAddr());
 		
 		//セッションステータスをACKに変更
 		session.setStatus(ImageSession.STS_ACK);
 		
 		//ACKパケット作成
 		packet.setType(Packet.ImageACK);
-		packet.setOriginalDestinationMac(Client_test2.myNodeData.getMACAddr());
+		packet.setOriginalDestinationMac(YottaConnector.MyNode.getMACAddr());
 		packet.setDestinationMac(packet.getOriginalDestinationMac());
 		packet.exOriginalMac();
 		packet.exMac();
 		
 		//パケット送信
-		SendSocket send = new SendSocket(Client_test2.ip);
+		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeNewPacket(packet);
 	}
 	
@@ -63,7 +63,7 @@ public class ImageSessionACK {
 		packet.setDestinationMac(session.getSourceMac());
 		
 		//パケット送信
-		SendSocket send = new SendSocket(Client_test2.ip);
+		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeRaleyPacket(packet);
 	}
 
