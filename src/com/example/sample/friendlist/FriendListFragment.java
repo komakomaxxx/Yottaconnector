@@ -1,12 +1,14 @@
 package com.example.sample.friendlist;
 
 import com.example.yottaconnecter.R;
+import com.example.sample.header.HeaderFragment;
 import com.example.sample.user.UserFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.*;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -49,6 +51,17 @@ public final class FriendListFragment extends Fragment implements OnItemClickLis
 		friendListView.setAdapter(FriendListManager.getAdapter(getActivity()));
 		
 		return friendView;
+	}
+	
+	public void onStart(){
+		super.onStart();
+		//Toast.makeText(getActivity(), "FriendL", Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		HeaderFragment.setFragmentName("Redar");
 	}
 	
 	/**

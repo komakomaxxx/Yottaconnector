@@ -10,8 +10,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.yottaconnecter.*;
+import com.example.sample.header.HeaderFragment;
 import com.example.sample.user.UserFragment;
 
 /**
@@ -57,6 +59,15 @@ public final class TimelineFragment extends Fragment implements OnClickListener,
     	
         return timelineLayoutView;
     }
+	public void onStart(){
+		super.onStart();
+		//Toast.makeText(getActivity(), "TimeL", Toast.LENGTH_SHORT).show();
+	}
+	@Override
+	public void onPause(){
+		super.onPause();
+		HeaderFragment.setFragmentName("NodeList");
+	}
     
     /**
      * ListViewに設定するアダプタを初期化する

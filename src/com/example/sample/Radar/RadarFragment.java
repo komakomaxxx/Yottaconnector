@@ -1,5 +1,6 @@
 package com.example.sample.Radar;
 
+import com.example.sample.header.HeaderFragment;
 import com.example.yottaconnecter.R;
 import android.support.v4.app.Fragment;
 import android.hardware.SensorEvent;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 public class RadarFragment extends Fragment  {
 
@@ -31,6 +33,17 @@ public class RadarFragment extends Fragment  {
 		radarView = (RadarView) RadarLayoutView.findViewById(R.id.RadarView);
 		
 		return RadarLayoutView;
+	}
+	
+	public void onStart(){
+		super.onStart();
+		//Toast.makeText(getActivity(), "RRR", Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		//HeaderFragment.setFragmentName("FriendList");
 	}
 	
 	public void setSensorVales(SensorEvent event,boolean flag) {

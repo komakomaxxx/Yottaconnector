@@ -23,12 +23,14 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.NodeListListener;
 import com.example.yottaconnecter.NodeListListenerNotify;
 import com.example.yottaconnecter.R;
+import com.example.sample.header.HeaderFragment;
 import com.example.sample.user.UserFragment;
 
 public class NodeListFragment extends Fragment implements OnFocusChangeListener, NodeListListener {
@@ -91,6 +93,17 @@ public class NodeListFragment extends Fragment implements OnFocusChangeListener,
 		});
 
 		setNodeList();
+	}
+	
+	public void onStart(){
+		super.onStart();
+		//Toast.makeText(getActivity(), "Node", Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		HeaderFragment.setFragmentName("TimeLine");
 	}
 
 	public void onMyListenerEvent() {
