@@ -43,7 +43,7 @@ public class RadarFragment extends Fragment  {
 	@Override
 	public void onPause(){
 		super.onPause();
-		//HeaderFragment.setFragmentName("FriendList");
+		HeaderFragment.setFragmentName("FriendList");
 	}
 	
 	public void setSensorVales(SensorEvent event,boolean flag) {

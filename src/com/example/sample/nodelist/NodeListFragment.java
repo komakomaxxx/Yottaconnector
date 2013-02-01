@@ -92,12 +92,11 @@ public class NodeListFragment extends Fragment implements OnFocusChangeListener,
 			}
 		});
 
-		setNodeList();
 	}
 	
 	public void onStart(){
 		super.onStart();
-		//Toast.makeText(getActivity(), "Node", Toast.LENGTH_SHORT).show();
+		setNodeList();
 	}
 	
 	@Override
