@@ -36,7 +36,7 @@ public class SettingGetData {
 		}
 		
 		Node node = new Node(element.get(0), element.get(1), Double.parseDouble(element.get(3)), Double.parseDouble(element.get(4)), null, element.get(2));
-		node.setNodeDirection(MainActivity.MyNode.getIdo(),MainActivity.MyNode.getKeido());
+		node.setNodeDirection(YottaConnector.MyNode.getIdo(),YottaConnector.MyNode.getKeido());
 		NodeList.nodelist.add(node);
 	}
 	

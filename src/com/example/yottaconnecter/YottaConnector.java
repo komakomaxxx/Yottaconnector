@@ -43,7 +43,7 @@ import com.example.yottaconnecter.R;
 
 
 
-public class MainActivity extends FragmentActivity implements SensorEventListener,LocationListener,SocketListener {
+public class YottaConnector extends FragmentActivity implements SensorEventListener,LocationListener,SocketListener {
 
 	private RadarFragment rf;
 	private SensorManager sensorManager;

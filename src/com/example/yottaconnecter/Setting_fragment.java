@@ -90,9 +90,9 @@ public class Setting_fragment extends DialogFragment implements OnClickListener{
 		setting_button.setOnClickListener(this);
 		icon_view.setOnClickListener(this);
 		
-		name_text.setText(MainActivity.MyNode.getName());
+		name_text.setText(YottaConnector.MyNode.getName());
 		
-		profile_text.setText(MainActivity.MyNode.getProfile());
+		profile_text.setText(YottaConnector.MyNode.getProfile());
 		
 		
 		File srcFile = new File(path + "icon.jpg");
@@ -179,8 +179,8 @@ public class Setting_fragment extends DialogFragment implements OnClickListener{
     	     e.printStackTrace();
     	 }
     	 
-    	 MainActivity.MyNode.setName(name_text.getText().toString());
-    	 MainActivity.MyNode.setProfile(profile_text.getText().toString());
+    	 YottaConnector.MyNode.setName(name_text.getText().toString());
+    	 YottaConnector.MyNode.setProfile(profile_text.getText().toString());
     }
     
     
