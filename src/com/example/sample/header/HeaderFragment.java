@@ -30,6 +30,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 	private ImageView receiveMessageIcon;
 	private TextView receiveCount;
+	private TextView fragmentName;
 	Handler handler;
 
 	ArrayAdapter<MessageManager.Message> adapter;
@@ -57,6 +58,8 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 		
 		receiveCount = (TextView) getActivity().findViewById(
 				R.id.receive_message_countIcon);
+		fragmentName = (TextView) getActivity().findViewById(
+				R.id.fragment_name);
 
 		getActivity().findViewById(R.id.H_Message_icon).setOnClickListener(
 				new OnClickListener() {
@@ -84,6 +87,9 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 					}
 				});
 
+	}
+	public void setFragmentName(String s) {
+		fragmentName.setText(s);
 	}
 
 	public void onReceiveChangeListener(final int len) {
