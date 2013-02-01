@@ -223,7 +223,8 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 			   } else if (eventType == XmlPullParser.TEXT) {
 				   Log.d("ReadXML","Text " + xpp.getText());
 				   data[i] = xpp.getText();
-				   Log.d("MyData","text = " + data[i]);
+				   i++;
+				   //Log.d("MyData","text = " + data[i]);
 			   }
 			   eventType = xpp.next();
 		   }
