@@ -38,6 +38,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.core.Socket_listen;
+import com.example.core.Hello.Hello;
 import com.example.sample.Radar.RadarFragment;
 import com.example.sample.friendlist.FriendListManager;
 import com.example.sample.timeline.TimelineFragment;
@@ -61,18 +62,12 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        //Actionbar��\��
         requestWindowFeature(Window.FEATURE_NO_TITLE);
       	setContentView(R.layout.main_activity);
 
-      	
-      	/*
-      	//FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-      	//Fragment frag = new Fragment1();
-      	//fragment_main.xml��framelayout��Ƀt���O�����g��z�u(������)
-      	//tran.add(R.id.pager,frag);
-      	//tran.commit();
-      	*/
+      	//Helloの定期送信
+      	Hello.startSendHello(10000);
+
       	MyPagerAdapter mAdapter = new MyPagerAdapter(getSupportFragmentManager());
 		ViewPager mPager = (ViewPager)findViewById(R.id.pager);
 		mPager.setAdapter(mAdapter);
