@@ -1,17 +1,19 @@
-package NodeExchange;
+package com.example.core.NodeExchange;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.core.Packet;
+import com.example.core.SendSocket;
+import com.example.yottaconnecter.Node;
+import com.example.yottaconnecter.NodeList;
+import com.example.yottaconnecter.YottaConnector;
+
 import android.R.bool;
 
-import com.example.client_test2.Client_test2;
-import com.example.client_test2.Node;
-import com.example.client_test2.NodeList;
-import com.example.client_test2.Packet;
-import com.example.client_test2.SendSocket;
+
 
 public class NodeExchangeReqest {
 
@@ -45,7 +47,7 @@ public class NodeExchangeReqest {
 		int tMun =recvPacket.getTypeNum();
 		addSession(oSrcMac,srcMac,tMun);
 		//ヘッダ作成
-		recvPacket.setSourceMac(Client_test2.myNodeData.getMACAddr());
+		recvPacket.setSourceMac(YottaConnector.myNodeData.getMACAddr());
 		
 		//送信
 		new SendSocket().makeRaleyPacket(recvPacket);
@@ -54,13 +56,13 @@ public class NodeExchangeReqest {
 	public static void  sendReqest() {
 		
 		//自分発のセッションがないことを確認
-		if(searchSession(Client_test2.myNodeData.getMACAddr(),0) != null){
+		if(searchSession(YottaConnector.myNodeData.getMACAddr(),0) != null){
 			return;
 		}
 		//NodeListの初期化
 		newNodeList.clear();
 		
-		String srcMac = Client_test2.myNodeData.getMACAddr();
+		String srcMac = YottaConnector.myNodeData.getMACAddr();
 		String dstMac = Packet.broadCastMACaddr;
 		
 		int hopLimit =Packet.HopLimitMax;
@@ -122,7 +124,7 @@ public class NodeExchangeReqest {
 		/*
 		 一致するsessionDataをListから破棄する
 		 */
-		if(Client_test2.myNodeData.getMACAddr().equals(sd.getSrcMac())){
+		if(YottaConnector.myNodeData.getMACAddr().equals(sd.getSrcMac())){
 			NodeList.updateNodeList(newNodeList);
 		}
 		sessionList.remove(sd);	
