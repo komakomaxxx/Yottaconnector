@@ -7,15 +7,12 @@ import com.example.yottaconnecter.*;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -122,7 +119,6 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
 				}
 				break;
 			case R.id._SendYossipYossipButton:
-				// TODO Send Yossip
 				YossipPaket.sendYossip(edt.getText().toString());
 				addYossip(edt.getText().toString());
 				onDialogClose();
@@ -173,8 +169,8 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
 	 */
 	public void afterTextChanged(Editable s) {
 		int textWordCount = s.length();
-    	Button yossipButton = (Button)getDialog().getWindow().getDecorView().findViewById(R.id._SendYossipYossipButton);
-    	TextView countText = (TextView)getDialog().getWindow().getDecorView().findViewById(R.id._SendYossipCounters);
+    	Button yossipButton = (Button)getDialog().getWindow().findViewById(R.id._SendYossipYossipButton);
+    	TextView countText = (TextView)getDialog().getWindow().findViewById(R.id._SendYossipCounters);
 
     	if(isWordCountWithinStringMaxLimit(textWordCount)) {
     		yossipButton.setEnabled(true);
@@ -202,26 +198,13 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
 	 */
 	private void addYossip(String s) {
 		synchronized(YossipList.y_list) {
-			YossipList.y_list.add(createYossip(s));
+			String name = YottaConnector.MyNode.getName();
+			Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+			if(YottaConnector.MyNode.getIcon() != null) {
+				icon = YottaConnector.MyNode.getIcon();
+			}
+			YossipList.addYossip(new Yossip(s, new Date(), YottaConnector.MyNode.getMACAddr(), name, icon));
 		}
-	}
-	
-	/**
-	 * ヨシップを生成する
-	 * 
-	 * @param yText
-	 * @return 新規のヨシップ
-	 */
-	private Yossip createYossip(String yText){
-		String name = "UserName";
-		String path = "default";
-		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-		if(!path.equals("default")) {
-			icon = BitmapFactory.decodeFile(path);
-		}
-		WifiManager wifiManager = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE); 
-		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-		return new Yossip(yText, new Date(), wifiInfo.getMacAddress(), name, icon);
 	}
 
 	/**

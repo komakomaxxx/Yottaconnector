@@ -106,7 +106,7 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 	public void setList() {
 		Iterator<Yossip> i = tList.iterator();
 		while(i.hasNext()) {
-			YossipList.y_list.add(i.next());
+			YossipList.addYossip(i.next());
 		}
 	}
 	

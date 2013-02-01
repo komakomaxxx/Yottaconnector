@@ -1,7 +1,5 @@
 package com.example.sample.timeline;
 
-import java.util.Iterator;
-
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,7 +18,7 @@ import com.example.sample.user.UserFragment;
  * TimelineFragmentクラス
  * 
  * @author 	Kazuki Hasegawa
- * @version 7
+ * @version 8
  * @since	2012/11/15
  */
 public final class TimelineFragment extends Fragment implements OnClickListener, OnItemClickListener, Yossiplistener {
@@ -126,7 +124,7 @@ public final class TimelineFragment extends Fragment implements OnClickListener,
 	 * @param node タップされたリストに保持されているFriendNode
 	 * @param uf ユーザフラグメント
      */
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public synchronized void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     	Node cNode = searchNode(adapter.getItem(position));
     	UserFragment.Builder bl = new UserFragment.Builder();
     	bl.setNode(cNode);
@@ -142,13 +140,9 @@ public final class TimelineFragment extends Fragment implements OnClickListener,
      */
     private Node searchNode(Yossip y) {
     	Node nNode = new Node(y.getYossipUserMac(), y.getYossipUser(), 1, 1, y.getYossipIcon(), NON_PROFILE);
-    	for(Iterator<Node> i = NodeList.nodelist.iterator(); i.hasNext(); ) {
-    		Node cNode = i.next();
-    		if(cNode.getMACAddr().equals(nNode.getMACAddr())) {
-    			nNode = cNode;
-    			break;
-    		}
-    	}
+    	Node node = NodeList.getNode(y.getYossipUserMac());
+    	if(node != null)
+    		nNode = node;
     	return nNode;
     }
 

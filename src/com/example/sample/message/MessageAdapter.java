@@ -25,8 +25,17 @@ import android.widget.TextView;
  * @since 1/22/2013
  */
 public class MessageAdapter extends BaseAdapter {
+	/**
+	 * メッセージのリスト
+	 */
 	private static List<Message> mList;
+	/**
+	 * マックアドレス
+	 */
 	private String macAddr;
+	/**
+	 * ハンドラー
+	 */
 	private Handler handler;
 	
 	/**
@@ -95,7 +104,13 @@ public class MessageAdapter extends BaseAdapter {
 	}
 
 	/**
+	 * getView
 	 * 
+	 * @param locaiton 場所
+	 * @param convertView ビュー
+	 * @param parent 親ビュー
+	 * 
+	 * @return ビュー
 	 */
 	public View getView(int location, View convertView, ViewGroup parent) {
 		ViewHolder holder;

@@ -9,14 +9,15 @@ import java.util.List;
 import android.content.Context;
 import android.os.Handler;
 
-import com.example.yottaconnecter.Node;
-import com.example.yottaconnecter.R;
 import com.example.sample.database.YossipDatabaseOpenHelper;
+import com.example.yottaconnecter.Node;
+import com.example.yottaconnecter.NodeList;
+import com.example.yottaconnecter.R;
 
 /**
  *
  * @author Kazuki Hasegawa
- * @version 5
+ * @version 7
  * @since 1/14/2013
  */
 public final class FriendListManager {
@@ -24,22 +25,18 @@ public final class FriendListManager {
 	 * フレンドリスト
 	 */
 	private static List<FriendNode> friendNodeList;
-
 	/**
 	 * ヨシップデータベースヘルパーのインスタンス
 	 */
 	private static YossipDatabaseOpenHelper helper;
-	
 	/**
 	 * フレンドリストのアダプター
 	 */
 	private static FriendListAdapter adapter;
-	
 	/**
-	 * 
+	 * ハンドラー
 	 */
 	private static Handler handler = new Handler();
-	
 
 	/**
 	 * ソート方法
@@ -100,6 +97,8 @@ public final class FriendListManager {
 			FriendNode nNode = new FriendNode(node);
 			if(sameNode(nNode)) {
 				friendNodeList.add(nNode);
+				checkNode();
+				sortFriendList();
 				handler.post(new Runnable() {
 					public void run() {
 						adapter.notifyDataSetChanged();
@@ -119,6 +118,8 @@ public final class FriendListManager {
 	public static void remove(Node node) {
 		synchronized(friendNodeList) {
 			friendNodeList.remove(node);
+			checkNode();
+			sortFriendList();
 			handler.post(new Runnable() {
 				public void run() {
 					adapter.notifyDataSetChanged();
@@ -134,6 +135,8 @@ public final class FriendListManager {
 	 * 同じノードがあるならばfalse
 	 * 
 	 * @param node
+	 * 
+	 * @return ノードのあるなし
 	 */
 	public static boolean sameNode(Node node) {
 		Iterator<FriendNode> i = friendNodeList.iterator();
@@ -147,14 +150,32 @@ public final class FriendListManager {
 	}
 	
 	/**
+	 * ノードを取得する
 	 * 
+	 * @param location
+	 * 
+	 * @return ノードを取得する
 	 */
 	public static Node getNode(int location) {
 		return friendNodeList.get(location);
 	}
+	
+	/**
+	 * ノードのオンラインオフラインをチェックする
+	 */
+	public static void checkNode() {
+		Iterator<FriendNode> i = friendNodeList.iterator();
+		while( i.hasNext() ) {
+			FriendNode cNode = i.next();
+			Node node = NodeList.getNode(cNode.getMACAddr());
+			if(node != null)
+				cNode.setOnlineState(true);
+		}
+	}
 
 	/**
 	 * ソートメソッド
+	 * オンライン状態のノードを上部にソートする
 	 */
 	private static void sortFriendList() {
 		synchronized(friendNodeList) {
