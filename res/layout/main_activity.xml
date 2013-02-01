@@ -14,7 +14,7 @@
 	    
 		<fragment
 		    android:id="@+id/header"
-		    android:name="com.example.header.HeaderFragment"
+		    android:name="com.example.sample.header.HeaderFragment"
 		    android:layout_width="fill_parent"
 			android:layout_height="wrap_content"/>
 		
