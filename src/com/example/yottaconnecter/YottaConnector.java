@@ -172,18 +172,6 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		
 		FileInputStream fis;
 		Bitmap icon = null;
-		try {
-			//fis = new FileInputStream("data/data/" + getPackageName() + "/MyData/" + "icon.jpg");
-			fis = new FileInputStream("/sdcard/Download/icon.jpg");
-			icon = BitmapFactory.decodeStream(fis);
-			fis.close();
-		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
 		
 		nl.testMakeNodeList(35.624937, 139.341917, "研究棟B",icon);
 		nl.testMakeNodeList(35.624820, 139.342622, "講義棟D",icon);
@@ -221,7 +209,6 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 				   Log.d("ReadXML","Text " + xpp.getText());
 				   data[i] = xpp.getText();
 				   i++;
-				   //Log.d("MyData","text = " + data[i]);
 			   }
 			   eventType = xpp.next();
 		   }

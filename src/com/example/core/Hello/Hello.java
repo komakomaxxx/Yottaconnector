@@ -34,7 +34,7 @@ public class Hello {
 		
 		Log.d(tag,"[" +macAddr+":"+name+":"+ido+":"+keido+":"+profile  );
 		Node n = new Node(macAddr,name,ido,keido,null,profile);
-		n.setNodeDirection(YottaConnector.MyNode.getIdo(),YottaConnector.MyNode.getKeido() );
+		n.setNodeDirection(YottaConnector.MyNode.getIdo(), YottaConnector.MyNode.getKeido());
 		//node に追加
 		NodeList.addNode(n);
 		addNode(n);

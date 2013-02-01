@@ -168,6 +168,7 @@ public class RadarView extends View {
 		int y;
 		double rad = 0;
 		
+		
 		rad = (data.getAzim() - direction) / 180 * Math.PI;
 			
 		x = (int)(Math.cos(rad) * data.getDist());
@@ -179,6 +180,7 @@ public class RadarView extends View {
 		if(bitmap != null){
 			canvas.drawBitmap(bitmap, x + centerX, y + centerY, paint);
 		}
+		
 	}
 
 	public void drawScreen(float[] sensorVal,boolean flag){

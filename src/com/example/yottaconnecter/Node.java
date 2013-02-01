@@ -131,7 +131,7 @@ public class Node implements Parcelable {
 		dist = d * 2500; // テスト用に距離を短縮
 		azim = getDirection(cido, ckeido, ido, keido);
 		
-		Log.d("Node" + this.Name, "azim = " + azim + "  ido=" + this.ido + "  keido=" + this.keido);
+		Log.d("Node" + this.Name, "azim = " + azim + "  dist=" + dist + "  keido=" + this.keido);
 	}
 
 	private double getDirection(double lat1, double lng1, double lat2,
