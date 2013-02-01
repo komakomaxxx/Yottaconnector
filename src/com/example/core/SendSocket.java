@@ -93,11 +93,16 @@ public class SendSocket implements Runnable{
 	}
 	
 	public void makeRaleyPacket(Packet packet){
-		packet.hoplimitDecrement();
-		Log.d("SendSocket","SendCharArray length is" + SendCharArray.length);
-		SendCharArray = makePacket(packet);
-		thread = new Thread(this);
-		thread.start();
+		if(packet != null){
+			Log.d("test", "Pcket != null");
+			packet.hoplimitDecrement();
+			SendCharArray = makePacket(packet);
+			thread = new Thread(this);
+			thread.start();
+		}else{
+			Log.d("test", "Pcket = null");
+		}
+		
 	}
 	public char[] makePacket(Packet p){
 		
