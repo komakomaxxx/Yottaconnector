@@ -82,7 +82,6 @@ public class YossipPaket {
 		Packet sendPacket = new Packet(Packet.Yossip,srcMac,dstMac,srcMac,	dstMac,hopLimit,0,null);
 		sendPacket.createData(dataList);
 		
-		
 		new SendSocket().makeNewPacket(sendPacket);
 	}
 }
