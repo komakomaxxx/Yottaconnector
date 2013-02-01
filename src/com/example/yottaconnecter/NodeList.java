@@ -28,9 +28,11 @@ public class NodeList {
 		//差分を削除する(消えたNodeの削除)
 		removelist.removeAll(newNodeList);
 		nodelist.removeAll(removelist);
-		//差分の追加(増えたノードの追加)
-		newNodeList.removeAll(nodelist);
-		nodelist.addAll(newNodeList);
+		
+		//ノードの追加更新
+		for(Node n : newNodeList){
+			addNode(n);
+		}
 	}
 	public synchronized static void updateNearNodeList(ArrayList<Node> newNearNodeList) {
 		List<Node> removelist = new ArrayList<Node>(nearnodelist);
@@ -39,7 +41,11 @@ public class NodeList {
 		nodelist.removeAll(removelist);
 		
 		nearnodelist = new ArrayList<Node>(newNearNodeList);
-	
+		
+		//ノードの更新
+		for(Node n : newNearNodeList){
+			addNode(n);
+		}
 	}
 	public synchronized static Node getNode(String searchMac ) {
 		int i;
@@ -74,11 +80,21 @@ public class NodeList {
 	}
 	
 	public synchronized static void addNode(Node n) {
-		for(Node node: nodelist) {
-			if(node.getMACAddr().equals(n.getMACAddr()))
-				return;
+
+		int i;
+		i = nodelist.indexOf(n);
+		
+		if(i == -1){
+			n.setNodeDirection(YottaConnector.MyNode.getIdo(), YottaConnector.MyNode.getKeido());
+			nodelist.add(n);
+			
+		}else{
+			Node oldNode = nodelist.get(i);
+			oldNode.nodeUpdate(n.getName(), n.getIdo(), n.getKeido(), n.getProfile()); 
+			oldNode.setNodeDirection(YottaConnector.MyNode.getIdo(), YottaConnector.MyNode.getKeido());
+			
 		}
-		nodelist.add(n);
+
 	}
 	
 	/**
