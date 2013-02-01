@@ -116,6 +116,12 @@ public class Node implements Parcelable {
 	public void setProfile(String profile){
 		this.profile = profile;
 	}
+	public void nodeUpdate(String name, double ido, double keido,String profile ) {
+		this.Name = name;
+		this.profile = profile;
+		this.ido = ido;
+		this.keido = keido;
+	}
 	
 
 	public void setNodeDirection(double cido, double ckeido) {
