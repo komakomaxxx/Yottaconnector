@@ -13,6 +13,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.R.string;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -57,7 +58,8 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 	
 	public static Node MyNode;
 	public static String ip = "192.168.0.101";
-
+	public static ViewPager mPager;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 
 
       	MyPagerAdapter mAdapter = new MyPagerAdapter(getSupportFragmentManager());
-		ViewPager mPager = (ViewPager)findViewById(R.id.pager);
+      	mPager = (ViewPager)findViewById(R.id.pager);
 		mPager.setAdapter(mAdapter);
 		mPager.setCurrentItem(MyPagerAdapter.LIMIT_SIZE/2);
 
