@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginRight="10dp"
+        android:contentDescription="@string/icon_image"
+        android:scaleType="fitEnd"
+        android:src="@drawable/mybox" />
+
+  	<TextView
+  	    android:id="@+id/_mMessageText"
+  	    android:layout_width="match_parent"
+  	    android:layout_height="wrap_content"
+  	    android:layout_marginLeft="50dp"
+  	    android:layout_marginRight="10dp"
+  	    android:padding="5dp"
+  	    android:background="@drawable/message_mine_frame"
+  	    android:singleLine="false"
+  	    android:textSize="18sp" />
+
+ 	<TextView
+ 	    android:id="@+id/_mMessageTime"
+ 	    android:layout_width="match_parent"
+ 	    android:layout_height="wrap_content"
+ 	    android:layout_gravity="left"
+ 	    android:layout_marginLeft="50dp"
+ 	    android:textSize="12sp" />
+
+</LinearLayout>

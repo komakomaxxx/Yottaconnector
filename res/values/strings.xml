@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="app_name">sample</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="cancel_button_string">Cancel</string>
+    <string name="yossip_button_string">Yossip</string>
+    <string name="yossip_upper_limit">150</string>
+    <string name="online_state_image">OnLineState</string>
+    <string name="icon_image">ICON</string>
+    <string name="yossip_alert_title">ヨシップ入力の終了</string>
+    <string name="yossip_alert_message">ヨシップ入力を終了しますか？</string>
+    <string name="mes_alert_title">メッセージの終了</string>
+    <string name="mes_alert_message">メッセージを終了しますか？</string>
+    <string name="mes_err">メッセージが送信されませんでした。</string>
+    <string name="mes_full">送信中のメッセージがあります。\n送信が終了するまでは送信出来ません。</string>
+
+</resources>

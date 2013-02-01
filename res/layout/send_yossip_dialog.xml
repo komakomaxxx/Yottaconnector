@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    style="@style/my_fragment"
+	>
+
+    <Button
+        android:id="@+id/_SendYossipCancelButton"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="13dp"
+        android:text="@string/cancel_button_string"
+        android:textSize="16sp" 
+        android:background="@drawable/button_frame"/>
+
+
+    <EditText
+        android:id="@+id/_SendYossipText"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignLeft="@+id/_SendYossipCancelButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/_SendYossipYossipButton"
+        android:layout_below="@+id/_SendYossipCancelButton"
+        android:layout_marginBottom="14dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/input_frame"
+        android:ems="10"
+        android:gravity="top|left"
+        android:inputType="textMultiLine"
+        android:maxEms="150"
+        android:maxLength="160"
+        android:minEms="1"
+        android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/_SendYossipYossipButton"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/_SendYossipText"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:enabled="false"
+        android:text="@string/yossip_button_string"
+        android:textSize="16sp" 
+        android:background="@drawable/button_frame"/>"
+
+
+    <TextView
+        android:id="@+id/_SendYossipCounters"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignTop="@+id/_SendYossipCancelButton"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/yossip_upper_limit"
+        android:textColor="#ffffffff"
+        android:textSize="24sp" />
+
+</RelativeLayout>

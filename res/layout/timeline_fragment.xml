@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    style="@style/my_fragment">
+
+    <ListView
+        android:id="@+id/_TimelineListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/_TimelineYossipButton"
+        android:overScrollMode="always"
+        android:padding="5dp"
+         />
+    
+    <Button 
+        android:id="@+id/_TimelineYossipButton"
+        android:text="@string/yossip_button_string"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/yossip_button_frame"
+        android:textSize="26dp"
+        android:paddingBottom="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        />
+    
+</RelativeLayout>

@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    style="@style/my_fragment">
+
+    <ImageButton
+        android:id="@+id/updata_node"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:height="48dp"
+        android:width="48dp"
+        android:src="@drawable/ic_action_refresh"
+        android:background="@drawable/button_frame" />
+
+    <EditText  style="@style/my_inputtext"
+        android:id="@+id/search_box"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="13dp"
+        android:layout_toLeftOf="@id/updata_node"
+        android:hint="name search ..."
+        android:padding="3dp"
+        android:inputType="textNoSuggestions" />
+
+    <ListView
+        android:id="@+id/nodelist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_alignLeft="@+id/search_box"
+        android:layout_alignRight="@+id/updata_node"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/updata_node" >
+
+    </ListView>
+
+</RelativeLayout>

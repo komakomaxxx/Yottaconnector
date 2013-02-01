@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_marginBottom="3dp"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    android:layout_marginTop="3dp"
+    android:background="@drawable/node_frame">
+    <RelativeLayout
+        android:id="@+id/header_message_icon_relative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp" >
+
+        <ImageView
+            android:id="@+id/header_message_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_launcher" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/header_message_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@id/header_message_icon_relative" 
+        >
+
+        
+        <TextView
+            android:id="@+id/header_message_name"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="name" />
+        <TextView
+            android:id="@+id/header_message_time"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/header_message_name"
+            android:layout_alignBottom="@id/header_message_name"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="3dp"
+            android:layout_toRightOf="@id/header_message_name"
+            android:text="Time" />
+
+
+        <TextView
+            android:id="@+id/header_message_yossip"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/header_message_icon_relative"
+            android:layout_alignLeft="@id/header_message_name"
+            android:layout_alignRight="@id/header_message_time"
+            android:layout_below="@id/header_message_name"
+            android:layout_marginTop="3dp"
+            android:text="yossip" />
+    </RelativeLayout>
+
+</RelativeLayout>

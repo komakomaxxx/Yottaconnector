@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="right"
+	        android:orientation="horizontal" 
+	         style="@style/my_Header_style"
+	        >
+	
+	        <FrameLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:visibility="visible" >
+	
+	            <ImageView
+	                android:id="@+id/H_Message_icon"
+	                android:layout_marginLeft="5dp"
+	                android:layout_marginTop="6dp"
+	                android:layout_width="46dp"
+	                android:layout_height="46dp"
+	                android:adjustViewBounds="true"
+	                android:src="@drawable/message1" />
+	
+	            <TextView
+	                android:id="@+id/receive_message_countIcon"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="18dp"
+	                android:layout_marginTop="9dp"
+	                android:textSize="18dp"
+	                android:textColor="#000000"
+	                />
+	      
+	        </FrameLayout>
+	
+	        <LinearLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:gravity="center_vertical"
+	            android:orientation="vertical" >
+	
+	            <FrameLayout
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:visibility="visible" >
+			        <TextView
+			                android:id="@+id/fragment_name"
+			                android:layout_width="match_parent"
+			                android:layout_height="wrap_content"
+			                android:layout_marginLeft="18dp"
+			                android:layout_marginTop="9dp"
+			                android:textSize="30dp"
+			                android:textColor="#ffffff"
+			                android:text="TimeLine"
+			                />    
+			    </FrameLayout>
+			</LinearLayout>
+	
+	        <FrameLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:visibility="visible" >
+	
+	            <Button
+	                android:id="@+id/receive_test_button1"
+	                style="?android:attr/buttonStyleSmall"
+	                android:layout_width="80dp"
+	                android:layout_height="wrap_content"
+	                android:text="clear" />
+	        </FrameLayout>
+	
+	        <FrameLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:visibility="visible" >
+	
+	            <Button
+	                android:id="@+id/receive_test_button2"
+	                style="?android:attr/buttonStyleSmall"
+	                android:layout_width="87dp"
+	                android:layout_height="wrap_content"
+	                android:text="add" />
+	        </FrameLayout>
+	        
+	
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="right"
+	            android:orientation="vertical" >
+	
+	            <FrameLayout
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:visibility="visible" >
+	
+	                <ImageView
+	                    android:id="@+id/setting_icon"
+	                    android:layout_margin="5dp"
+	                    android:layout_width="40dp"
+	                    android:layout_height="40dp"
+	                    android:adjustViewBounds="true"
+	                    android:onClick="onicon03Click"
+	                    android:src="@drawable/setting"
+	   				/>
+	            </FrameLayout>
+	        </LinearLayout>
+
+	    </LinearLayout>
+	    
+
+
+	</LinearLayout>
+		    
+	
+	</LinearLayout>

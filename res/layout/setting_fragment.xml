@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget33"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:visibility="visible" 
+    >
+
+    <ImageView
+        android:id="@+id/set_IconView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="130dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="システム設定"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/set_ProfileText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/set_IconView"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/set_IconView"
+        android:layout_toRightOf="@+id/set_IconView"
+        android:ems="10"
+        android:singleLine="true"
+        android:inputType="textMultiLine"    
+        android:hint="User Profile" 
+        android:background="@drawable/setting_frame"
+        
+        android:layout_marginRight="10dp"/>
+    <Switch
+        android:id="@+id/set_GPSswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/TextView02"
+        android:layout_alignBottom="@+id/TextView02"
+        android:layout_alignLeft="@+id/set_ProfileText" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginLeft="59dp"
+        android:layout_marginTop="51dp"
+        android:text="GPS"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/set_SettingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="79dp"
+        android:text="設定" 
+        android:background="@drawable/yossip_frame"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="ユーザー情報"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/set_UserNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/set_ProfileText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="26dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="User Name" 
+        android:background="@drawable/setting_frame"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+
+        <requestFocus />
+    </EditText>
+
+
+</RelativeLayout>
