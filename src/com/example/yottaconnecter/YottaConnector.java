@@ -53,6 +53,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 	private boolean view_flag = false;
 	
 	public static Node MyNode;
+	public static String ip = new String();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
