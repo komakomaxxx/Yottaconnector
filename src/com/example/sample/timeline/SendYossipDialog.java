@@ -200,9 +200,8 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
 		synchronized(YossipList.y_list) {
 			String name = YottaConnector.MyNode.getName();
 			Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-			if(YottaConnector.MyNode.getIcon() != null) {
+			if(YottaConnector.MyNode.getIcon() != null)
 				icon = YottaConnector.MyNode.getIcon();
-			}
 			YossipList.addYossip(new Yossip(s, new Date(), YottaConnector.MyNode.getMACAddr(), name, icon));
 		}
 	}
