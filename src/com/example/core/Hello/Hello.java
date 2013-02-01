@@ -35,8 +35,9 @@ public class Hello {
 		Log.d(tag,"[" +macAddr+":"+name+":"+ido+":"+keido+":"+profile  );
 		Node n = new Node(macAddr,name,ido,keido,null,profile);
 		//node に追加
+		NodeList.addNode(n);
 		addNode(n);
-		HelloAck.sendHelloAck(recvPacket);		
+		HelloAck.sendHelloAck(recvPacket);
 	}
 	private static void sendHello() {
 		
