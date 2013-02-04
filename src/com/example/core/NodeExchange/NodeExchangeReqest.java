@@ -121,13 +121,11 @@ public class NodeExchangeReqest {
 		*/
 		for( NodeExchangeSessionData sd: sessionList){
 			if(sd.orignalMac.equals(oSrcMac)){
-				/*
+				
 				//一応
-				if(sessionList.get(i).sessionNumber == tNum){
-					
+				if(sd.sessionNumber == tNum){
+					return sd;
 				}
-				*/
-				return sd;
 			}
 		}
 		return null;
@@ -219,7 +217,7 @@ class NodeExchangeSessionData{
 	void startSessionTimer() {
 		if(timeOutTimer == null){
 			timeOutTimer = new Timer();    
-			timeOutTimer.schedule(new sessionTimerTask(),10000);
+			timeOutTimer.schedule(new sessionTimerTask(),timeOutTime*2);
 		}
 	}	
 	//タイムスタンプ処理のスレッド
