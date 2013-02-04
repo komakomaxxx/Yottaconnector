@@ -32,7 +32,11 @@ public class NodeExchangeReqest {
 	public static void  recv(Packet recvPacket) {
 		int hopLimit;
 		
+		if(recvPacket.getOriginalSourceMac().equals(YottaConnector.MyNode.getMACAddr())){
+			return;
+		}
 
+		
 		Log.d(tag,recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 		int tNum =recvPacket.getTypeNum();
 		String oSrcMac = recvPacket.getOriginalSourceMac();
@@ -216,7 +220,7 @@ class NodeExchangeSessionData{
 	void startSessionTimer() {
 		if(timeOutTimer == null){
 			timeOutTimer = new Timer();    
-			timeOutTimer.schedule(new sessionTimerTask(),timeOutTime*4);
+			timeOutTimer.schedule(new sessionTimerTask(),timeOutTime);
 		}
 	}	
 	//タイムスタンプ処理のスレッド
