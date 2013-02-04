@@ -31,6 +31,7 @@ public class NodeList {
 		
 		//ノードの追加更新
 		for(Node n : newNodeList){
+Log.d("NodeListAdd", n.getMACAddr());
 			addNode(n);
 		}
 	}
