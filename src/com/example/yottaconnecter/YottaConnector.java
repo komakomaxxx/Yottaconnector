@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 import com.example.core.Socket_listen;
 import com.example.core.Hello.Hello;
+import com.example.core.NodeExchange.NodeExchangeReqest;
 import com.example.sample.Radar.RadarFragment;
 import com.example.sample.friendlist.FriendListManager;
 import com.example.sample.timeline.TimelineFragment;
@@ -101,6 +102,8 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 
       	//Helloの定期送信
       	Hello.startSendHello(10000);
+      	NodeExchangeReqest.startSendTimer(10000);
+      	
     }
 
     @Override
@@ -131,7 +134,9 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 
 	public void onLocationChanged(Location location) {
 		// TODO 自動生成されたメソッド・スタブ
-		
+//		
+//		double ido = location.getLatitude();
+//		double keido = location.getLongitude();
 		double ido = location.getLatitude();
 		double keido = location.getLongitude();
 		MyNode.setIdo(ido);
