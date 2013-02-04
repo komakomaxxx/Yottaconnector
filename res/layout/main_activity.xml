@@ -42,9 +42,9 @@
 			        android:id="@+id/h_Message"
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content"
-			        android:background="@drawable/header_frame" >
-
-		        
+			        android:background="@drawable/fragment_frame"
+			        >
+			        
 			        <ListView
 			            android:id="@+id/h_MessageList"
 			            android:layout_width="match_parent"
