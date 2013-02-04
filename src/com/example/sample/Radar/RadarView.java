@@ -156,9 +156,13 @@ public class RadarView extends View {
         //描画許可がある場合のみ描画
         if(view_flag == true){
 			//各ノードの打点
-			for (Node data : NodeList.nodelist) {
-				drawCoordinate(canv, paint, data);
-			}
+        	try{
+        		for (Node data : NodeList.nodelist) {
+    				drawCoordinate(canv, paint, data);
+    			}
+        	}catch (java.util.ConcurrentModificationException e){
+        		
+        	}
 		}
 		
 	}
