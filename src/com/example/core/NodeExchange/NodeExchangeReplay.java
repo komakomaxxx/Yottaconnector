@@ -24,8 +24,10 @@ public class NodeExchangeReplay {
 		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oDstMac,tNum);
 				
 		if(session != null){
+			
 			if( oDstMac.equals(YottaConnector.MyNode.getMACAddr())){
-				NodeExchangeReqest.deleteSession(session);
+				Log.d(tag, "HitMySession");
+				
 				/*ノードリスト追加*/
 				ArrayList<String> dataList = recvPacket.putData();
 				
@@ -40,11 +42,12 @@ public class NodeExchangeReplay {
 				NodeExchangeReqest.newNodeList.add(n); 
 				
 			}else{
+				Log.d(tag, "HitRelaySession");
 				relay(recvPacket,session);
 			}	
 		}
 		else{
-			
+			Log.d(tag, "NoSession");
 		}
 	}
 	public static void relay(Packet sendPacket,NodeExchangeSessionData session) {

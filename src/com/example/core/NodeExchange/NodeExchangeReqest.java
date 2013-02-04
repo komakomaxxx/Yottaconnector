@@ -208,16 +208,13 @@ class NodeExchangeSessionData{
 	//セッションのタイムスタンプチェック
 	public void  timeOutSession() {
 		NodeExchangeReqest.deleteSession(this);
-		if(this.orignalMac.equals(YottaConnector.MyNode.getMACAddr())){
-			NodeExchangeReqest.updateNodeList();
-		}
 		timeOutTimer.cancel();
 	}
 	
 	void startSessionTimer() {
 		if(timeOutTimer == null){
 			timeOutTimer = new Timer();    
-			timeOutTimer.schedule(new sessionTimerTask(),timeOutTime*2);
+			timeOutTimer.schedule(new sessionTimerTask(),timeOutTime*4);
 		}
 	}	
 	//タイムスタンプ処理のスレッド
