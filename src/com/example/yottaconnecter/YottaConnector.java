@@ -79,7 +79,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		//静的な仮ノードリストの作成
 		nl = new NodeList();
 		//nl.testMakeNodeList();
-		testNodeCreate(nl);
+		//testNodeCreate(nl);
 		
 		new Socket_listen(ip);
 		
@@ -171,10 +171,6 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 	}
 
 	private void testNodeCreate(NodeList nl){
-		
-		FileInputStream fis;
-		//Bitmap icon = null;
-		
 		Bitmap[] icon = new Bitmap[6];
 		
 		icon[0] = BitmapFactory.decodeResource(getResources(), R.drawable.t0);
@@ -189,8 +185,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		nl.testMakeNodeList(35.624569, 139.341740, "長谷川 和樹",icon[4],"今日はチェック柄～");
 		nl.testMakeNodeList(35.624626, 139.342631, "小林 凌",icon[5],"髪染めました！");
 		nl.testMakeNodeList(35.625144, 139.343269, "大滝 みや子",icon[1],"私も山梨～");
-		nl.testMakeNodeList(35.625986,139.342695, "駒井 覚",icon[0],"今日は研究の発表会");
-		                                                                                                                                                                                                                                                    
+		nl.testMakeNodeList(35.625986,139.342695, "駒井 覚",icon[0],"今日は研究の発表会");		                                                                                                                                                                                                                                                    
 	}
 
 	
