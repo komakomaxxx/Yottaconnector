@@ -15,9 +15,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.wifi.WifiManager;
+import android.service.textservice.SpellCheckerService.Session;
 import android.util.Log;
 
-
+import com.example.core.Session.*;
 
 public class SendSocket implements Runnable{
 
@@ -93,16 +94,11 @@ public class SendSocket implements Runnable{
 	}
 	
 	public void makeRaleyPacket(Packet packet){
-		if(packet != null){
-			Log.d("test", "Pcket != null");
-			packet.hoplimitDecrement();
-			SendCharArray = makePacket(packet);
-			thread = new Thread(this);
-			thread.start();
-		}else{
-			Log.d("test", "Pcket = null");
-		}
-		
+		packet.hoplimitDecrement();
+		//Log.d("SendSocket","SendCharArray length is" + SendCharArray.length);
+		SendCharArray = makePacket(packet);
+		thread = new Thread(this);
+		thread.start();
 	}
 	public char[] makePacket(Packet p){
 		
@@ -159,6 +155,7 @@ public class SendSocket implements Runnable{
 		char [] cBuf;
 		cBuf = Buf.toString().toCharArray();
 		
+		SessionCtl.addSession(p.getOriginalSourceMac(), Integer.parseInt(ssnum,16));
 		return cBuf;
 	}
 }
