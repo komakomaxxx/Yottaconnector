@@ -32,7 +32,9 @@ public class NodeExchangeReqest {
 		int hopLimit;
 		
 
-		Log.d(tag, recvPacket.getOriginalSourceMac());
+		int tNum =recvPacket.getTypeNum();
+		String oSrcMac = recvPacket.getOriginalSourceMac();
+		Log.d(tag,oSrcMac + ":"+tNum );
 		//パケット解析
 		hopLimit = recvPacket.getHopLimit();
 		
@@ -51,8 +53,8 @@ public class NodeExchangeReqest {
 		String oSrcMac = recvPacket.getOriginalSourceMac();
 		String srcMac =recvPacket.getSourceMac();
 		int tNum =recvPacket.getTypeNum();
-		Log.d(tag,oSrcMac + ":"+tNum );
 		addSession(oSrcMac,srcMac,tNum);
+		
 		//ヘッダ作成
 		recvPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		
@@ -109,19 +111,20 @@ public class NodeExchangeReqest {
 		/*
 		 sessionListから一致するsessionDateを取得し返す
 		 */
+		/*
 		if (sessionList == null){
 			return null;
-			
 		}
-		for(int i=0;i < sessionList.size();i++){
-			if(sessionList.get(i).orignalMac.equals(oSrcMac)){
+		*/
+		for( NodeExchangeSessionData sd: sessionList){
+			if(sd.orignalMac.equals(oSrcMac)){
 				/*
 				//一応
 				if(sessionList.get(i).sessionNumber == tNum){
 					
 				}
 				*/
-				return sessionList.get(i);
+				return sd;
 			}
 		}
 		return null;
@@ -184,7 +187,7 @@ public class NodeExchangeReqest {
 	
 }
 class NodeExchangeSessionData{
-	static int timeOutTime = 10000;
+	static int timeOutTime=1000000;
 	
 	public int sessionNumber;
 	public String orignalMac;

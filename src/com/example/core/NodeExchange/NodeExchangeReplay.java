@@ -19,12 +19,13 @@ public class NodeExchangeReplay {
 		String oSrcMac = recvPacket.getOriginalSourceMac();
 		int tNum = recvPacket.getTypeNum();
 		
-		Log.d(tag,"recv:"+oDstMac +":"+ tNum);
-		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oSrcMac,tNum);
+		Log.d(tag, "recv REP:"+recvPacket.getOriginalDestinationMac() +":"+recvPacket.getOriginalSourceMac() + ":" +recvPacket.getDestinationMac()+":"+recvPacket.getSourceMac()   );
+
+		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oDstMac,tNum);
 				
 		if(session != null){
-			Log.d(tag,"recv:"+oDstMac);
-			if( oDstMac.equals( YottaConnector.MyNode.getMACAddr())){
+			Log.d(tag,"yes:"+oDstMac);
+			if( oDstMac.equals(YottaConnector.MyNode.getMACAddr())){
 				NodeExchangeReqest.deleteSession(session);
 				/*ノードリスト追加*/
 				ArrayList<String> dataList = recvPacket.putData();
@@ -75,7 +76,7 @@ public class NodeExchangeReplay {
 		Packet sendPacket = new Packet(Packet.NodeExREP,srcMac,oDstMac,srcMac,dstMac,hopLimit,sessionNum);
 		//data部設定
 		sendPacket.createData(dataList);
-		Log.d(tag, "send REP");
+		Log.d(tag, "send REP:"+sendPacket.getOriginalDestinationMac() +":"+sendPacket.getOriginalSourceMac() + ":" +sendPacket.getDestinationMac()+":"+sendPacket.getSourceMac()   );
 		new SendSocket().makeNewPacket(sendPacket);	
 	}
 }
