@@ -82,7 +82,12 @@ public final class FriendListManager {
 	 */
 	public synchronized static void onFriendListIntoDatabase() {
 		if(friendNodeList != null) {
-			helper.onDataOutport(friendNodeList);
+			handler.post( new Runnable() {
+				@Override
+				public void run() {
+					helper.onDataOutport(friendNodeList);
+				}
+			});
 		}
 	}
 
@@ -104,7 +109,7 @@ public final class FriendListManager {
 						adapter.notifyDataSetChanged();
 					}
 				});
-				helper.onDataOutport(friendNodeList);
+				onFriendListIntoDatabase();
 			}
 		}
 	}
@@ -125,7 +130,7 @@ public final class FriendListManager {
 					adapter.notifyDataSetChanged();
 				}
 			});
-			helper.onDataOutport(friendNodeList);
+			onFriendListIntoDatabase();
 		}
 	}
 	

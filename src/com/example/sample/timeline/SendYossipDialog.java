@@ -29,7 +29,7 @@ import android.widget.TextView;
  * ヨシップ送信ダイアログクラス
  *
  * @author  Kazuki Hasegawa
- * @version 4
+ * @version 5
  */
 public class SendYossipDialog extends DialogFragment implements View.OnClickListener, TextWatcher, OnKeyListener{
 	/**
@@ -43,9 +43,9 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
 	private final int SEND_YOSSIP_STRING_MAX = 150;	
 	
 	/**
-	 * 黒色
+	 * 白色
 	 */
-	private final int COLOR_BLACK = Color.BLACK;
+	private final int COLOR_WHITE = Color.WHITE;
 	
 	/**
 	 * 赤色
@@ -153,8 +153,8 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
 	 * テキストが変更された後に行われる処理です。
 	 * ダイアログにあるEditTextの文字数が1文字以上かつ150文字以下である場合、
 	 * yossipButtonを活性化させる。
-	 * また、その場合文字カウントのTextViewの文字色がCOLOR_BLACK以外であるならば、
-	 * 文字カウントの文字色をCOLOR_BLACKにする。
+	 * また、その場合文字カウントのTextViewの文字色がCOLOR_WHITE以外であるならば、
+	 * 文字カウントの文字色をCOLOR_WHITEにする。
 	 * それ以外の場合は、yossipButtonを非活性化し、
 	 * また、その場合文字カウントTextViewの文字色がCOLOR_RED以外かつ150文字を超えているならば、
 	 * 文字カウントの文字色をCOLOR_REDにする。
@@ -175,8 +175,8 @@ public class SendYossipDialog extends DialogFragment implements View.OnClickList
     	if(isWordCountWithinStringMaxLimit(textWordCount)) {
     		yossipButton.setEnabled(true);
 
-    		if(countText.getCurrentTextColor() != COLOR_BLACK) {
-    			countText.setTextColor(COLOR_BLACK);
+    		if(countText.getCurrentTextColor() != COLOR_WHITE) {
+    			countText.setTextColor(COLOR_WHITE);
     		}
     	} else {
     		yossipButton.setEnabled(false);

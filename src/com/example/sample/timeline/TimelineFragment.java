@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.yottaconnecter.*;
 import com.example.sample.header.HeaderFragment;
@@ -20,7 +19,7 @@ import com.example.sample.user.UserFragment;
  * TimelineFragmentクラス
  * 
  * @author 	Kazuki Hasegawa
- * @version 8
+ * @version 9
  * @since	2012/11/15
  */
 public final class TimelineFragment extends Fragment implements OnClickListener, OnItemClickListener, Yossiplistener {
