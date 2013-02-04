@@ -16,10 +16,11 @@ public class NodeExchangeReplay {
 	
 	public static void recv(Packet recvPacket) {
 		String oDstMac = recvPacket.getOriginalDestinationMac();
+		String oSrcMac = recvPacket.getOriginalSourceMac();
 		int tNum = recvPacket.getTypeNum();
 		
 		Log.d(tag,"recv:"+oDstMac +":"+ tNum);
-		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oDstMac,tNum);
+		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oSrcMac,tNum);
 				
 		if(session != null){
 			Log.d(tag,"recv:"+oDstMac);
