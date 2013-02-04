@@ -12,13 +12,16 @@ import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.YottaConnector;
 
 import android.R.bool;
+import android.util.Log;
 
 
 
 public class NodeExchangeReqest {
 
 	static boolean sendFlag;
+	static String tag  = " NodeExREQ";
 	
+	public static  int sendTime;
 	static int typeSession =0;
 	static ArrayList<NodeExchangeSessionData> sessionList = new ArrayList<NodeExchangeSessionData>();	
 	static Timer sendTimer;
@@ -37,6 +40,7 @@ public class NodeExchangeReqest {
 		}
 		//返信
 		NodeExchangeReplay.sendReplay(recvPacket);
+		Log.d(tag, recvPacket.getOriginalSourceMac());
 	}
 
 	//中継
@@ -125,6 +129,7 @@ public class NodeExchangeReqest {
 		 一致するsessionDataをListから破棄する
 		 */
 		if(YottaConnector.MyNode.getMACAddr().equals(sd.getSrcMac())){
+			Log.d(tag, "remove");
 			NodeList.updateNodeList(newNodeList);
 		}
 		sessionList.remove(sd);	
@@ -133,7 +138,8 @@ public class NodeExchangeReqest {
 	//定期送信処理
 	public static void startSendTimer(int time) {
 		if (sendTimer == null){
-			
+		
+			NodeExchangeSessionData.setTime(time);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -172,7 +178,7 @@ public class NodeExchangeReqest {
 	
 }
 class NodeExchangeSessionData{
-	final static int timeOutTime = 1000;
+	static int timeOutTime = 10000;
 	
 	public int sessionNumber;
 	public String orignalMac;
@@ -188,6 +194,10 @@ class NodeExchangeSessionData{
 	}
 	public String getSrcMac() {
 		return this.srcMac;
+	}
+	public static void setTime(int t) {
+		timeOutTime = t;
+		
 	}
 
 	//セッションのタイムスタンプチェック
