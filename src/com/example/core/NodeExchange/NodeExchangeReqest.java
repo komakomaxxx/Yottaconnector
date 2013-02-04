@@ -42,7 +42,7 @@ public class NodeExchangeReqest {
 			
 		}
 		
-		Log.d(tag,recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
+		Log.d(tag,""+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		//パケット解析
 		hopLimit = recvPacket.getHopLimit();
@@ -67,7 +67,7 @@ public class NodeExchangeReqest {
 		//ヘッダ作成
 		recvPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		
-		Log.d(tag,"relay:"+recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
+		Log.d(tag,"relay:"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		//送信
 		new SendSocket().makeRaleyPacket(recvPacket);

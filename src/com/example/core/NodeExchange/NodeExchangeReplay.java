@@ -16,16 +16,16 @@ public class NodeExchangeReplay {
 	
 	public static void recv(Packet recvPacket) {
 		String oDstMac = recvPacket.getOriginalDestinationMac();
+		String dstMac = recvPacket.getDestinationMac();
 		int tNum = recvPacket.getTypeNum();
 		
-		Log.d(tag,recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
+		Log.d(tag,"recv"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oDstMac,tNum);
-				
+		
 		if(session != null){
-			
 			if( oDstMac.equals(YottaConnector.MyNode.getMACAddr())){
-				Log.d(tag, "HitMySession");
+				Log.d(tag, "Get Replay");
 				
 				/*ノードリスト追加*/
 				ArrayList<String> dataList = recvPacket.putData();
@@ -40,8 +40,8 @@ public class NodeExchangeReplay {
 				//node に追加
 				NodeExchangeReqest.newNodeList.add(n); 
 				
-			}else{
-				Log.d(tag, "HitRelaySession");
+			}else if (dstMac.equals(YottaConnector.MyNode.getMACAddr())){
+				Log.d(tag, "RelaySession");
 				relay(recvPacket,session);
 			}	
 		}
@@ -76,7 +76,7 @@ public class NodeExchangeReplay {
 		Packet sendPacket = new Packet(Packet.NodeExREP,srcMac,oDstMac,srcMac,dstMac,hopLimit,sessionNum);
 		//data部設定
 		sendPacket.createData(dataList);
-		Log.d(tag,sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
+		Log.d(tag,"send"+recvPacket.getTypeNum() +":"+ sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
 		new SendSocket().makeNewPacket(sendPacket);	
 	}
 }
