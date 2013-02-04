@@ -18,10 +18,11 @@ public class NodeExchangeReplay {
 		String oDstMac = recvPacket.getOriginalDestinationMac();
 		int tNum = recvPacket.getTypeNum();
 		
-		Log.d(tag, oDstMac);
+		Log.d(tag,"recv:"+oDstMac);
 		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oDstMac,tNum);
 				
 		if(session != null){
+			Log.d(tag,"recv:"+oDstMac);
 			if( oDstMac.equals( YottaConnector.MyNode.getMACAddr())){
 				NodeExchangeReqest.deleteSession(session);
 				/*ノードリスト追加*/
@@ -40,6 +41,10 @@ public class NodeExchangeReplay {
 			}else{
 				relay(recvPacket,session);
 			}	
+		}
+		else{
+			Log.d(tag,"no:"+oDstMac);
+			
 		}
 	}
 	public static void relay(Packet sendPacket,NodeExchangeSessionData session) {
@@ -69,7 +74,7 @@ public class NodeExchangeReplay {
 		Packet sendPacket = new Packet(Packet.NodeExREP,srcMac,oDstMac,srcMac,dstMac,hopLimit,sessionNum);
 		//data部設定
 		sendPacket.createData(dataList);
-		
+		Log.d(tag, "send REP");
 		new SendSocket().makeNewPacket(sendPacket);	
 	}
 }

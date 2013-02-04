@@ -31,6 +31,8 @@ public class NodeExchangeReqest {
 	public static void  recv(Packet recvPacket) {
 		int hopLimit;
 		
+
+		Log.d(tag, recvPacket.getOriginalSourceMac());
 		//パケット解析
 		hopLimit = recvPacket.getHopLimit();
 		
@@ -40,7 +42,6 @@ public class NodeExchangeReqest {
 		}
 		//返信
 		NodeExchangeReplay.sendReplay(recvPacket);
-		Log.d(tag, recvPacket.getOriginalSourceMac());
 	}
 
 	//中継
@@ -130,6 +131,9 @@ public class NodeExchangeReqest {
 		 */
 		if(YottaConnector.MyNode.getMACAddr().equals(sd.getSrcMac())){
 			Log.d(tag, "remove");
+			for(Node n : newNodeList){
+				Log.d("newNode", n.getMACAddr()+":"+n.getName());
+			}
 			NodeList.updateNodeList(newNodeList);
 		}
 		sessionList.remove(sd);	
