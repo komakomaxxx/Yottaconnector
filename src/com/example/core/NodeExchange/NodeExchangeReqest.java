@@ -31,15 +31,19 @@ public class NodeExchangeReqest {
 	//受信
 	public static void  recv(Packet recvPacket) {
 		int hopLimit;
+		String oSrc = recvPacket.getOriginalSourceMac();
+		String oDst =recvPacket.getOriginalDestinationMac();
 		
-		if(recvPacket.getOriginalSourceMac().equals(YottaConnector.MyNode.getMACAddr())){
+		if(oSrc.equals(YottaConnector.MyNode.getMACAddr())){
 			return;
 		}
-
+		if(oDst.equals(Packet.broadCastMACaddr) == false ){
+			return;
+			
+		}
 		
 		Log.d(tag,recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
-		int tNum =recvPacket.getTypeNum();
-		String oSrcMac = recvPacket.getOriginalSourceMac();
+
 		//パケット解析
 		hopLimit = recvPacket.getHopLimit();
 		
@@ -127,7 +131,6 @@ public class NodeExchangeReqest {
 		*/
 		for( NodeExchangeSessionData sd: sessionList){
 			if(sd.orignalMac.equals(oSrcMac)){
-				
 				//一応
 				if(sd.sessionNumber == tNum){
 					return sd;
@@ -141,6 +144,7 @@ public class NodeExchangeReqest {
 		/*
 		 一致するsessionDataをListから破棄する
 		 */
+		Log.d("nodeSessDel", "remove"+sd.orignalMac +":"+sd.sessionNumber);
 		if(YottaConnector.MyNode.getMACAddr().equals(sd.getSrcMac())){
 			NodeList.updateNodeList(newNodeList);
 		}
