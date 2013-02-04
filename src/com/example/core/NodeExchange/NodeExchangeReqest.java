@@ -13,6 +13,7 @@ import com.example.yottaconnecter.YottaConnector;
 
 import android.R.bool;
 import android.util.Log;
+import android.widget.SeekBar;
 
 
 
@@ -23,7 +24,7 @@ public class NodeExchangeReqest {
 	
 	public static  int sendTime;
 	static int typeSession =0;
-	static ArrayList<NodeExchangeSessionData> sessionList = new ArrayList<NodeExchangeSessionData>();	
+	public static ArrayList<NodeExchangeSessionData> sessionList = new ArrayList<NodeExchangeSessionData>();	
 	static Timer sendTimer;
 	protected static ArrayList<Node> newNodeList = new ArrayList<Node>();
 	
@@ -32,9 +33,9 @@ public class NodeExchangeReqest {
 		int hopLimit;
 		
 
+		Log.d(tag,"osrc="+recvPacket.getOriginalSourceMac());
 		int tNum =recvPacket.getTypeNum();
 		String oSrcMac = recvPacket.getOriginalSourceMac();
-		Log.d(tag,oSrcMac + ":"+tNum );
 		//パケット解析
 		hopLimit = recvPacket.getHopLimit();
 		
@@ -83,6 +84,7 @@ public class NodeExchangeReqest {
 		
 		addSession(srcMac,srcMac,tNum);
 		
+		Log.d(tag, "send");
 		new SendSocket().makeNewPacket(sendPacket);
 		
 	}
@@ -102,9 +104,10 @@ public class NodeExchangeReqest {
 		sessionDataを作成
 		sessionListにadd
 		*/
-		//int tNum = getTypeSession();
+		NodeExchangeSessionData sess = new NodeExchangeSessionData(orignalMac,dstMac,tNum);
 		
-		sessionList.add(new NodeExchangeSessionData(orignalMac,dstMac,tNum));
+		sessionList.add(sess);
+		sess.startSessionTimer();
 	}
 	//セッション検索
 	public synchronized static NodeExchangeSessionData searchSession(String oSrcMac ,int tNum) {
@@ -135,10 +138,6 @@ public class NodeExchangeReqest {
 		 一致するsessionDataをListから破棄する
 		 */
 		if(YottaConnector.MyNode.getMACAddr().equals(sd.getSrcMac())){
-			Log.d(tag, "remove");
-			for(Node n : newNodeList){
-				Log.d("newNode", n.getMACAddr()+":"+n.getName());
-			}
 			NodeList.updateNodeList(newNodeList);
 		}
 		sessionList.remove(sd);	
@@ -199,7 +198,6 @@ class NodeExchangeSessionData{
 		this.sessionNumber = tNum;
 		this.orignalMac = oMac;
 		this.srcMac = sMac;
-		startSessionTimer();
 	}
 	public String getSrcMac() {
 		return this.srcMac;
@@ -212,14 +210,16 @@ class NodeExchangeSessionData{
 	//セッションのタイムスタンプチェック
 	public void  timeOutSession() {
 		NodeExchangeReqest.deleteSession(this);
-		NodeExchangeReqest.updateNodeList();
+		if(this.orignalMac.equals(YottaConnector.MyNode.getMACAddr())){
+			NodeExchangeReqest.updateNodeList();
+		}
 		timeOutTimer.cancel();
 	}
 	
 	void startSessionTimer() {
 		if(timeOutTimer == null){
 			timeOutTimer = new Timer();    
-			timeOutTimer.schedule(new sessionTimerTask(), 0,timeOutTime);
+			timeOutTimer.schedule(new sessionTimerTask(),10000);
 		}
 	}	
 	//タイムスタンプ処理のスレッド
