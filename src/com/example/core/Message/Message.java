@@ -20,7 +20,7 @@ public class Message {
 		INT_SHIFT = Integer.SIZE-1;
 		bitMask = 0x80000000;
 		timeFormat = new SimpleDateFormat("kk'時'mm'分'ss'秒'");
-		SESSION_MAX = 0x7FFFFFFF;
+		SESSION_MAX = bitMask;
 	}
 	
 	//パケット受信時動作振り分けルーチン
@@ -59,7 +59,7 @@ public class Message {
 		//メッセージをリストに登録
 		MessageManager.add(oDestMac, message, true);
 		
-		//メッセージ番号を取得(先頭ビット１)
+		//メッセージ番号を取得
 		typeNum = MessageManager.getCount(oDestMac) % SESSION_MAX;
 		
 		//ルーティングテーブル検索
