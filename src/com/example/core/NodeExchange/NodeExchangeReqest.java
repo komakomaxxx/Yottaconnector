@@ -36,12 +36,13 @@ public class NodeExchangeReqest {
 		//パケット解析
 		hopLimit = recvPacket.getHopLimit();
 		
+		//返信
+		NodeExchangeReplay.sendReplay(recvPacket);
+		
 		if(hopLimit != 0 ){
 			//中継
 			relay(recvPacket);
 		}
-		//返信
-		NodeExchangeReplay.sendReplay(recvPacket);
 	}
 
 	//中継
@@ -49,8 +50,9 @@ public class NodeExchangeReqest {
 		//セッション登録
 		String oSrcMac = recvPacket.getOriginalSourceMac();
 		String srcMac =recvPacket.getSourceMac();
-		int tMun =recvPacket.getTypeNum();
-		addSession(oSrcMac,srcMac,tMun);
+		int tNum =recvPacket.getTypeNum();
+		Log.d(tag,oSrcMac + ":"+tNum );
+		addSession(oSrcMac,srcMac,tNum);
 		//ヘッダ作成
 		recvPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		

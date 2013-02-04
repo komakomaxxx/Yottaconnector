@@ -18,7 +18,7 @@ public class NodeExchangeReplay {
 		String oDstMac = recvPacket.getOriginalDestinationMac();
 		int tNum = recvPacket.getTypeNum();
 		
-		Log.d(tag,"recv:"+oDstMac);
+		Log.d(tag,"recv:"+oDstMac +":"+ tNum);
 		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oDstMac,tNum);
 				
 		if(session != null){
