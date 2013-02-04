@@ -19,7 +19,7 @@ public class NodeExchangeReplay {
 		String oSrcMac = recvPacket.getOriginalSourceMac();
 		int tNum = recvPacket.getTypeNum();
 		
-		Log.d(tag, "recv REP:"+recvPacket.getOriginalDestinationMac() +":"+recvPacket.getOriginalSourceMac() );
+		Log.d(tag,recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oDstMac,tNum);
 				
@@ -77,7 +77,7 @@ public class NodeExchangeReplay {
 		Packet sendPacket = new Packet(Packet.NodeExREP,srcMac,oDstMac,srcMac,dstMac,hopLimit,sessionNum);
 		//data部設定
 		sendPacket.createData(dataList);
-		Log.d(tag, "send REP:"+sendPacket.getOriginalDestinationMac() +":"+sendPacket.getOriginalSourceMac() + ":" +sendPacket.getDestinationMac()+":"+sendPacket.getSourceMac());
+		Log.d(tag,sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
 		new SendSocket().makeNewPacket(sendPacket);	
 	}
 }
