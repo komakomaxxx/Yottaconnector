@@ -30,4 +30,9 @@ public class SessionCtl {
 		sessionQueue[setP] = searchData;
 		return false;
 	}
+	public synchronized static void addSession(String macAddr,int sNum) {
+		setP = (setP + 1) % QueueSize;
+		sessionQueue[setP] =macAddr + sNum;
+		
+	}
 }
