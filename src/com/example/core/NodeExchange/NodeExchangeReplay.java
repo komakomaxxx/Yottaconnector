@@ -11,7 +11,7 @@ import android.util.Log;
 
 
 public class NodeExchangeReplay {
-	private final static String tag = "NodeExchengeReplay";
+	private final static String tag = "NodeExREP";
 	
 	
 	public static void recv(Packet recvPacket) {
@@ -60,7 +60,7 @@ public class NodeExchangeReplay {
 		dataList.add(YottaConnector.MyNode.getProfile());
 		
 		int sessionNum = recvPacket.getTypeNum();
-		int hopLimit =0;
+		int hopLimit =Packet.HopLimitMax;
 		String srcMac = YottaConnector.MyNode.getMACAddr();
 		String oDstMac = recvPacket.getOriginalSourceMac();
 		String dstMac = recvPacket.getSourceMac();
