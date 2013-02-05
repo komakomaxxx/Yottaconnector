@@ -19,13 +19,14 @@ public class NodeExchangeReplay {
 		String dstMac = recvPacket.getDestinationMac();
 		int tNum = recvPacket.getTypeNum();
 		
-		Log.d(tag,"recv"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oDstMac,tNum);
 		
 		if(session != null){
+			Log.d(tag,"recv"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
+
 			if( oDstMac.equals(YottaConnector.MyNode.getMACAddr())){
-				Log.d(tag, "Get Replay");
+				Log.d(tag, "Get Replay to "+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac());
 				
 				/*ノードリスト追加*/
 				ArrayList<String> dataList = recvPacket.putData();
@@ -38,10 +39,9 @@ public class NodeExchangeReplay {
 				
 				Node n = new Node(macAddr,name,ido,keido,null,profile);
 				//node に追加
-				NodeExchangeReqest.newNodeList.add(n); 
+				NodeExchangeReqest.addNode(n); 
 				
 			}else if (dstMac.equals(YottaConnector.MyNode.getMACAddr())){
-				Log.d(tag, "RelaySession");
 				relay(recvPacket,session);
 			}	
 		}

@@ -79,8 +79,7 @@ public class NodeExchangeReqest {
 		if(searchSession(YottaConnector.MyNode.getMACAddr(),0) != null){
 			return;
 		}
-		//NodeListの初期化
-		newNodeList.clear();
+
 		
 		String srcMac = YottaConnector.MyNode.getMACAddr();
 		String dstMac = Packet.broadCastMACaddr;
@@ -94,7 +93,7 @@ public class NodeExchangeReqest {
 		
 		addSession(srcMac,srcMac,tNum);
 		
-		Log.d(tag, "send");
+		Log.d(tag, "send "+sendPacket.getTypeNum());
 		new SendSocket().makeNewPacket(sendPacket);
 		
 	}
@@ -144,9 +143,12 @@ public class NodeExchangeReqest {
 		/*
 		 一致するsessionDataをListから破棄する
 		 */
-		Log.d("nodeSessDel", "remove"+sd.orignalMac +":"+sd.sessionNumber);
+		Log.d("nodeSessDel", "remove"+sd.orignalMac +":"+sd.sessionNumber+":"+newNodeList.size());
 		if(YottaConnector.MyNode.getMACAddr().equals(sd.getSrcMac())){
 			NodeList.updateNodeList(newNodeList);
+
+			//NodeListの初期化
+			newNodeList.clear();
 		}
 		sessionList.remove(sd);	
 	}
@@ -188,6 +190,10 @@ public class NodeExchangeReqest {
 		//NodeListにnewNodeListを設定
 		NodeList.updateNodeList(newNodeList);
 		//UIに対して更新処理
+	}
+	public synchronized static void addNode(Node n) {
+		newNodeList.add(n);
+		
 	}
 	
 	
