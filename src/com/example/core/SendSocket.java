@@ -87,8 +87,16 @@ public class SendSocket implements Runnable{
 	}
 	public void makeNewPacket(Packet packet){
 
+		if(packet.getType()==0x06){
+			Log.d("NodeREP Send",packet.getTypeNum()+":"+ packet.getOriginalSourceMac() +"->"+packet.getOriginalDestinationMac());
+		}
+		if(packet.getType()==0x05){
+			Log.d("NodeREQ Send",packet.getTypeNum()+":"+ packet.getOriginalSourceMac() +"->"+packet.getOriginalDestinationMac());
+		}
+		
 		SendCharArray = makePacket(packet);
-
+		
+		
 		thread = new Thread(this);
 		thread.start();
 	}

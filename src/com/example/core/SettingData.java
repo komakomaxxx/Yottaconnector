@@ -96,11 +96,11 @@ public class SettingData implements Runnable{
 //		if(tmpSM.equals("3085a9dd58af") == false){
 //			return;
 //		}
-		if(Integer.parseInt(tmpT,10) == 0x06){
-			Log.d("nodeREPRecv",tmpTN +":"+ tmpOSM + "->"+tmpODM);
+		if(Integer.parseInt(tmpT,16) == 0x06){
+			Log.d("nodeREPRecv",Integer.parseInt(tmpTN,16) +":"+ tmpOSM + "->"+tmpODM);
 		}
-		if(Integer.parseInt(tmpT,10) == 0x05){
-			Log.d("nodeREQRecv",tmpTN +":"+ tmpOSM + "->"+tmpODM);
+		if(Integer.parseInt(tmpT,16) == 0x05){
+			Log.d("nodeREQRecv",Integer.parseInt(tmpTN,16) +":"+ tmpOSM + "->"+tmpODM);
 		}
 		
 		
