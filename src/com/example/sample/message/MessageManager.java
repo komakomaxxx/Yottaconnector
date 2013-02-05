@@ -28,15 +28,25 @@ public class MessageManager {
 	/**
 	 * このクラスで管理するメッセージリストのマップ
 	 */
-	private static Map<String, List<Message>> mesMap = new HashMap<String, List<Message>>();
+	private static Map<String, List<Message>> mesMap;
 	/**
 	 * 待ち状態のメッセージを保持するクラス変数
 	 */
-	private static Message waitMessage = null;
+	private static Message waitMessage;
 	/**
 	 * ハンドラー
 	 */
-	private static Handler handler = new Handler();
+	private static Handler mesHandler;
+	
+	/**
+	 * static初期化ブロック
+	 */
+	static {
+		mesMap = new HashMap<String, List<Message>>();
+		waitMessage = null;
+		mesHandler = new Handler();
+	}
+	
 	/**
 	 * コンストラクタ
 	 * 
@@ -168,7 +178,7 @@ public class MessageManager {
 			if(state == Message.SUCCESS) {
 				mesMap.get(waitMessage.getMACAddr()).add(waitMessage);
 			} else {
-				handler.post(new Runnable() {
+				mesHandler.post(new Runnable() {
 					public void run() {
 						Toast.makeText(context, R.string.mes_err, Toast.LENGTH_LONG).show();
 					}

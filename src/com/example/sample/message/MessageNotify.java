@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
-import android.os.Handler;
 import android.view.KeyEvent;
 
 /**
@@ -17,7 +16,6 @@ public class MessageNotify implements Runnable{
 	private MessageListener listener = null;
 	private Thread thread;
 	private ProgressDialog progressDialog;
-	private Handler handler;
 	
 	/**
 	 * コンストラクタ
@@ -26,7 +24,6 @@ public class MessageNotify implements Runnable{
 	 * @param context コンテキスト
 	 */
 	public MessageNotify(Context context) {
-		handler = new Handler();
 		this.progressDialog = new ProgressDialog(context);
 		this.progressDialog.setOnKeyListener(new OnKeyListener() { 
 		    @Override
@@ -77,17 +74,14 @@ public class MessageNotify implements Runnable{
     		} catch (InterruptedException e) {
     			e.printStackTrace();
     		}
+    		MessageManager.getWaitMessage().setState(1);
+    		if(listener == null) break;
     		listener.onCheckMessages();
     		if(!MessageManager.isWaiting()) {
-    			handler.post(new Runnable() {
-    				@Override
-    				public void run() {
-    					progressDialog.dismiss();
-    					thread = null;
-    				}
-    			});
+    			break;
     		}
 		}
+    	progressDialog.dismiss();
 	}
 	
 	/**

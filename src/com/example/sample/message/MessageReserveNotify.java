@@ -39,6 +39,7 @@ public class MessageReserveNotify implements Runnable{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			if(listener == null) break;
 			listener.checkMessageList();
 		}
 	}
