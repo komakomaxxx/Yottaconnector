@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import android.R.integer;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,6 +29,7 @@ public class SendSocket implements Runnable{
 	private Thread thread;
 	private static int SequenceNUM = 0;
 	private char[] SendCharArray;
+	private static integer i  = new integer();
 	
 	public SendSocket(String host,String Text,int type) {
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -50,16 +52,19 @@ public class SendSocket implements Runnable{
 	}
 
 	@Override
-	public synchronized void run() {
+	public void run() {
 		// TODO 自動生成されたメソッド・スタブ
 		Socket socket;
 		try {
+			
 			socket = new Socket(host,9999);
 			
 			OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream());
+			synchronized (i) {
+				osw.write(SendCharArray);
+				osw.close();
+			}
 			
-			osw.write(SendCharArray);
-			osw.close();
 			socket.close();
 			Log.d("SendSocket","SendCharArray count : " + name());
 			
@@ -81,9 +86,9 @@ public class SendSocket implements Runnable{
 	}
 
 	
-	private static int i = 0;
-	public synchronized int name() {
-		return i++;
+
+	public synchronized integer name() {
+		return i;
 	}
 	public void makeNewPacket(Packet packet){
 
