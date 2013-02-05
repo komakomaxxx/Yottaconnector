@@ -86,12 +86,23 @@ public class SettingData implements Runnable{
 		
 		//セッションチェック
 		if(SessionCtl.sreachSession(tmpOSM,Integer.parseInt(tmpSN,16)) == true){	
-			Log.d("settingData", "sessionData HiT "+tmpOSM+":"+Integer.parseInt(tmpSN,16));
+			Log.d("settingData", "sessionData HiT"+tmpT+":"+tmpOSM+":"+Integer.parseInt(tmpSN,16));
 			return;
 		}
 		else{
-			Log.d("settingData", "sessionData noHiT"+tmpOSM+":"+Integer.parseInt(tmpSN,16));
+			Log.d("settingData", "sessionData noHiT"+tmpT+":"+tmpOSM+":"+Integer.parseInt(tmpSN,16));
 		}
+		
+//		if(tmpSM.equals("3085a9dd58af") == false){
+//			return;
+//		}
+		if(Integer.parseInt(tmpT,10) == 0x06){
+			Log.d("nodeREPRecv",tmpTN +":"+ tmpOSM + "->"+tmpODM);
+		}
+		if(Integer.parseInt(tmpT,10) == 0x05){
+			Log.d("nodeREQRecv",tmpTN +":"+ tmpOSM + "->"+tmpODM);
+		}
+		
 		
 		//パケットクラスに格納
 		packet.setType(Integer.parseInt(tmpT,16));
@@ -106,6 +117,8 @@ public class SettingData implements Runnable{
 				
 	
 		int type = packet.getType();
+		
+		Log.d("recv", "type=" + type +":"+ packet.getOriginalSourceMac() );
 		if (type == Packet.Hello) {
 			Hello.recv(packet);
 		} else if (type == Packet.HelloAck) {
