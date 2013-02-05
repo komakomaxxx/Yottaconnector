@@ -17,12 +17,11 @@ public class Message {
 	public static final int INT_SHIFT;
 	public static final int bitMask;
 	public static final int SESSION_MAX;
-	public static final SimpleDateFormat timeFormat;
+	public static final SimpleDateFormat timeFormat = new SimpleDateFormat("kk'時'mm'分'ss'秒'");
 	
 	static{
-		INT_SHIFT = Integer.SIZE-2;
+		INT_SHIFT = Integer.SIZE-5;
 		bitMask = 0x08000000;
-		timeFormat = new SimpleDateFormat("kk'時'mm'分'ss'秒'");
 		SESSION_MAX = bitMask;
 	}
 	
@@ -59,10 +58,6 @@ public class Message {
 		int hopLimit = Packet.HopLimitMax;
 		int typeNum;
 		
-		String tag = "sendMessage";
-		
-		Log.d(tag,oDestMac);
-		
 		
 		//メッセージ番号を取得
 		typeNum = MessageManager.getCount(oDestMac) % SESSION_MAX;
@@ -80,6 +75,7 @@ public class Message {
 			destMac = root.getForwardMac();
 		}
 		
+		checkFlg(typeNum);
 		//パケットヘッダ作成
 		Packet sendPacket = new Packet(type,myMacAddr,oDestMac,srcMac,destMac,hopLimit,typeNum);
 		
@@ -105,6 +101,7 @@ public class Message {
 	private static void receptMessage(Packet packet){
 		ArrayList<String> dataList;
 		MessageManager.Message res;
+		String tag = "receptMessage";
 		
 		//ペイロード切り分け
 		dataList = packet.putData();
@@ -114,11 +111,13 @@ public class Message {
 		
 		//ヘッダー登録
 		ReceiveMessageManager.addReceiveMessage(res);
-		
+		Log.d(tag,"["+Integer.toHexString(packet.getTypeNum())+"]");
 		if(checkFlg(packet.getTypeNum())){
 			//セッション保存
 			MessageSessionList.addSession(packet);
 		}
+		Log.d(tag,"["+checkFlg(packet.getTypeNum())+"]");
+		Log.d(tag,"["+Integer.toHexString(packet.getTypeNum())+"]");
 		//MessageACK
 		MessageACK.sendMessageACK(packet);
 	}
@@ -169,6 +168,9 @@ public class Message {
 	
 	//intの先頭１ビットが１であればtrue,０であればfalseを返す
 	public static boolean checkFlg(int type){
+		String tag = "checkFlg";
+		Log.d(tag,"["+Integer.toHexString(type)+"]");
+		Log.d(tag,"["+Integer.toHexString((type >>> INT_SHIFT))+"]");
 		if((type >>> INT_SHIFT) == 1) return true;
 		return false;
 	}
