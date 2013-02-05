@@ -74,7 +74,6 @@ public class MessageNotify implements Runnable{
     		} catch (InterruptedException e) {
     			e.printStackTrace();
     		}
-    		MessageManager.getWaitMessage().setState(1);
     		if(listener == null) break;
     		listener.onCheckMessages();
     		if(!MessageManager.isWaiting()) {
