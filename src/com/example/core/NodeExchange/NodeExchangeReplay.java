@@ -56,6 +56,7 @@ public class NodeExchangeReplay {
 		sendPacket.setDestinationMac(session.getSrcMac());
 		
 		new SendSocket().makeRaleyPacket(sendPacket);
+		new SendSocket().makeRaleyPacket(sendPacket);
 	}
 	public static void  sendReplay(Packet recvPacket) {
 		//パケット生成
@@ -72,12 +73,19 @@ public class NodeExchangeReplay {
 		String oDstMac = recvPacket.getOriginalSourceMac();
 		String dstMac = recvPacket.getSourceMac();
 		
-		
 		//paketと生成
 		Packet sendPacket = new Packet(Packet.NodeExREP,srcMac,oDstMac,srcMac,dstMac,hopLimit,sessionNum);
 		//data部設定
 		sendPacket.setSequenceNum(recvPacket.getSequenceNum());
 		sendPacket.createData(dataList);
+		
+		int sNum = SendSocket.getSequenceNUM();
+		sendPacket.setSequenceNum(sNum);
+
+		new SendSocket().makeRaleyPacket(sendPacket);	
+		new SendSocket().makeRaleyPacket(sendPacket);
+		
+		
 		Log.d(tag,"send"+recvPacket.getTypeNum() +":"+ sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
 		new SendSocket().makeNewPacket(sendPacket);	
 	}
