@@ -49,8 +49,8 @@ public class SendSocket implements Runnable{
 		this.host = "192.168.0.101";
 	}
 
-	@Override
-	public void run() {
+	@Overridez
+	public synchronied void run() {
 		// TODO 自動生成されたメソッド・スタブ
 		Socket socket;
 		try {
