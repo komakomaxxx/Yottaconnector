@@ -69,21 +69,24 @@ public class MessageNotify implements Runnable{
     /**
      * run Method
      */
+    @Override
 	public void run() {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		listener.onCheckMessages();
-		if(!MessageManager.isWaiting()) {
-			handler.post(new Runnable() {
-				@Override
-				public void run() {
-					progressDialog.dismiss();
-					thread = null;
-				}
-			});
+    	while(true) {
+    		try {
+    			Thread.sleep(1000);
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
+    		listener.onCheckMessages();
+    		if(!MessageManager.isWaiting()) {
+    			handler.post(new Runnable() {
+    				@Override
+    				public void run() {
+    					progressDialog.dismiss();
+    					thread = null;
+    				}
+    			});
+    		}
 		}
 	}
 	

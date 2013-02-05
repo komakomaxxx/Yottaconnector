@@ -3,6 +3,7 @@ package com.example.sample.message;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -176,6 +177,7 @@ public class MessageManager {
 	 */
 	public static void onArrangeWaitMessage() {
 		int state = waitMessage.mStatus;
+		Log.e("", "Hasegawa");
 		if(state != Message.WAIT) {
 			if(state == Message.SUCCESS) {
 				mesMap.get(waitMessage.getMACAddr()).add(waitMessage);
