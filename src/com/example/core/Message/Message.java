@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.util.Log;
+
 import com.example.yottaconnecter.*;
 import com.example.core.Packet;
 import com.example.core.SendSocket;
@@ -57,6 +59,9 @@ public class Message {
 		int hopLimit = Packet.HopLimitMax;
 		int typeNum;
 		
+		String tag = "sendMessage";
+		
+		Log.d(tag,oDestMac);
 		//メッセージをリストに登録
 		MessageManager.add(oDestMac, message, true);
 		

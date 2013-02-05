@@ -22,13 +22,13 @@ class MessageRoot extends TimerTask{
 	}
 	
 	public MessageRoot(String OriginalSourceMac,String OriginalDestMac){
-		setMember(OriginalSourceMac,OriginalDestinationMac,null);
+		setMember(OriginalSourceMac,OriginalDestMac,null);
 	}
 	
 	private void setMember(String OriginalSourceMac,String OriginalDestinationMac,String ForwardMac){
 		this.OriginalSourceMac = new String(OriginalSourceMac);
 		
-		if(OriginalSourceMac != null){
+		if(OriginalDestinationMac != null){
 			this.OriginalDestinationMac = new String(OriginalDestinationMac);
 		}else{
 			this.OriginalDestinationMac = null;
