@@ -55,7 +55,7 @@ public class NodeExchangeReplay {
 		sendPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		sendPacket.setDestinationMac(session.getSrcMac());
 		
-		new SendSocket().makeRaleyPacket(sendPacket);
+//		new SendSocket().makeRaleyPacket(sendPacket);
 		new SendSocket().makeRaleyPacket(sendPacket);
 	}
 	public static void  sendReplay(Packet recvPacket) {
@@ -79,14 +79,25 @@ public class NodeExchangeReplay {
 		sendPacket.setSequenceNum(recvPacket.getSequenceNum());
 		sendPacket.createData(dataList);
 		
+//		int sNum = SendSocket.getSequenceNUM();
+//		sendPacket.setSequenceNum(sNum);
+//
+//		new SendSocket().makeRaleyPacket(sendPacket);	
+//		new SendSocket().makeRaleyPacket(sendPacket);
+		
+		
+		Log.d(tag,"send"+recvPacket.getTypeNum() +":"+ sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
+		new SendSocket().makeNewPacket(sendPacket);	
+	}
+	private static void newSend(Packet sendPacket) {
 		int sNum = SendSocket.getSequenceNUM();
 		sendPacket.setSequenceNum(sNum);
 
 		new SendSocket().makeRaleyPacket(sendPacket);	
 		new SendSocket().makeRaleyPacket(sendPacket);
 		
+	}
+	private static void RelaySend() {
 		
-		Log.d(tag,"send"+recvPacket.getTypeNum() +":"+ sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
-		//new SendSocket().makeNewPacket(sendPacket);	
 	}
 }

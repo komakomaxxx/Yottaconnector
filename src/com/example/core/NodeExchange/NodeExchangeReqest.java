@@ -71,7 +71,7 @@ public class NodeExchangeReqest {
 
 		//送信
 		new SendSocket().makeRaleyPacket(recvPacket);
-		new SendSocket().makeRaleyPacket(recvPacket);
+		//new SendSocket().makeRaleyPacket(recvPacket);
 	}
 	//起点として送信
 	public static void  sendReqest() {
@@ -97,11 +97,11 @@ public class NodeExchangeReqest {
 		
 		int sNum = SendSocket.getSequenceNUM();
 		sendPacket.setSequenceNum(sNum);
-		new SendSocket().makeRaleyPacket(sendPacket);
-		new SendSocket().makeRaleyPacket(sendPacket);
+//		new SendSocket().makeRaleyPacket(sendPacket);
+//		new SendSocket().makeRaleyPacket(sendPacket);
 		
 		Log.d(tag, "send "+sendPacket.getTypeNum());
-		//new SendSocket().makeNewPacket(sendPacket);
+		new SendSocket().makeNewPacket(sendPacket);
 		
 		
 	}
