@@ -88,6 +88,10 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 		setAdapter();
 	}
 	
+	/**
+	 * ビュー破棄時のメソッド
+	 * イベントを全て消す
+	 */
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();

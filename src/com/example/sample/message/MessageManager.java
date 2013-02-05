@@ -3,12 +3,9 @@ package com.example.sample.message;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -31,25 +28,15 @@ public class MessageManager {
 	/**
 	 * このクラスで管理するメッセージリストのマップ
 	 */
-	private static Map<String, List<Message>> mesMap;
+	private static Map<String, List<Message>> mesMap = new HashMap<String, List<Message>>();
 	/**
 	 * 待ち状態のメッセージを保持するクラス変数
 	 */
-	private static Message waitMessage;
+	private static Message waitMessage = null;
 	/**
 	 * ハンドラー
 	 */
-	private static Handler handler;
-	
-	/**
-	 * static初期化ブロック
-	 */
-	static {
-		mesMap = new HashMap<String, List<Message>>();
-		waitMessage = null;
-		handler = new Handler();
-	}
-	
+	private static Handler handler = new Handler();
 	/**
 	 * コンストラクタ
 	 * 
@@ -177,7 +164,6 @@ public class MessageManager {
 	 */
 	public static void onArrangeWaitMessage() {
 		int state = waitMessage.mStatus;
-		Log.e("", "Hasegawa");
 		if(state != Message.WAIT) {
 			if(state == Message.SUCCESS) {
 				mesMap.get(waitMessage.getMACAddr()).add(waitMessage);
