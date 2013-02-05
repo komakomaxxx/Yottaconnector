@@ -87,6 +87,6 @@ public class NodeExchangeReplay {
 		
 		
 		Log.d(tag,"send"+recvPacket.getTypeNum() +":"+ sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
-		new SendSocket().makeNewPacket(sendPacket);	
+		//new SendSocket().makeNewPacket(sendPacket);	
 	}
 }
