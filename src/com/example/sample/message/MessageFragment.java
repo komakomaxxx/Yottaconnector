@@ -33,7 +33,7 @@ import android.widget.TextView;
  * @version 6
  * @since 1/23/2013
  */
-public class MessageFragment extends DialogFragment implements TextWatcher, View.OnClickListener, MessageNotify.MessageListener, OnKeyListener {
+public class MessageFragment extends DialogFragment implements TextWatcher, View.OnClickListener, MessageNotify.MessageListener, OnKeyListener, MessageReserveNotify.MessageReserve {
 	/**
 	 * メッセージリストに使用するアダプタ
 	 */
@@ -51,9 +51,17 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	private MessageNotify notify;
 	/**
+	 * 受信イベント
+	 */
+	private MessageReserveNotify notify2;
+	/**
 	 * EditText
 	 */
 	private EditText edt;
+	/**
+	 * リスト長さ保持
+	 */
+	private int length;
 	
 	/**
 	 * static初期化ブロック
@@ -80,6 +88,13 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 		setAdapter();
 	}
 	
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		notify.removeListener();
+		notify2.removeListener();
+	}
+	
 	/**
 	 * このフラグメントのダイアログを作成し
 	 * 設定を行う。
@@ -99,6 +114,9 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 		newDialog.setOnKeyListener(this);
 		notify = new MessageNotify(getActivity());
 		notify.setListener(this);
+		notify2 = new MessageReserveNotify();
+		notify2.setListener(this);
+		notify2.start();
 		return newDialog;
 	}
 	
@@ -140,6 +158,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 			adapter = new MessageAdapter();
 		}
 		adapter.setList(node);
+		length = MessageManager.getList(node.getMACAddr()).size();
 	}
 	
 	/**
@@ -194,6 +213,24 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 				((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
 			}
 		});
+	}
+	
+	/**
+	 * メッセージ受信チェック関数
+	 * 取得済みのリストの長さと違った場合はリストビューを更新させ
+	 * 長さを取得する
+	 */
+	@Override
+	public synchronized void checkMessageList() {
+		int len = MessageManager.getList(node.getMACAddr()).size();
+		if(length != len) {
+			handler.post(new Runnable() {
+				public void run() {
+					((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
+				}
+			});
+			length = len;
+		}
 	}
 	
 	/**

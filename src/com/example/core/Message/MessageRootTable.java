@@ -1,6 +1,9 @@
 package com.example.core.Message;
 
 import java.util.ArrayList;
+
+import android.util.Log;
+
 import com.example.core.Packet;
 
 public class MessageRootTable {
@@ -30,7 +33,6 @@ public class MessageRootTable {
 	//引数のマックアドレスに関連付けられるルートテーブルを返却する
 	//ルートテーブルが存在しない場合nullを返す
 	static public synchronized MessageRoot getRoot(String sourceMac,String destMack){
-		
 		MessageRoot findRoot =  new MessageRoot(sourceMac,destMack);
 	
 		return findList(findRoot);

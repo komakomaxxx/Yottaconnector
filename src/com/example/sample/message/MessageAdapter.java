@@ -11,7 +11,6 @@ import com.example.sample.message.MessageManager.Message;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +34,6 @@ public class MessageAdapter extends BaseAdapter {
 	 * ノード
 	 */
 	private Node node;
-	/**
-	 * ハンドラー
-	 */
-	private Handler handler;
 	
 	/**
 	 * static初期化ブロック
@@ -89,23 +84,6 @@ public class MessageAdapter extends BaseAdapter {
 		return id;
 	}
 	
-	/**
-	 * アダプタで使用しているリストにメッセージを追加する
-	 * 
-	 * @param message メッセージの内容
-	 */
-	public void add(String message) {
-		MessageManager.add(node.getMACAddr(), message, true);
-		if(handler == null) {
-			handler = new Handler();
-		}
-		handler.post(new Runnable() {
-			public void run() {
-				notifyDataSetChanged();
-			}
-		});
-	}
-
 	/**
 	 * getView
 	 * 
