@@ -94,7 +94,7 @@ public class SendSocket implements Runnable{
 			Log.d("NodeREQ Send",packet.getTypeNum()+":"+ packet.getOriginalSourceMac() +"->"+packet.getOriginalDestinationMac());
 		}
 		
-		SendCharArray = makePacket(packet);
+		SendCharArray = makePacket(packet,getSequenceNUM());
 		
 		
 		thread = new Thread(this);
@@ -104,11 +104,11 @@ public class SendSocket implements Runnable{
 	public void makeRaleyPacket(Packet packet){
 		packet.hoplimitDecrement();
 		//Log.d("SendSocket","SendCharArray length is" + SendCharArray.length);
-		SendCharArray = makePacket(packet);
+		SendCharArray = makePacket(packet,packet.getSequenceNum());
 		thread = new Thread(this);
 		thread.start();
 	}
-	public char[] makePacket(Packet p){
+	public char[] makePacket(Packet p,int snum){
 		
 		StringBuffer Buf = new StringBuffer(1500);
 		char stx = 0x02;
@@ -139,7 +139,7 @@ public class SendSocket implements Runnable{
 		Buf.append(hl);
 
 		//シーケンスナンバ
-		String ssnum = Integer.toHexString(getSequenceNUM());
+		String ssnum = Integer.toHexString(snum);
 		ssnum = String.format("%08x", Integer.parseInt(ssnum,16));
 		Buf.append(ssnum);
 		
