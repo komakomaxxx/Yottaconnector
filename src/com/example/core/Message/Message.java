@@ -20,8 +20,8 @@ public class Message {
 	public static final SimpleDateFormat timeFormat;
 	
 	static{
-		INT_SHIFT = Integer.SIZE-1;
-		bitMask = 0x80000000;
+		INT_SHIFT = Integer.SIZE-2;
+		bitMask = 0x08000000;
 		timeFormat = new SimpleDateFormat("kk'時'mm'分'ss'秒'");
 		SESSION_MAX = bitMask;
 	}
