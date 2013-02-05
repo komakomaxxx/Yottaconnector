@@ -31,6 +31,8 @@ public class MessageACK {
 	public static void sendMessageACK(Packet packet){
 		MessageRoot root;
 		
+		Log.d(tag,"sendMessageAck");
+		
 		packet.setType(Packet.MessageAck);
 		packet.setHopLimit(Packet.HopLimitMax);
 		packet.exOriginalMac();
@@ -39,9 +41,11 @@ public class MessageACK {
 		if(Message.checkFlg(packet.getTypeNum())){
 			setSimplexRootTable(packet);
 			packet.setDestinationMac(YottaConnector.MyNode.getMACAddr());
+		Log.d(tag,"sendMessageAck:CreateRootTable");
 		}else{
 		//ルートテーブル使用であれば
 			root = updateSimplexRootTable(packet);
+		Log.d(tag,"sendMessageAck:UseRootTable["+root);
 			if(root == null){
 				return;
 			}
@@ -51,6 +55,7 @@ public class MessageACK {
 		
 		packet.setData(null);
 		
+		Log.d(tag,"[packet]"+packet.getOriginalSourceMac()+">"+packet.getOriginalDestinationMac());
 		//パケット送信
 		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeNewPacket(packet);
