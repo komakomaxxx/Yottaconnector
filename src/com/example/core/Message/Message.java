@@ -62,8 +62,7 @@ public class Message {
 		String tag = "sendMessage";
 		
 		Log.d(tag,oDestMac);
-		//メッセージをリストに登録
-		MessageManager.add(oDestMac, message, true);
+		
 		
 		//メッセージ番号を取得
 		typeNum = MessageManager.getCount(oDestMac) % SESSION_MAX;
@@ -93,9 +92,13 @@ public class Message {
 		//セッション登録
 		MessageSessionList.addSession(sendPacket);
 		
+		//メッセージ登録
+		MessageManager.add(sendPacket.getOriginalSourceMac(),sendData.get(0),sendData.get(1),true);
+		
 		//パケット送信
 		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeNewPacket(sendPacket);
+		
 	}
 	
 	//自端末宛メッセージ処理
@@ -107,7 +110,7 @@ public class Message {
 		dataList = packet.putData();
 		
 		//メッセージ登録
-		res = MessageManager.add(packet.getOriginalSourceMac(),dataList.get(0),true);
+		res = MessageManager.add(packet.getOriginalSourceMac(),dataList.get(0),dataList.get(1),false);
 		
 		//ヘッダー登録
 		ReceiveMessageManager.addReceiveMessage(res);

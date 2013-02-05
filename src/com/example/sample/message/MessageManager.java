@@ -101,7 +101,7 @@ public class MessageManager {
 	 * @param message メッセージ
 	 * @param mine 自ノードのメッセージであるかどうかのboolean
 	 */
-	public static Message add(String mac, String message, boolean mine) {
+	public static Message add(String mac, String message, String date, boolean mine) {
 		Message result;
 		
 		synchronized(mesMap) {
@@ -109,11 +109,11 @@ public class MessageManager {
 				add(mac);
 			}
 			if(mine) {
-					waitMessage = new Message(mac, mesMap.get(mac).size(), message, new Date(), mine, Message.WAIT);
+					waitMessage = new Message(mac, mesMap.get(mac).size(), message, date, mine, Message.WAIT);
 					result = waitMessage;
 			} else {
 				List<Message> list = mesMap.get(mac);
-				result = new Message(mac, mesMap.get(mac).size(), message, new Date(), mine, Message.SUCCESS);
+				result = new Message(mac, mesMap.get(mac).size(), message, date, mine, Message.SUCCESS);
 				list.add(result);
 			}
 			
@@ -223,11 +223,11 @@ public class MessageManager {
 		public static final int WAIT = 0;
 		public static final int SUCCESS = 1;
 		public static final int FAILED = 2;
-		private final SimpleDateFormat timeFormat = new SimpleDateFormat("kk'時'mm'分'ss'秒'");
+//		private final SimpleDateFormat timeFormat = new SimpleDateFormat("kk'時'mm'分'ss'秒'");
 		private String mac;
 		private int mesId;
 		private String message;
-		private Date date;
+		private String date;
 		private boolean mine;
 		private int mStatus;
 		
@@ -241,7 +241,7 @@ public class MessageManager {
 		 * @param mine 自ノードのものであるかのboolean
 		 * @param state 現在の状態
 		 */
-		public Message(String mac, int mesId, String message, Date date, boolean mine, int state) {
+		public Message(String mac, int mesId, String message, String date, boolean mine, int state) {
 			this.mac = mac;
 			this.mesId = mesId;
 			this.message = message;
@@ -283,7 +283,7 @@ public class MessageManager {
 		 * @return 日付の文字列
 		 */
 		public String getDate() {
-			return timeFormat.format(this.date);
+			return date;
 		}
 		
 		/**

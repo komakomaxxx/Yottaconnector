@@ -2,15 +2,19 @@ package com.example.core.Message;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+
 import com.example.yottaconnecter.*;
 import com.example.core.Packet;
 import com.example.core.SendSocket;
 import com.example.sample.message.*;
 
 public class MessageACK {
+	private static String tag = "MessageACK";
 	
 	public static void cntrol(Packet packet){
 		
+		Log.d(tag,"cntrol"+packet.getOriginalSourceMac());
 		//OriginalDestinationMacが自分宛のパケットでない場合
 		if(packet.getOriginalDestinationMac().compareTo(YottaConnector.MyNode.getMACAddr()) != 0){
 			
