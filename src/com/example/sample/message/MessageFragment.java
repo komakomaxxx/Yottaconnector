@@ -1,5 +1,6 @@
 package com.example.sample.message;
 
+import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.R;
 
@@ -42,9 +43,9 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	private Handler handler = new Handler();
 	/**
-	 * マックアドレス保持
+	 * ノード保持
 	 */
-	private static String mac;
+	private static Node node;
 	/**
 	 * イベント
 	 */
@@ -72,10 +73,10 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	/**
 	 * コンストラクタ
 	 * 
-	 * @param mac　宛先マックアドレス
+	 * @param node ノード
 	 */
-	public MessageFragment(String mac) {
-		MessageFragment.mac = mac;
+	public MessageFragment(Node node) {
+		MessageFragment.node = node;
 		setAdapter();
 	}
 	
@@ -121,10 +122,10 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 		edt.addTextChangedListener(this);
 		
 		TextView tv = (TextView) mesView.findViewById(R.id._mName);
-		tv.setText(NodeList.searchId(mac) + "へのメッセージ");
+		tv.setText(node.getName() + "へのメッセージ");
 		
 		ImageView iv = (ImageView) mesView.findViewById(R.id._mIcon);
-		iv.setImageBitmap(NodeList.searchIcon(getResources(), mac));
+		iv.setImageBitmap(node.getRadarIcon());
 		
 		return mesView;
 	}
@@ -138,7 +139,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 		if(adapter == null) {
 			adapter = new MessageAdapter();
 		}
-		adapter.setList(mac);
+		adapter.setList(node);
 	}
 	
 	/**
@@ -247,9 +248,9 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 * @since 1/23/2013
 	 */
 	public static class Builder {
-		public MessageFragment create(Context context, String mac) {
+		public MessageFragment create(Context context, Node node) {
 			MessageManager.setContext(context);
-			MessageFragment dialog = new MessageFragment(mac);
+			MessageFragment dialog = new MessageFragment(node);
 			return dialog;
 		}
 	}

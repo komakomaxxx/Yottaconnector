@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import com.example.yottaconnecter.NodeList;
+import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.R;
 import com.example.sample.message.MessageManager.Message;
 
@@ -32,9 +32,9 @@ public class MessageAdapter extends BaseAdapter {
 	 */
 	private static List<Message> mList;
 	/**
-	 * マックアドレス
+	 * ノード
 	 */
-	private String macAddr;
+	private Node node;
 	/**
 	 * ハンドラー
 	 */
@@ -52,10 +52,11 @@ public class MessageAdapter extends BaseAdapter {
 	 * 
 	 * @param mac 宛先マックアドレス
 	 */
-	public void setList(String mac) {
-		MessageAdapter.mList = MessageManager.getList(mac);
-		this.macAddr = mac;
+	public void setList(Node node) {
+		MessageAdapter.mList = MessageManager.getList(node.getMACAddr());
+		this.node = node;
 	}
+	
 	
 	/**
 	 * 現在のリストの個数を返す
@@ -94,7 +95,7 @@ public class MessageAdapter extends BaseAdapter {
 	 * @param message メッセージの内容
 	 */
 	public void add(String message) {
-		MessageManager.add(macAddr, message, true);
+		MessageManager.add(node.getMACAddr(), message, true);
 		if(handler == null) {
 			handler = new Handler();
 		}
@@ -143,8 +144,8 @@ public class MessageAdapter extends BaseAdapter {
 				holder = (ViewHolder) v.getTag();
 			}
 			IconTask task = new IconTask(holder.viewIcon);
-			task.execute(NodeList.searchIcon(parent.getResources(), currentMessage.getMACAddr()));
-			holder.viewUserId.setText(NodeList.searchId(currentMessage.getMACAddr()));
+			task.execute(node.getRadarIcon());
+			holder.viewUserId.setText(node.getName());
 		}
 		holder.viewMesText.setText(currentMessage.getMessageText());
 		holder.viewTime.setText(currentMessage.getDate());

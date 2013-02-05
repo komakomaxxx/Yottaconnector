@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.example.sample.message.MessageFragment;
 import com.example.sample.message.MessageManager;
+import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.R;
 import com.example.yottaconnecter.Setting_fragment;
 
@@ -125,7 +126,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 			ReceiveMessageManager.removeReceiveMessage(item);
 			
 			MessageManager.setContext(getActivity());
-			new MessageFragment(item.getMACAddr()).show(getFragmentManager(), getTag());
+			new MessageFragment(NodeList.getNode(item.getMACAddr())).show(getFragmentManager(), getTag());
 			if(ReceiveMessageManager.size() == 0){
 				callSlider();
 			}

@@ -117,24 +117,6 @@ Log.d("NodeListAdd", n.getMACAddr());
 		return bmp;
 	}
 	
-	/**
-	 * マックアドレスに対応するユーザIDを取得する
-	 * ない場合はUserIdとする
-	 * 
-	 * @param mac IDを取得したいノードのマックアドレス
-	 * @return　UserID
-	 */
-	public static String searchId(String mac) {
-		String str = "UserId";
-		for(Iterator<Node> it = NodeList.nodelist.iterator(); it.hasNext(); ) {
-			String id = it.next().getMACAddr();
-			if(mac.equals(id)){
-				str = id;
-				break;
-			}
-		}
-		return str;
-	}	
 	public void testMakeNodeList(){
 
 		for(int i=0;i < 100;i++){
