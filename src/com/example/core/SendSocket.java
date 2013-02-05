@@ -76,7 +76,7 @@ public class SendSocket implements Runnable{
 	
 
 	
-	private synchronized int getSequenceNUM(){
+	public static synchronized int getSequenceNUM(){
 		return SequenceNUM++;
 	}
 
