@@ -1,7 +1,7 @@
 package com.example.sample.message;
 
+import com.example.core.Message.Message;
 import com.example.yottaconnecter.Node;
-import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.R;
 
 import android.support.v4.app.DialogFragment;
@@ -41,7 +41,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	/**
 	 * ハンドラー
 	 */
-	private Handler handler = new Handler();
+	private static Handler handler = new Handler();
 	/**
 	 * ノード保持
 	 */
@@ -176,9 +176,9 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	public void onClick(View v) {
 		if(v.getId() == R.id._MessageButton) {
 			EditText edt = (EditText) getDialog().getWindow().findViewById(R.id._MessageTextArea);
-			adapter.add(edt.getText().toString());
+			Message.sendMessage(edt.getText().toString(), node.getMACAddr());
 			edt.getEditableText().clear();
-//			notify.start();
+			notify.start();
 		}
 	}
 	
@@ -240,6 +240,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	public void onDialogClose() {
 		getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
 	}
+	
 	/**
 	 * メッセージダイアログのビルダ
 	 * 
