@@ -102,7 +102,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 
       	//Helloの定期送信
       	Hello.startSendHello(10000);
-      	NodeExchangeReqest.startSendTimer(10000);
+      	NodeExchangeReqest.startSendTimer(20000);
       	
     }
 
