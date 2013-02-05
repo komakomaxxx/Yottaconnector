@@ -101,17 +101,23 @@ public class MessageManager {
 	 * @param message メッセージ
 	 * @param mine 自ノードのメッセージであるかどうかのboolean
 	 */
-	public static void add(String mac, String message, boolean mine) {
+	public static Message add(String mac, String message, boolean mine) {
+		Message result;
+		
 		synchronized(mesMap) {
 			if(!mesMap.containsKey(mac)) {
 				add(mac);
 			}
 			if(mine) {
 					waitMessage = new Message(mac, mesMap.get(mac).size(), message, new Date(), mine, Message.WAIT);
+					result = waitMessage;
 			} else {
 				List<Message> list = mesMap.get(mac);
-				list.add(new Message(mac, mesMap.get(mac).size(), message, new Date(), mine, Message.SUCCESS));
+				result = new Message(mac, mesMap.get(mac).size(), message, new Date(), mine, Message.SUCCESS);
+				list.add(result);
 			}
+			
+			return result;
 		}
 	}
 	

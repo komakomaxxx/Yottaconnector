@@ -8,6 +8,7 @@ import java.util.List;
 import com.example.yottaconnecter.*;
 import com.example.core.Packet;
 import com.example.core.SendSocket;
+import com.example.sample.header.ReceiveMessageManager;
 import com.example.sample.message.*;
 
 public class Message {
@@ -95,12 +96,16 @@ public class Message {
 	//自端末宛メッセージ処理
 	private static void receptMessage(Packet packet){
 		ArrayList<String> dataList;
+		MessageManager.Message res;
 		
 		//ペイロード切り分け
 		dataList = packet.putData();
 		
 		//メッセージ登録
-		MessageManager.add(packet.getOriginalSourceMac(),dataList.get(0),true);
+		res = MessageManager.add(packet.getOriginalSourceMac(),dataList.get(0),true);
+		
+		//ヘッダー登録
+		ReceiveMessageManager.addReceiveMessage(res);
 		
 		if(checkFlg(packet.getTypeNum())){
 			//セッション保存
