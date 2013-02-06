@@ -213,7 +213,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	public synchronized void onCheckMessages() {
 		int state = MessageManager.onArrangeWaitMessage();
-		Log.d("", "StateValue:[" + state + "]");
+		Log.d("onCheckMessage", "StateValue:[" + state + "]");
 		if(state == MessageManager.Message.SUCCESS) {
 			handler.post(new Runnable() {
 				public void run() {
