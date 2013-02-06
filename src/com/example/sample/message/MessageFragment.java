@@ -35,10 +35,6 @@ import android.widget.Toast;
  */
 public class MessageFragment extends DialogFragment implements TextWatcher, View.OnClickListener, MessageNotify.MessageListener, OnKeyListener, MessageReserveNotify.MessageReserve {
 	/**
-	 * メッセージリストに使用するアダプタ
-	 */
-	private static MessageAdapter adapter;
-	/**
 	 * ハンドラー
 	 */
 	private static Handler handler = new Handler();
@@ -68,7 +64,6 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 * 回転時に必要
 	 */
 	public MessageFragment() {
-		setAdapter();
 	}
 	
 	/**
@@ -78,7 +73,6 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	public MessageFragment(Node node) {
 		MessageFragment.node = node;
-		setAdapter();
 	}
 	
 	/**
@@ -127,7 +121,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 		View mesView = getActivity().getLayoutInflater().inflate(R.layout.message_fragment, null);
 		
 		lview = (ListView) mesView.findViewById(R.id._MessageListView);
-		lview.setAdapter(adapter);
+		lview.setAdapter(MessageManager.getAdapter(MessageFragment.node));
 		
 		ImageButton ibtn = (ImageButton) mesView.findViewById(R.id._MessageButton);
 		ibtn.setOnClickListener(this);
@@ -143,20 +137,6 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 		iv.setImageBitmap(node.getRadarIcon());
 		
 		return mesView;
-	}
-	
-	/**
-	 * リストビューに使うアダプタを設定する
-	 * 
-	 * @param mac 宛先マックアドレス
-	 */
-	private void setAdapter() {
-		if(adapter == null) {
-			adapter = new MessageAdapter();
-		}
-		if(node != null) {
-			adapter.setList(node);
-		}
 	}
 	
 	/**

@@ -1,12 +1,15 @@
 package com.example.sample.message;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import com.example.yottaconnecter.Node;
 
 /**
  * メッセージ関連を管理するクラス
@@ -24,13 +27,32 @@ public class MessageManager {
 	 * 待ち状態のメッセージを保持するクラス変数
 	 */
 	private static Message waitMessage;
-
+	/**
+	 * adapter
+	 */
+	private static MessageAdapter adapter;
+	
 	/**
 	 * static初期化ブロック
 	 */
 	static {
 		mesMap = new HashMap<String, List<Message>>();
 		waitMessage = null;
+	}
+	
+	/**
+	 * リストビューに使うアダプタを設定する
+	 * 
+	 * @param mac 宛先マックアドレス
+	 */
+	public static MessageAdapter getAdapter(Node node) {
+		if(adapter == null) {
+			adapter = new MessageAdapter();
+		}
+		if(node != null) {
+			adapter.setList(node);
+		}
+		return adapter;
 	}
 	
 	/**
@@ -151,11 +173,11 @@ public class MessageManager {
 	 */
 	public static synchronized int onArrangeWaitMessage() {
 		if(waitMessage != null) {
-			int state = waitMessage.mStatus;
+			int state = waitMessage.getState();
+			Log.d("Hasegawa:check", "state" + state);
 			if(state != Message.WAIT) {
 				if(state == Message.SUCCESS) {
-					List<Message> list = mesMap.get(waitMessage.getMACAddr());
-					list.add(waitMessage);
+					adapter.add(waitMessage);
 				}
 				waitMessage = null;
 				return state;

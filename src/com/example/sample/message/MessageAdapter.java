@@ -85,6 +85,15 @@ public class MessageAdapter extends BaseAdapter {
 	}
 	
 	/**
+	 * add
+	 * 
+	 * @param message
+	 */
+	public void add(Message message) {
+		mList.add(message);
+	}
+	
+	/**
 	 * getView
 	 * 
 	 * @param locaiton 場所
