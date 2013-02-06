@@ -52,7 +52,7 @@ public class MessageSessionList {
 	}
 	
 	static public synchronized void removeSession(MessageSession messageSession,boolean flg){
-		String tag = "removeSession";
+		String tag = "removeMessageSession";
 		Log.d(tag,messageSession.getOriginalSourceMac());
 		messageSession.timerClear();
 		SessionList.remove(messageSession);
@@ -61,8 +61,10 @@ public class MessageSessionList {
 			int status;
 			if(flg){
 				status = MessageManager.Message.SUCCESS;
+		Log.d(tag,"true["+status);
 			}else{
 				status = MessageManager.Message.FAILED;
+		Log.d(tag,"false["+status);
 			}
 			MessageManager.getWaitMessage().setState(status);
 		}

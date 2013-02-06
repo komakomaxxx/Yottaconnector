@@ -16,9 +16,12 @@ public class MessageRootTable {
 	
 	//引数のパケットに関連付けられるルートテーブルを作成する
 	static public synchronized void addRoot(Packet packet,String forwardMac){
+		MessageRoot root;
 		removeRoot(getRoot(packet));
 		
-		MessageRootTable.add(new MessageRoot(packet,forwardMac));
+		root = new MessageRoot(packet,forwardMac);
+		MessageRootTable.add(root);
+		root.timerStart();
 	}
 	
 	//引数のパケットに関連付けられるルートテーブルを返却する

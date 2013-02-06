@@ -77,6 +77,8 @@ public class MessageACK {
 		//セッション削除
 		MessageSessionList.removeSession(session,true);
 		
+		Log.d(tag,"[receptMessageACKpacket]"+packet.getOriginalSourceMac()+">"+packet.getOriginalDestinationMac()+":"+packet.getSourceMac());
+		//パケット送信
 		//ルーティングテーブル作成であれば
 		if(Message.checkFlg(packet.getTypeNum())){
 			//ルーティングテーブルを作成する
