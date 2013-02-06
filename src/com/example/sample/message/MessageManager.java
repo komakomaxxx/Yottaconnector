@@ -150,12 +150,13 @@ public class MessageManager {
 	 * 待ち状態のメッセージを処理する
 	 * 送信が失敗した場合は、トーストを表示しその旨を伝える
 	 */
-	public static int onArrangeWaitMessage() {
+	public static synchronized int onArrangeWaitMessage() {
 		if(waitMessage != null) {
 			int state = waitMessage.mStatus;
 			if(state != Message.WAIT) {
 				if(state == Message.SUCCESS) {
-					mesMap.get(waitMessage.getMACAddr()).add(waitMessage);
+					List<Message> list = mesMap.get(waitMessage.getMACAddr());
+					list.add(waitMessage);
 					Log.d("onArrageWaitMessage", "Adding wait message! Address:[" + waitMessage.getMACAddr() + "]");
 				}
 				waitMessage = null;

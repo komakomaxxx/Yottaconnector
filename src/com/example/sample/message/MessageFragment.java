@@ -65,13 +65,6 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	private int length;
 	
 	/**
-	 * static初期化ブロック
-	 */
-	static {
-		adapter = new MessageAdapter();
-	}
-	
-	/**
 	 * コンストラクタ
 	 * 回転時に必要
 	 */
@@ -215,11 +208,11 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	public synchronized void onCheckMessages() {
 		int state = MessageManager.onArrangeWaitMessage();
-		Log.d("onCheckMessage", "StateValue:[" + state + "]");
 		if(state == MessageManager.Message.SUCCESS) {
 			handler.post(new Runnable() {
 				public void run() {
 					Log.d("onCheckMessage", "invalidateViews");
+					setAdapter();
 					((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
 				}
 			});
