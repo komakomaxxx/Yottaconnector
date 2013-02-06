@@ -2,16 +2,12 @@ package com.example.sample.message;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Handler;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import com.example.yottaconnecter.R;
 
 /**
  * メッセージ関連を管理するクラス
@@ -33,18 +29,13 @@ public class MessageManager {
 	 * 待ち状態のメッセージを保持するクラス変数
 	 */
 	private static Message waitMessage;
-	/**
-	 * ハンドラー
-	 */
-	private static Handler mesHandler;
-	
+
 	/**
 	 * static初期化ブロック
 	 */
 	static {
 		mesMap = new HashMap<String, List<Message>>();
 		waitMessage = null;
-		mesHandler = new Handler();
 	}
 	
 	/**
@@ -172,22 +163,21 @@ public class MessageManager {
 	 * 待ち状態のメッセージを処理する
 	 * 送信が失敗した場合は、トーストを表示しその旨を伝える
 	 */
-	public static void onArrangeWaitMessage() {
+	public static int onArrangeWaitMessage() {
 		if(waitMessage != null) {
 			int state = waitMessage.mStatus;
 			if(state != Message.WAIT) {
 				if(state == Message.SUCCESS) {
 					mesMap.get(waitMessage.getMACAddr()).add(waitMessage);
 				} else {
-					mesHandler.post(new Runnable() {
-						public void run() {
-							Toast.makeText(context, R.string.mes_err, Toast.LENGTH_LONG).show();
-						}
-					});
+					return Message.FAILED;
 				}
 				waitMessage = null;
+				return state;
 			}
+			return Message.WAIT;
 		}
+		return Message.WAIT;
 	}
 	
 	/**

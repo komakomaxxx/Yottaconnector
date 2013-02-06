@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * メッセージフラグメントのクラス
@@ -207,16 +208,20 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	
 	/**
 	 * waitMessageに残っている場合に呼ばれる
-	 * StateがSUCCESであれば追加し
-	 * StateがFALEDであれば削除する
+	 * stateがSUCCESであればリストビューを更新し
+	 * stateがFALEDであればトーストを表示する
 	 */
 	public synchronized void onCheckMessages() {
-		MessageManager.onArrangeWaitMessage();
-		handler.post(new Runnable() {
-			public void run() {
-				((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
-			}
-		});
+		int state = MessageManager.onArrangeWaitMessage();
+		if(state == MessageManager.Message.SUCCESS) {
+			handler.post(new Runnable() {
+				public void run() {
+					((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
+				}
+			});
+		} else  if(state == MessageManager.Message.FAILED){
+			Toast.makeText(getActivity(), R.string.mes_err, Toast.LENGTH_LONG).show();
+		}
 	}
 	
 	/**
