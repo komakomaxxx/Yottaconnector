@@ -1,6 +1,8 @@
 package com.example.sample.Radar;
 
 import com.example.sample.header.HeaderFragment;
+import com.example.sample.user.UserFragment;
+import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.R;
 import com.example.yottaconnecter.YottaConnector;
 
@@ -10,9 +12,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class RadarFragment extends Fragment  {
+public class RadarFragment extends Fragment  implements RadarTouch{
 
 	private View RadarLayoutView;
 	private RadarView radarView;
@@ -33,7 +36,6 @@ public class RadarFragment extends Fragment  {
 		RadarLayoutView = inflater.inflate(R.layout.radar_fragment, container, false);
 		
 		radarView = (RadarView) RadarLayoutView.findViewById(R.id.RadarView);
-		
 		return RadarLayoutView;
 	}
 
@@ -63,8 +65,21 @@ public class RadarFragment extends Fragment  {
 		sensorValues[1] = (event.values[1]);
 		sensorValues[2] = (event.values[2]);
 		if(radarView != null){
-			radarView.drawScreen(sensorValues,flag);
+			radarView.drawScreen(sensorValues,flag,this);
 		}
+	}
+
+	@Override
+	public void onRadarTouchNodeEvent(Node n) {
+		// TODO 自動生成されたメソッド・スタブ
+    	UserFragment.Builder bl = new UserFragment.Builder();
+    	bl.setNode(n);
+    	bl.create().show(getFragmentManager(), getTag());
+	}
+
+	@Override
+	public void onRadarTouchNodeEvent(String str) {
+		// TODO 自動生成されたメソッド・スタブ
 	}
 
 }

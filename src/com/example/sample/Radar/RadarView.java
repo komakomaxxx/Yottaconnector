@@ -1,9 +1,14 @@
 package com.example.sample.Radar;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.NodeList;
 
 import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -15,11 +20,13 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ScaleGestureDetector;
 import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RadarView extends View {
 	private boolean view_flag = false;
@@ -34,13 +41,16 @@ public class RadarView extends View {
 	private int currentY;
 	
 	
-	private ScaleGestureDetector _gestureDetector;
+	private GestureDetector gesDetect;
+	private RadarTouch RT;
 	
+	private List<drawNode> dn = new ArrayList<RadarView.drawNode>();
 
+	
 	public RadarView(Context context,AttributeSet attr) {
 		super(context,attr);
 		// TODO 自動生成されたコンストラクター・スタブ
-		_gestureDetector = new ScaleGestureDetector(context, _simpleListener);
+		//_gestureDetector = new ScaleGestureDetector(context, _simpleListener);
 	}
 	
 	protected void onSizeChanged(int w,int h,int oldw,int oldh){
@@ -51,7 +61,7 @@ public class RadarView extends View {
 	}
 	
 	//ピンチ操作関係
-	private SimpleOnScaleGestureListener _simpleListener
+/*	private SimpleOnScaleGestureListener _simpleListener
 		= new ScaleGestureDetector.SimpleOnScaleGestureListener(){
 		public boolean onScaleBigin(ScaleGestureDetector detector){
 			
@@ -74,7 +84,7 @@ public class RadarView extends View {
 			}
 			return true;
 		};
-	};
+	};*/
 	/*
 	@Override
     public boolean onTouchEvent(MotionEvent ev) {
@@ -128,6 +138,33 @@ public class RadarView extends View {
         return true;
     }
     */
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		int range = 80;
+		int x = (int)event.getX();
+		int y = (int)event.getY();
+
+		Log.d("Radar","x=" + x + " y=" + y + " dn size =" + dn.size());
+		
+		if(event.getAction() == MotionEvent.ACTION_DOWN){
+			for (drawNode tdn : dn) {
+				Log.d("Radar",tdn.node.getName() + ":" + tdn.x + ":" + tdn.y);
+				if(	tdn.x > x-range &&
+					tdn.x < x &&
+					tdn.y > y-range &&
+					tdn.y < y){
+					Log.d("RadarTouch",tdn.node.getName() + ": SUCCESS" + event.getAction());
+					//RT.onRadarTouchNodeEvent(tdn.node.getName() + ": SUCCESS");
+					RT.onRadarTouchNodeEvent(tdn.node);
+					break;
+				}
+			}
+		}
+		
+		
+		return view_flag;
+	}
 
 	@Override
 	protected void onDraw(Canvas canvas){
@@ -184,13 +221,31 @@ public class RadarView extends View {
 		if(bitmap != null){
 			canvas.drawBitmap(bitmap, x + centerX, y + centerY, paint);
 		}
+		dn.add(new drawNode(data, x+ centerX, y + centerY));
 		
 	}
 
-	public void drawScreen(float[] sensorVal,boolean flag){
+	public void drawScreen(float[] sensorVal,boolean flag,RadarTouch rt){
 		//this.text = text;
 		view_flag = flag;
 		direction = (sensorVal[0] + 0) % 360;
+		this.RT = rt;
+		dn.clear();
 		invalidate();
+		
+	}
+	
+	public class drawNode{
+		public Node node;
+		public int x;
+		public int y;
+		
+		public drawNode(Node n,int x,int y) {
+			// TODO 自動生成されたコンストラクター・スタブ
+			this.node = n;
+			this.x = x;
+			this.y = y;
+			
+		}
 	}
 }
