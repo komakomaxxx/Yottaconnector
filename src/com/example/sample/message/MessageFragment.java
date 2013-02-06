@@ -217,7 +217,8 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 		if(state == MessageManager.Message.SUCCESS) {
 			handler.post(new Runnable() {
 				public void run() {
-					((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
+//					((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
+					adapter.notifyDataSetChanged();
 				}
 			});
 		} else  if(state == MessageManager.Message.FAILED){
