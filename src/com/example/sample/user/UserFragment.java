@@ -64,20 +64,29 @@ public class UserFragment extends DialogFragment implements OnClickListener, OnC
 		node = getArguments().getParcelable("node");
 		setNodeUserData(view);
 		setNodeYossipList(view);
+		
 		favoriteButton = (ToggleButton) view.findViewById(R.id.button_user_favorite);
-		favoriteButton.setOnCheckedChangeListener(this);
-
-		if(FriendListManager.sameNode(node) ){
-			favoriteButton.setChecked(false);
-		}
-		else{
-			favoriteButton.setChecked(true);
-		}
-
 		messageButton = (Button) view.findViewById(R.id.button_user_sendmessage);
-		messageButton.setOnClickListener(this);
-		fileButton = (Button) view.findViewById(R.id.button_user_sendfile);
-		fileButton.setOnClickListener(this);
+		
+		if(node.equals(YottaConnector.MyNode)){
+			favoriteButton.setEnabled(false);
+			messageButton.setEnabled(false);
+			
+		}else{
+			
+			favoriteButton.setOnCheckedChangeListener(this);
+	
+			if(FriendListManager.sameNode(node) ){
+				favoriteButton.setChecked(false);
+			}
+			else{
+				favoriteButton.setChecked(true);
+			}
+
+			messageButton.setOnClickListener(this);
+//			fileButton = (Button) view.findViewById(R.id.button_user_sendfile);
+//			fileButton.setOnClickListener(this);
+		}
 
 		return view;
 	}
