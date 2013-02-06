@@ -151,9 +151,9 @@ public class RadarView extends View {
 			for (drawNode tdn : dn) {
 				Log.d("Radar",tdn.node.getName() + ":" + tdn.x + ":" + tdn.y);
 				if(	tdn.x > x-range &&
-					tdn.x < x &&
+					tdn.x < x+10 &&
 					tdn.y > y-range &&
-					tdn.y < y){
+					tdn.y < y+10){
 					Log.d("RadarTouch",tdn.node.getName() + ": SUCCESS" + event.getAction());
 					//RT.onRadarTouchNodeEvent(tdn.node.getName() + ": SUCCESS");
 					RT.onRadarTouchNodeEvent(tdn.node);
