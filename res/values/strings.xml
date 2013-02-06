@@ -15,5 +15,6 @@
     <string name="mes_alert_message">メッセージを終了しますか？</string>
     <string name="mes_err">メッセージが送信されませんでした。</string>
     <string name="mes_full">送信中のメッセージがあります。\n送信が終了するまでは送信出来ません。</string>
+    <string name="user_err">ノード情報を取得できませんでした。</string>
 
 </resources>
