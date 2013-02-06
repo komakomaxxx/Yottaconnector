@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import com.example.core.Packet;
 
 	
-class MessageRoot extends TimerTask{
+class MessageRoot{
 	private Timer timeOut;
 	
 	private String OriginalSourceMac;
@@ -41,19 +41,19 @@ class MessageRoot extends TimerTask{
 		}
 	}
 
-	@Override
-	public void run() {
-		// TODO 自動生成されたメソッド・スタブ
-		MessageRootTable.removeRoot(this);
-	}
-	
 	public String getForwardMac(){
 		return ForwardMac;
 	}
 	
 	public void timerStart(){
 		timeOut = new Timer(true);
-		timeOut.schedule(this,100000);
+		timeOut.schedule(new TimerTask(){
+			@Override
+			public void run() {
+				// TODO 自動生成されたメソッド・スタブ
+				MessageRootTable.removeRoot(getInstance());
+			}
+		},100000);
 	}
 	
 	public void timerReStart(){
@@ -63,7 +63,10 @@ class MessageRoot extends TimerTask{
 	
 	public void timerClear(){
 		timeOut.cancel();
-		timeOut = null;
+	}
+	
+	private MessageRoot getInstance(){
+		return this;
 	}
 	
 	public boolean equals(Object obj){
