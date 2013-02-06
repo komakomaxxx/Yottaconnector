@@ -75,7 +75,7 @@ public class MessageACK {
 		
 		Log.d(tag,"reseptMessageACK:sessionOK");
 		//セッション削除
-		MessageSessionList.removeSession(session);
+		MessageSessionList.removeSession(session,true);
 		
 		//ルーティングテーブル作成であれば
 		if(Message.checkFlg(packet.getTypeNum())){
@@ -86,10 +86,6 @@ public class MessageACK {
 		//ルートテーブルを使用であれば
 			updateSimlexRootTableRe(packet);
 		}
-		
-		//メッセージマネージャに登録
-		MessageManager.getWaitMessage().setState(MessageManager.Message.SUCCESS);
-		Log.d(tag,"reseptMessageACK:succsess");
 	}
 	
 	private static void packetRelay(Packet packet){

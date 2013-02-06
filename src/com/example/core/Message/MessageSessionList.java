@@ -51,14 +51,20 @@ public class MessageSessionList {
 		return SessionList.get(index);
 	}
 	
-	static public synchronized void removeSession(MessageSession messageSession){
+	static public synchronized void removeSession(MessageSession messageSession,boolean flg){
 		String tag = "removeSession";
 		Log.d(tag,messageSession.getOriginalSourceMac());
 		messageSession.timerClear();
 		SessionList.remove(messageSession);
 		if(messageSession.getOriginalSourceMac().compareTo(YottaConnector.MyNode.getMACAddr()) == 0){
 			//メッセージマネージャから該当のメッセージの状態を送信失敗に変更する
-			MessageManager.getWaitMessage().setState(MessageManager.Message.FAILED);
+			int status;
+			if(flg){
+				status = MessageManager.Message.SUCCESS;
+			}else{
+				status = MessageManager.Message.FAILED;
+			}
+			MessageManager.getWaitMessage().setState(status);
 		}
 	}
 }

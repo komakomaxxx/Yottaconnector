@@ -24,7 +24,7 @@ class MessageSession extends TimerTask {
 	@Override
 	public void run() {
 		// TODO 自動生成されたメソッド・スタブ
-		MessageSessionList.removeSession(this);
+		MessageSessionList.removeSession(this,false);
 	}
 	
 	public String getSourceMac(){
