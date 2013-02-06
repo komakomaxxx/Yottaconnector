@@ -196,7 +196,9 @@ public class MessageManager {
 	 * @return　待ち状態のメッセージ
 	 */
 	public static Message getWaitMessage() {
-		return MessageManager.waitMessage;
+		synchronized(waitMessage) {
+			return MessageManager.waitMessage;
+		}
 	}
 	
 	/**
