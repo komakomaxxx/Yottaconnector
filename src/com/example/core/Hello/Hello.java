@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 import com.example.core.Packet;
 import com.example.core.SendSocket;
@@ -19,7 +20,7 @@ public class Hello {
 	private final static String tag = "Hello";
 	
 	static int typeSession = 0; 
-	static ArrayList<Node> nearNodeList = new ArrayList<Node>(10000);
+	static ArrayList<HelloNodeData> nearNodeList = new ArrayList<HelloNodeData>(10000);
 	static Timer sendTimer; 
 	
 	public static void recv(Packet recvPacket) {
@@ -33,7 +34,8 @@ public class Hello {
 		String profile = dataList.get(3);
 		
 		Log.d(tag,"[" +macAddr+":"+name+":"+ido+":"+keido+":"+profile  );
-		Node n = new Node(macAddr,name,ido,keido,null,profile);
+		//HelloNodeData n = new HelloNodeData(macAddr,name,ido,keido,null,profile);
+		HelloNodeData n = new HelloNodeData(macAddr,name,ido,keido,null,profile);
 		//node に追加
 		NodeList.addNode(n);
 		addNearNode(n);
@@ -41,8 +43,7 @@ public class Hello {
 	}
 	private static void sendHello() {
 		
-		NodeList.updateNearNodeList(nearNodeList);
-		nearNodeList.clear();
+		updateNearNodeList();
 	/*
 		パケット生成
 		大先、先をブロードキャスト
@@ -68,12 +69,10 @@ public class Hello {
 		//data部設定
 		sendPacket.createData(dataList);		
 		//送信
+Log.d(tag, "send Hello");
 		new SendSocket().makeNewPacket(sendPacket);
 	}
-	public synchronized static void  addNearNode(Node n) {
-		
-		nearNodeList.add(n);
-	}	
+	
 	public synchronized static int  getTypeSession() {
 		
 		int tmp = typeSession;
@@ -81,6 +80,39 @@ public class Hello {
 		
 		return tmp;
 	}
+	
+	//一応同期処理
+	public synchronized static void updateNearNodeList() {
+		//NodeListにnewNodeListを設定
+	
+		ArrayList<HelloNodeData> removeNodeList = new ArrayList<HelloNodeData>(1000);
+		for(HelloNodeData nd : nearNodeList){
+			if(nd.ttlDecrement() == false){
+				removeNodeList.add(nd);
+Log.d(tag, "Noderemove Hello:"+nd.getMACAddr());
+			}
+		}
+		nearNodeList.removeAll(removeNodeList);
+		ArrayList<Node> nodeList = new ArrayList<Node>();
+		for(HelloNodeData nd : nearNodeList){
+			  nodeList.add(nd);
+		}
+		
+		NodeList.updateNearNodeList(nodeList);
+		//UIに対して更新処理
+	}
+	public synchronized static void addNearNode(HelloNodeData n) {
+		
+		int i;		
+		i = nearNodeList.indexOf(n);
+		if(i != -1){
+			nearNodeList.set(i, n);
+		}else{
+			nearNodeList.add(n);
+		}		
+	}
+	
+	
 	//定期送信処理
 	public static void startSendHello(int time) {
 		if (sendTimer == null){
@@ -107,5 +139,23 @@ public class Hello {
 			sendHello();
 		}
 	}
+
+}
+class HelloNodeData  extends Node{
+
+	private int ttl = 2;
 	
+
+	HelloNodeData(String MACAddr, String Name, double ido, double keido,Bitmap Icon, String profile) {
+
+		super(MACAddr,Name,ido,keido,Icon,profile);
+	}
+	protected boolean ttlDecrement() {
+		ttl = ttl -1;
+Log.d("TTL Hello", ""+ ttl);
+		if(ttl <= 0){
+			return false;
+		}
+		return true;
+	}
 }

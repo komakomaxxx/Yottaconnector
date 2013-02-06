@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.example.core.Packet;
 import com.example.core.SendSocket;
-import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.YottaConnector;
 
 import android.util.Log;
@@ -27,7 +26,7 @@ public class HelloAck {
 			Double keido = Double.valueOf(dataList.get(2));
 			String profile = dataList.get(3);
 			
-			Node n = new Node(macAddr,name,ido,keido,null,profile);
+			HelloNodeData n = new HelloNodeData(macAddr,name,ido,keido,null,profile);
 			n.setNodeDirection(YottaConnector.MyNode.getIdo(),YottaConnector.MyNode.getKeido() );
 			//node に追加
 			Hello.addNearNode(n);
@@ -68,6 +67,7 @@ public class HelloAck {
 		//data部設定
 		sendPack.createData(dataList);
 		
+		Log.d(tag,"send Hello ACK to "+dstMac);
 		new SendSocket().makeNewPacket(sendPack);
 	}
 }
