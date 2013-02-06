@@ -1,7 +1,6 @@
 package com.example.sample.message;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -174,7 +173,6 @@ public class MessageManager {
 	public static synchronized int onArrangeWaitMessage() {
 		if(waitMessage != null) {
 			int state = waitMessage.getState();
-			Log.d("Hasegawa:check", "state" + state);
 			if(state != Message.WAIT) {
 				if(state == Message.SUCCESS) {
 					adapter.add(waitMessage);

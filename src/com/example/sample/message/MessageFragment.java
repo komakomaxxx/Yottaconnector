@@ -60,22 +60,6 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	private ListView lview;
 	
 	/**
-	 * コンストラクタ
-	 * 回転時に必要
-	 */
-	public MessageFragment() {
-	}
-	
-	/**
-	 * コンストラクタ
-	 * 
-	 * @param node ノード
-	 */
-	public MessageFragment(Node node) {
-		MessageFragment.node = node;
-	}
-	
-	/**
 	 * ビュー破棄時のメソッド
 	 * イベントを全て消す
 	 */
@@ -118,6 +102,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 * @return ビュー
 	 */
 	private View onCreateContentView() {
+		MessageFragment.node = this.getArguments().getParcelable("node");
 		View mesView = getActivity().getLayoutInflater().inflate(R.layout.message_fragment, null);
 		
 		lview = (ListView) mesView.findViewById(R.id._MessageListView);
@@ -287,7 +272,10 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	public static class Builder {
 		public MessageFragment create(Node node) {
-			MessageFragment dialog = new MessageFragment(node);
+			MessageFragment dialog = new MessageFragment();
+			Bundle bundle = new Bundle();
+			bundle.putParcelable("node", node);
+			dialog.setArguments(bundle);
 			return dialog;
 		}
 	}
