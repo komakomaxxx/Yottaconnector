@@ -160,6 +160,7 @@ public class NodeListFragment extends Fragment implements
 	}
 
 	public void onNodeChangeListener(int length) {
+		setNodeList();
 	}
 
 	// -------------------------inner--------------------------------
