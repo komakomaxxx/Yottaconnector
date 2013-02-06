@@ -27,8 +27,10 @@ public class NodeList {
 		List<Node> removelist = new ArrayList<Node>(nodelist);
 		//差分を削除する(消えたNodeの削除)
 		removelist.removeAll(newNodeList);
-		nodelist.removeAll(removelist);
-		
+
+
+Log.d("NodeRemove","remove size:"+removelist.size());
+	nodelist.removeAll(removelist);
 		//ノードの追加更新
 		for(Node n : newNodeList){
 			addNode(n);
@@ -38,6 +40,9 @@ public class NodeList {
 		List<Node> removelist = new ArrayList<Node>(nearnodelist);
 		//差分を削除する(消えたNodeの削除)
 		removelist.removeAll(newNearNodeList);
+
+
+Log.d("NodeRemove hello ","remove size:"+removelist.size());
 		nodelist.removeAll(removelist);
 		
 		nearnodelist = new ArrayList<Node>(newNearNodeList);
