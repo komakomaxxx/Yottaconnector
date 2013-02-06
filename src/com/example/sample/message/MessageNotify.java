@@ -48,9 +48,9 @@ public class MessageNotify implements Runnable{
      * スレッドを初期化し、スレッドを開始する
      */
     public void start() {
-		this.progressDialog.show();
 		thread = new Thread(this);
     	thread.start();
+		this.progressDialog.show();
     }
 
     /**

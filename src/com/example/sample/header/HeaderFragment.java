@@ -142,7 +142,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 							}
 						});
 					}
-				});
+				}).start();
 			}
 			if(ReceiveMessageManager.size() == 0){
 				callSlider();

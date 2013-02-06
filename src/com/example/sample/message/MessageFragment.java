@@ -7,7 +7,6 @@ import com.example.yottaconnecter.R;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -63,6 +62,10 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 * リスト長さ保持
 	 */
 	private int length;
+	/**
+	 * リストビュー
+	 */
+	private ListView lview;
 	
 	/**
 	 * コンストラクタ
@@ -127,7 +130,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	private View onCreateContentView() {
 		View mesView = getActivity().getLayoutInflater().inflate(R.layout.message_fragment, null);
 		
-		ListView lview = (ListView) mesView.findViewById(R.id._MessageListView);
+		lview = (ListView) mesView.findViewById(R.id._MessageListView);
 		lview.setAdapter(adapter);
 		
 		ImageButton ibtn = (ImageButton) mesView.findViewById(R.id._MessageButton);
@@ -209,32 +212,29 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	public synchronized void onCheckMessages() {
 		int state = MessageManager.onArrangeWaitMessage();
 		if(state == MessageManager.Message.SUCCESS) {
-			handler.post(new Runnable() {
-				public void run() {
-					Log.d("onCheckMessage", "invalidateViews");
-					setAdapter();
-					((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
-				}
-			});
-		} else  if(state == MessageManager.Message.FAILED){
-			/* 予備　トーストのハンドラーでエラー吐いたらこっちを使用
-			 * new Thread(new Runnable() {
+			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					handler.post(new Runnable() {
+					new Handler().post(new Runnable() {
+						@Override
+						public void run() {
+							lview.invalidateViews();
+						}
+					});
+				}
+			}).start();
+		} else  if(state == MessageManager.Message.FAILED){
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					new Handler().post(new Runnable() {
 						@Override
 						public void run() {
 							Toast.makeText(getActivity(), R.string.mes_err, Toast.LENGTH_LONG).show();
 						}
 					});
 				}
-			});*/
-			handler.post(new Runnable() {
-				@Override
-				public void run() {
-					Toast.makeText(getActivity(), R.string.mes_err, Toast.LENGTH_LONG).show();
-				}
-			});
+			}).start();
 		}
 	}
 	
@@ -247,11 +247,17 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	public synchronized void checkMessageList() {
 		int len = MessageManager.getList(node.getMACAddr()).size();
 		if(length != len) {
-			handler.post(new Runnable() {
+			new Thread(new Runnable() {
+				@Override
 				public void run() {
-					((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
+					new Handler().post(new Runnable() {
+						@Override
+						public void run() {
+							lview.invalidateViews();
+						}
+					});
 				}
-			});
+			}).start();
 			length = len;
 		}
 	}
