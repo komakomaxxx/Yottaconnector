@@ -1,7 +1,6 @@
 package com.example.sample.message;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,10 +17,6 @@ import java.util.Map;
  */
 public class MessageManager {
 	/**
-	 * このクラスで保持するコンテキスト
-	 */
-	public static Context context;
-	/**
 	 * このクラスで管理するメッセージリストのマップ
 	 */
 	private static Map<String, List<Message>> mesMap;
@@ -36,15 +31,6 @@ public class MessageManager {
 	static {
 		mesMap = new HashMap<String, List<Message>>();
 		waitMessage = null;
-	}
-	
-	/**
-	 * コンストラクタ
-	 * 
-	 * @param context
-	 */
-	public static void setContext(Context context) {
-		MessageManager.context = context;
 	}
 	
 	/**

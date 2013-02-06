@@ -125,8 +125,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 			MessageManager.Message item = (MessageManager.Message) listView.getItemAtPosition(position);
 			ReceiveMessageManager.removeReceiveMessage(item);
 			
-			MessageManager.setContext(getActivity());
-			new MessageFragment(NodeList.getNode(item.getMACAddr())).show(getFragmentManager(), getTag());
+			new MessageFragment.Builder().create(NodeList.getNode(item.getMACAddr())).show(getFragmentManager(), getTag());
 			if(ReceiveMessageManager.size() == 0){
 				callSlider();
 			}

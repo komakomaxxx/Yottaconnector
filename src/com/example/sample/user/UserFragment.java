@@ -125,7 +125,7 @@ public class UserFragment extends DialogFragment implements OnClickListener, OnC
 
 	public void onClick(View v) {
 		if (v == messageButton) {
-			new MessageFragment.Builder().create(getActivity(), node).show(getFragmentManager(), getTag());
+			new MessageFragment.Builder().create(node).show(getFragmentManager(), getTag());
 		}
 		else if (v == fileButton) {
 			Toast.makeText(getActivity(), "onClickFileButton", Toast.LENGTH_SHORT).show();

@@ -9,7 +9,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
@@ -220,7 +219,11 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 				}
 			});
 		} else  if(state == MessageManager.Message.FAILED){
-			Toast.makeText(getActivity(), R.string.mes_err, Toast.LENGTH_LONG).show();
+			handler.post(new Runnable() {
+				public void run() {
+					Toast.makeText(getActivity(), R.string.mes_err, Toast.LENGTH_LONG).show();
+				}
+			});
 		}
 	}
 	
@@ -295,8 +298,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 * @since 1/23/2013
 	 */
 	public static class Builder {
-		public MessageFragment create(Context context, Node node) {
-			MessageManager.setContext(context);
+		public MessageFragment create(Node node) {
 			MessageFragment dialog = new MessageFragment(node);
 			return dialog;
 		}
