@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.example.sample.message.MessageFragment;
 import com.example.sample.message.MessageManager;
+import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.R;
 import com.example.yottaconnecter.Setting_fragment;
@@ -27,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 	private ImageView receiveMessageIcon;
@@ -125,7 +127,23 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 			MessageManager.Message item = (MessageManager.Message) listView.getItemAtPosition(position);
 			ReceiveMessageManager.removeReceiveMessage(item);
 			
-			new MessageFragment.Builder().create(NodeList.getNode(item.getMACAddr())).show(getFragmentManager(), getTag());
+			Node node = NodeList.getNode(item.getMACAddr());
+			if(node != null) {
+				new MessageFragment.Builder().create(node).show(getFragmentManager(), getTag());
+			} else {
+				// もしも、ノードリストにノードが存在しなかった場合　トーストを表示する
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						new Handler().post(new Runnable() {
+							@Override
+							public void run() {
+								Toast.makeText(getActivity(), R.string.user_err, Toast.LENGTH_LONG).show();
+							}
+						});
+					}
+				});
+			}
 			if(ReceiveMessageManager.size() == 0){
 				callSlider();
 			}

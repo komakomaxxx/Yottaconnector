@@ -162,8 +162,10 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 		if(adapter == null) {
 			adapter = new MessageAdapter();
 		}
-		adapter.setList(node);
-		length = MessageManager.getList(node.getMACAddr()).size();
+		if(node != null) {
+			adapter.setList(node);
+			length = MessageManager.getList(node.getMACAddr()).size();
+		}
 	}
 	
 	/**
@@ -213,7 +215,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	public synchronized void onCheckMessages() {
 		int state = MessageManager.onArrangeWaitMessage();
-		Log.d("onCheckMessage", "StateValue:[" + state + "]");
+		Log.d("onCheckMessage", "StateValue:[" + state + "] size:" + adapter.getCount());
 		if(state == MessageManager.Message.SUCCESS) {
 			handler.post(new Runnable() {
 				public void run() {
