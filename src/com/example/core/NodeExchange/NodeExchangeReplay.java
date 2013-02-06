@@ -7,6 +7,7 @@ import com.example.core.SendSocket;
 import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.YottaConnector;
 
+import android.content.res.Resources.Theme;
 import android.util.Log;
 
 
@@ -23,7 +24,7 @@ public class NodeExchangeReplay {
 		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oDstMac,tNum);
 		
 		if(session != null){
-			Log.d(tag,"recv"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
+Log.d(tag,"recv"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 			if( oDstMac.equals(YottaConnector.MyNode.getMACAddr())){
 				Log.d(tag, "Get Replay to "+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac());
@@ -37,7 +38,7 @@ public class NodeExchangeReplay {
 				Double keido = Double.valueOf(dataList.get(2));
 				String profile = dataList.get(3);
 				
-				Node n = new Node(macAddr,name,ido,keido,null,profile);
+				NodeExData n = new NodeExData(macAddr,name,ido,keido,null,profile);
 				//node に追加
 				NodeExchangeReqest.addNode(n); 
 				
@@ -46,7 +47,7 @@ public class NodeExchangeReplay {
 			}	
 		}
 		else{
-			Log.d(tag, "NoSession");
+Log.d(tag, "NoSession");
 		}
 	}
 	public static void relay(Packet sendPacket,NodeExchangeSessionData session) {
@@ -85,19 +86,34 @@ public class NodeExchangeReplay {
 //		new SendSocket().makeRaleyPacket(sendPacket);	
 //		new SendSocket().makeRaleyPacket(sendPacket);
 		
-		
-		Log.d(tag,"send"+recvPacket.getTypeNum() +":"+ sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
 		new SendSocket().makeNewPacket(sendPacket);	
+Log.d(tag,"send"+recvPacket.getTypeNum() +":"+ sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
+		
 	}
 	private static void newSend(Packet sendPacket) {
 		int sNum = SendSocket.getSequenceNUM();
 		sendPacket.setSequenceNum(sNum);
 
-		new SendSocket().makeRaleyPacket(sendPacket);	
-		new SendSocket().makeRaleyPacket(sendPacket);
-		
+		for(int i=0;i<5;i++){
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			sendPacket.setHopLimit(sendPacket.getHopLimit()+1);
+			new SendSocket().makeRaleyPacket(sendPacket);
+		}
 	}
-	private static void RelaySend() {
-		
+	private static void RelaySend(Packet sendPacket) {
+		for(int i=0;i<5;i++){
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			new SendSocket().makeRaleyPacket(sendPacket);
+		}
 	}
 }

@@ -12,6 +12,7 @@ import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.YottaConnector;
 
 import android.R.bool;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.SeekBar;
 
@@ -26,7 +27,7 @@ public class NodeExchangeReqest {
 	static int typeSession =0;
 	public static ArrayList<NodeExchangeSessionData> sessionList = new ArrayList<NodeExchangeSessionData>();	
 	static Timer sendTimer;
-	protected static ArrayList<Node> newNodeList = new ArrayList<Node>();
+	protected static ArrayList<NodeExData> newNodeList = new ArrayList<NodeExData>();
 	
 	//受信
 	public static void  recv(Packet recvPacket) {
@@ -42,7 +43,7 @@ public class NodeExchangeReqest {
 			
 		}
 		
-		Log.d(tag,""+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
+Log.d(tag,""+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		//パケット解析
 		hopLimit = recvPacket.getHopLimit();
@@ -67,7 +68,7 @@ public class NodeExchangeReqest {
 		//ヘッダ作成
 		recvPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		
-		Log.d(tag,"relay:"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
+Log.d(tag,"relay:"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		//送信
 		new SendSocket().makeRaleyPacket(recvPacket);
@@ -100,7 +101,7 @@ public class NodeExchangeReqest {
 //		new SendSocket().makeRaleyPacket(sendPacket);
 //		new SendSocket().makeRaleyPacket(sendPacket);
 		
-		Log.d(tag, "send "+sendPacket.getTypeNum());
+Log.d(tag, "start send "+sendPacket.getTypeNum());
 		new SendSocket().makeNewPacket(sendPacket);
 		
 		
@@ -151,9 +152,9 @@ public class NodeExchangeReqest {
 		/*
 		 一致するsessionDataをListから破棄する
 		 */
-		Log.d("nodeSessDel", "remove"+sd.orignalMac +":"+sd.sessionNumber+":"+newNodeList.size());
 		if(YottaConnector.MyNode.getMACAddr().equals(sd.getSrcMac())){
-			NodeList.updateNodeList(newNodeList);
+Log.d("nodeExREQ","recv Node Size:"+newNodeList.size());
+			updateNodeList();
 
 			//NodeListの初期化
 			newNodeList.clear();
@@ -196,12 +197,31 @@ public class NodeExchangeReqest {
 	//一応同期処理
 	public synchronized static void updateNodeList() {
 		//NodeListにnewNodeListを設定
-		NodeList.updateNodeList(newNodeList);
+	
+		for(NodeExData nd : newNodeList){
+			if(nd.ttlDecrement() == false){
+				newNodeList.remove(nd);
+Log.d("NodeRemove", "remove");
+			}
+		}
+		ArrayList<Node> nodeList = new ArrayList<Node>();
+		for(NodeExData nd : newNodeList){
+			  nodeList.add(nd);
+			  
+		}
+		
+		NodeList.updateNodeList(nodeList);
 		//UIに対して更新処理
 	}
-	public synchronized static void addNode(Node n) {
-		newNodeList.add(n);
+	public synchronized static void addNode(NodeExData ned) {
 		
+		int i;		
+		i = newNodeList.indexOf(ned);
+		if(i != -1){
+			newNodeList.set(i, ned);
+		}else{
+			newNodeList.add(ned);
+		}		
 	}
 	
 	
@@ -226,7 +246,6 @@ class NodeExchangeSessionData{
 	}
 	public static void setTime(int t) {
 		timeOutTime = t;
-		
 	}
 
 	//セッションのタイムスタンプチェック
@@ -247,5 +266,23 @@ class NodeExchangeSessionData{
 		public void run(){
 			timeOutSession();
 		}
+	}
+}
+class NodeExData  extends Node{
+
+	private int ttl = 2;
+	
+
+	NodeExData(String MACAddr, String Name, double ido, double keido,Bitmap Icon, String profile) {
+
+		super(MACAddr,Name,ido,keido,Icon,profile);
+	}
+	protected boolean ttlDecrement() {
+		ttl--;
+		if(ttl <= 0){
+			return false;
+		}
+		return true;
+		
 	}
 }
