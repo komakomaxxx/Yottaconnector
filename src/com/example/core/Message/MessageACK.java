@@ -62,17 +62,18 @@ public class MessageACK {
 	}
 	
 	private static void receptMessageACK(Packet packet){
-		ArrayList<String> dataList;
 		MessageSession session;
 		
 		//セッションテーブルからセッション取得
 		session = MessageSessionList.getSessionACK(packet);
 		
+		Log.d(tag,"reseptMessageACK");
 		//セッションがなければ
 		if(session == null){
 			return;
 		}
 		
+		Log.d(tag,"reseptMessageACK:sessionOK");
 		//セッション削除
 		MessageSessionList.removeSession(session);
 		
@@ -80,16 +81,15 @@ public class MessageACK {
 		if(Message.checkFlg(packet.getTypeNum())){
 			//ルーティングテーブルを作成する
 			setSimplexRootTableRe(packet);
+		Log.d(tag,"reseptMessageACK:rootOK");
 		}else{
 		//ルートテーブルを使用であれば
 			updateSimlexRootTableRe(packet);
 		}
 		
-		//データ切り分け
-		dataList = packet.putData();
-		
 		//メッセージマネージャに登録
 		MessageManager.getWaitMessage().setState(MessageManager.Message.SUCCESS);
+		Log.d(tag,"reseptMessageACK:succsess");
 	}
 	
 	private static void packetRelay(Packet packet){

@@ -2,6 +2,8 @@ package com.example.core.Message;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+
 import com.example.yottaconnecter.*;
 import com.example.core.Packet;
 import com.example.sample.message.*;
@@ -18,6 +20,8 @@ public class MessageSessionList {
 		MessageSession result = new MessageSession(packet);
 		SessionList.add(result);
 		result.timerStart();
+		String tag = "addSession";
+		Log.d(tag,result.getOriginalSourceMac());
 	}
 	
 	static public synchronized MessageSession getSession(Packet packet){
@@ -48,6 +52,8 @@ public class MessageSessionList {
 	}
 	
 	static public synchronized void removeSession(MessageSession messageSession){
+		String tag = "removeSession";
+		Log.d(tag,messageSession.getOriginalSourceMac());
 		messageSession.timerClear();
 		SessionList.remove(messageSession);
 		if(messageSession.getOriginalSourceMac().compareTo(YottaConnector.MyNode.getMACAddr()) == 0){

@@ -75,9 +75,10 @@ public class Message {
 			destMac = root.getForwardMac();
 		}
 		
-		checkFlg(typeNum);
 		//パケットヘッダ作成
 		Packet sendPacket = new Packet(type,myMacAddr,oDestMac,srcMac,destMac,hopLimit,typeNum);
+		String tag = "messageSession";
+		Log.d(tag, ""+myMacAddr+">"+oDestMac);
 		
 		//ペイロード付加
 		List<String> sendData = new ArrayList<String>();
