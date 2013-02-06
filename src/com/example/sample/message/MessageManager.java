@@ -156,7 +156,7 @@ public class MessageManager {
 			if(state != Message.WAIT) {
 				if(state == Message.SUCCESS) {
 					mesMap.get(waitMessage.getMACAddr()).add(waitMessage);
-					Log.d("onArrageWaitMessage", "Adding wait message!");
+					Log.d("onArrageWaitMessage", "Adding wait message! Address:[" + waitMessage.getMACAddr() + "]");
 				}
 				waitMessage = null;
 				return state;

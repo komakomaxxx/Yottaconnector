@@ -215,12 +215,12 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	public synchronized void onCheckMessages() {
 		int state = MessageManager.onArrangeWaitMessage();
-		Log.d("onCheckMessage", "StateValue:[" + state + "] size:" + adapter.getCount());
+		Log.d("onCheckMessage", "StateValue:[" + state + "]");
 		if(state == MessageManager.Message.SUCCESS) {
 			handler.post(new Runnable() {
 				public void run() {
-//					((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
-					adapter.notifyDataSetChanged();
+					Log.d("onCheckMessage", "invalidateViews");
+					((ListView) getDialog().getWindow().findViewById(R.id._MessageListView)).invalidateViews();
 				}
 			});
 		} else  if(state == MessageManager.Message.FAILED){
