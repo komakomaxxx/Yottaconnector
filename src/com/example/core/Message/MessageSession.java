@@ -35,6 +35,10 @@ class MessageSession extends TimerTask {
 		return OriginalSourceMac;
 	}
 	
+	public String getOriginalDestinationMac(){
+		return OriginalDestinationMac;
+	}
+	
 	public void timerStart(){
 		timeOut = new Timer(true);
 		timeOut.schedule(this,10000);

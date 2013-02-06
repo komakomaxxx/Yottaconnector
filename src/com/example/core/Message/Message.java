@@ -57,6 +57,7 @@ public class Message {
 		String destMac = Packet.broadCastMACaddr;
 		int hopLimit = Packet.HopLimitMax;
 		int typeNum;
+		String tag = "sendMessage";
 		
 		
 		//メッセージ番号を取得
@@ -69,16 +70,18 @@ public class Message {
 		if(root == null){
 			//先頭ビットを1に
 			typeNum = exTypeNumFlag(typeNum);
+			Log.d(tag, "[ROOTREQ]");
 		}else{
 		//ルーティングテーブルがあれば
 			//宛先をルーティングテーブルで設定
 			destMac = root.getForwardMac();
+			Log.d(tag, "[ROOT]");
 		}
 		
 		//パケットヘッダ作成
 		Packet sendPacket = new Packet(type,myMacAddr,oDestMac,srcMac,destMac,hopLimit,typeNum);
-		String tag = "messageSession";
-		Log.d(tag, ""+myMacAddr+">"+oDestMac);
+		String session = "messageSession";
+		Log.d(session, ""+myMacAddr+">"+oDestMac);
 		
 		//ペイロード付加
 		List<String> sendData = new ArrayList<String>();

@@ -22,6 +22,8 @@ public class MessageRootTable {
 		root = new MessageRoot(packet,forwardMac);
 		MessageRootTable.add(root);
 		root.timerStart();
+		String tag = "addMessageRoot";
+		Log.d(tag,"[root]"+root.getOriginalSourceMac()+">>"+root.getOriginalDestinationMac());
 	}
 	
 	//引数のパケットに関連付けられるルートテーブルを返却する

@@ -65,6 +65,8 @@ public class MessageSessionList {
 			}else{
 				status = MessageManager.Message.FAILED;
 		Log.d(tag,"false["+status);
+		Log.d(tag,"rootclear["+messageSession.getOriginalSourceMac()+">>"+messageSession.getOriginalDestinationMac());
+			MessageRootTable.removeRoot(MessageRootTable.getRoot(messageSession.getOriginalSourceMac(), messageSession.getOriginalDestinationMac()));
 			}
 			MessageManager.getWaitMessage().setState(status);
 		}

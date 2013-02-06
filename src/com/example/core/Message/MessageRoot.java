@@ -45,6 +45,14 @@ class MessageRoot{
 		return ForwardMac;
 	}
 	
+	public String getOriginalSourceMac(){
+		return OriginalSourceMac;
+	}
+	
+	public String getOriginalDestinationMac(){
+		return OriginalDestinationMac;
+	}
+	
 	public void timerStart(){
 		timeOut = new Timer(true);
 		timeOut.schedule(new TimerTask(){
