@@ -135,7 +135,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						new Handler().post(new Runnable() {
+						handler.post(new Runnable() {
 							@Override
 							public void run() {
 								Toast.makeText(getActivity(), R.string.user_err, Toast.LENGTH_LONG).show();

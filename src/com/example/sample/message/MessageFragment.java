@@ -59,10 +59,6 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	private EditText edt;
 	/**
-	 * リスト長さ保持
-	 */
-	private int length;
-	/**
 	 * リストビュー
 	 */
 	private ListView lview;
@@ -160,7 +156,6 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 		}
 		if(node != null) {
 			adapter.setList(node);
-			length = MessageManager.getList(node.getMACAddr()).size();
 		}
 	}
 	
@@ -215,7 +210,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					new Handler().post(new Runnable() {
+					handler.post(new Runnable() {
 						@Override
 						public void run() {
 							lview.invalidateViews();
@@ -227,7 +222,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					new Handler().post(new Runnable() {
+					handler.post(new Runnable() {
 						@Override
 						public void run() {
 							Toast.makeText(getActivity(), R.string.mes_err, Toast.LENGTH_LONG).show();
@@ -245,21 +240,17 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	@Override
 	public synchronized void checkMessageList() {
-		int len = MessageManager.getList(node.getMACAddr()).size();
-		if(length != len) {
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					new Handler().post(new Runnable() {
-						@Override
-						public void run() {
-							lview.invalidateViews();
-						}
-					});
-				}
-			}).start();
-			length = len;
-		}
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+						lview.invalidateViews();
+					}
+				});
+			}
+		}).start();
 	}
 	
 	/**
