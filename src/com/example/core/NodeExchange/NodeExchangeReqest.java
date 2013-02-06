@@ -157,7 +157,7 @@ Log.d("nodeExREQ","recv Node Size:"+newNodeList.size());
 			updateNodeList();
 
 			//NodeListの初期化
-			newNodeList.clear();
+			//newNodeList.clear();
 		}
 		sessionList.remove(sd);	
 	}
@@ -167,12 +167,6 @@ Log.d("nodeExREQ","recv Node Size:"+newNodeList.size());
 		if (sendTimer == null){
 		
 			NodeExchangeSessionData.setTime(time);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			
 			final int sendTime=time;
 			(new Thread(new Runnable(){
@@ -197,19 +191,18 @@ Log.d("nodeExREQ","recv Node Size:"+newNodeList.size());
 	//一応同期処理
 	public synchronized static void updateNodeList() {
 		//NodeListにnewNodeListを設定
-	
+		ArrayList<NodeExData> removeList = new ArrayList<NodeExData>();
 		for(NodeExData nd : newNodeList){
 			if(nd.ttlDecrement() == false){
-				newNodeList.remove(nd);
-Log.d("NodeRemove", "remove");
+				removeList.add(nd);
+Log.d("Noderemove Node", ""+nd.getMACAddr());
 			}
 		}
+		newNodeList.removeAll(removeList);
 		ArrayList<Node> nodeList = new ArrayList<Node>();
 		for(NodeExData nd : newNodeList){
 			  nodeList.add(nd);
-			  
 		}
-		
 		NodeList.updateNodeList(nodeList);
 		//UIに対して更新処理
 	}
@@ -277,12 +270,13 @@ class NodeExData  extends Node{
 
 		super(MACAddr,Name,ido,keido,Icon,profile);
 	}
-	protected boolean ttlDecrement() {
-		ttl--;
+	public boolean ttlDecrement() {
+		ttl = ttl -1;
+Log.d("TTL NodeEx", ""+ ttl);
 		if(ttl <= 0){
 			return false;
+		}else{
+			return true;
 		}
-		return true;
-		
 	}
 }
