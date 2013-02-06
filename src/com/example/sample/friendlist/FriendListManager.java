@@ -148,6 +148,8 @@ public final class FriendListManager {
 		while( i.hasNext() ) {
 			FriendNode cNode = i.next();
 			if(cNode.getMACAddr().equals(node.getMACAddr())) {
+				// ノード情報書き換え
+				cNode.setNode(node);
 				return false;
 			}
 		}

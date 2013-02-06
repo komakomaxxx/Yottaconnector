@@ -244,12 +244,7 @@ public final class YossipDatabaseOpenHelper extends SQLiteOpenHelper {
     			values.put(COLUMNS[1], node.getName());
     			values.put(COLUMNS[2], bitmapToByteArray(node.getIcon()));
     			values.put(COLUMNS[3], node.getProfile());
-        		long r = db.insert(TABLE_NAME, null, values);
-//        		if(r == -1) {
-//        			System.out.println("インサートエラー");
-//        		} else {
-//        			System.out.println("成功");
-//        		}
+        		db.insert(TABLE_NAME, null, values);
     		} finally {
     			if(db != null) {
     				db.close();
@@ -268,6 +263,7 @@ public final class YossipDatabaseOpenHelper extends SQLiteOpenHelper {
 	 */
     public byte[] bitmapToByteArray(Bitmap bitmap) throws NullPointerException {
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    	if(bitmap == null) return null;
 		bitmap.compress(CompressFormat.PNG, 100, baos);
 		return baos.toByteArray();
     }

@@ -216,4 +216,33 @@ public class Node implements Parcelable {
 			return false;
 		}
 	}
+    
+    /**
+     * MACアドレス以外の情報を置き換える
+     * 
+     * @param node ノード
+     */
+    public void setNode(Node node) {
+    	this.Name = node.getName();
+    	this.ido = node.getIdo();
+    	this.keido = node.getKeido();
+    	this.Icon = node.getIcon();
+    	this.profile = node.getProfile();
+    	if(this.Icon != null){
+			int size = 100;
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			Icon.compress(CompressFormat.JPEG, 100, bos);
+			byte[] imageArray = bos.toByteArray();
+			
+			Bitmap _bm = makeBitmap(0, imageArray, size, size);
+			
+			int w = _bm.getWidth();
+	        int h = _bm.getHeight();
+	        float scale = Math.min((float) size / w, (float) size / h);
+	        Matrix matrix = new Matrix();
+	        
+	        matrix.postScale(scale, scale);
+	        this.RadarIcon = Bitmap.createBitmap(_bm, 0, 0, w, h, matrix, true);
+		}
+    }
 }

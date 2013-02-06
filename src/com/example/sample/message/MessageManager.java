@@ -173,18 +173,20 @@ public class MessageManager {
 	 * 送信が失敗した場合は、トーストを表示しその旨を伝える
 	 */
 	public static void onArrangeWaitMessage() {
-		int state = waitMessage.mStatus;
-		if(state != Message.WAIT) {
-			if(state == Message.SUCCESS) {
-				mesMap.get(waitMessage.getMACAddr()).add(waitMessage);
-			} else {
-				mesHandler.post(new Runnable() {
-					public void run() {
-						Toast.makeText(context, R.string.mes_err, Toast.LENGTH_LONG).show();
-					}
-				});
+		if(waitMessage != null) {
+			int state = waitMessage.mStatus;
+			if(state != Message.WAIT) {
+				if(state == Message.SUCCESS) {
+					mesMap.get(waitMessage.getMACAddr()).add(waitMessage);
+				} else {
+					mesHandler.post(new Runnable() {
+						public void run() {
+							Toast.makeText(context, R.string.mes_err, Toast.LENGTH_LONG).show();
+						}
+					});
+				}
+				waitMessage = null;
 			}
-			waitMessage = null;
 		}
 	}
 	

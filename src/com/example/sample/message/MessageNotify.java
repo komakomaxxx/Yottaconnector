@@ -28,10 +28,7 @@ public class MessageNotify implements Runnable{
 		this.progressDialog.setOnKeyListener(new OnKeyListener() { 
 		    @Override
 		    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-		        if (KeyEvent.KEYCODE_SEARCH == keyCode || KeyEvent.KEYCODE_BACK == keyCode) {
-		            return true;
-		        }
-		        return false;
+		        return true;
 		    }
 		});
 		this.progressDialog.setMessage("メッセージ送信中");

@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
@@ -132,7 +134,9 @@ public class UserFragment extends DialogFragment implements OnClickListener, OnC
 
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if(isChecked){
-			FriendListManager.add(node);
+			Bitmap icon = node.getIcon();
+			if(icon == null) icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+			FriendListManager.add(new Node(node.getMACAddr(), node.getName(), node.getIdo(), node.getKeido(), icon, node.getProfile()));
 		}
 		else{
 			FriendListManager.remove(node);
