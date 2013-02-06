@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -160,7 +161,13 @@ public class NodeListFragment extends Fragment implements
 	}
 
 	public void onNodeChangeListener(int length) {
-		setNodeList();
+//		Handler mHandler = new Handler();
+//	      mHandler.post(new Runnable() {
+//	          public void run() {
+//	        	  updata.callOnClick();
+//	          }
+//	        });
+//		
 	}
 
 	// -------------------------inner--------------------------------
