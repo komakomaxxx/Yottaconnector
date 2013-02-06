@@ -7,6 +7,7 @@ import com.example.yottaconnecter.R;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -212,6 +213,7 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 	 */
 	public synchronized void onCheckMessages() {
 		int state = MessageManager.onArrangeWaitMessage();
+		Log.d("", "StateValue:[" + state + "]");
 		if(state == MessageManager.Message.SUCCESS) {
 			handler.post(new Runnable() {
 				public void run() {
@@ -219,7 +221,20 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 				}
 			});
 		} else  if(state == MessageManager.Message.FAILED){
+			/* 予備　トーストのハンドラーでエラー吐いたらこっちを使用
+			 * new Thread(new Runnable() {
+				@Override
+				public void run() {
+					handler.post(new Runnable() {
+						@Override
+						public void run() {
+							Toast.makeText(getActivity(), R.string.mes_err, Toast.LENGTH_LONG).show();
+						}
+					});
+				}
+			});*/
 			handler.post(new Runnable() {
+				@Override
 				public void run() {
 					Toast.makeText(getActivity(), R.string.mes_err, Toast.LENGTH_LONG).show();
 				}

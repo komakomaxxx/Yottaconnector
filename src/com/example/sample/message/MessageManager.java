@@ -1,6 +1,7 @@
 package com.example.sample.message;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -155,8 +156,7 @@ public class MessageManager {
 			if(state != Message.WAIT) {
 				if(state == Message.SUCCESS) {
 					mesMap.get(waitMessage.getMACAddr()).add(waitMessage);
-				} else {
-					return Message.FAILED;
+					Log.d("", "Adding wait message!");
 				}
 				waitMessage = null;
 				return state;
