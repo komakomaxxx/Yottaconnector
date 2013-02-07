@@ -40,14 +40,13 @@ public class MessageACK {
 		//ルートテーブル作成であれば
 		if(Message.checkFlg(packet.getTypeNum())){
 			setSimplexRootTable(packet);
-			packet.setDestinationMac(YottaConnector.MyNode.getMACAddr());
 		Log.d(tag,"sendMessageAck:CreateRootTable");
 		}else{
 		//ルートテーブル使用であれば
 			root = updateSimplexRootTable(packet);
 		Log.d(tag,"sendMessageAck:UseRootTable["+root);
 			if(root == null){
-				return;
+				setSimplexRootTable(packet);
 			}
 		}
 		
