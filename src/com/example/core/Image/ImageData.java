@@ -62,6 +62,8 @@ public class ImageData{
 	
 	//セッションタイムアウト
 	public static void ImageDataTimeOut(){
+		Log.d("ImageData","imagedata is TimeOut");
+		
 		if(ImageList != null){
 			ImageList.clear();
 		}
@@ -78,7 +80,7 @@ public class ImageData{
 	
 	//パケット振り分け
 	public static void setImagePacket(Packet p,List<Integer> imageBuf){
-		//Log.d("ImageData", p.getOriginalDestinationMac() + "==" + YottaConnector.MyNode.getMACAddr());
+		Log.d("ImageData", p.getOriginalDestinationMac() + "==" + YottaConnector.MyNode.getMACAddr());
 		if(p.getOriginalDestinationMac().equals(YottaConnector.MyNode.getMACAddr())){
 			ImageSession is = ImageSessionList.getSession(p);
 			ImageSessionList.resetTimeOut(is);
@@ -103,7 +105,9 @@ public class ImageData{
 						Log.d("ImageData","ERR");
 					}
 					
-				}	
+				}else{
+					Log.d("ImageData","0 packet get.but ImageSession is null");
+				}
 			}else{
 				if(is != null){
 					Log.d("ImageData","image packet get");
@@ -124,6 +128,10 @@ public class ImageData{
 					List<String> data = p.putData();
 					
 					setImageData(p.getImageArray(), Integer.parseInt(data.get(0)), Integer.parseInt(data.get(1)),is.getFindMac());
+				}
+				else
+				{
+					Log.d("ImageData","image packet get.but ImageSession is null");
 				}
 			}
 		}else{
@@ -146,7 +154,6 @@ public class ImageData{
 			}
 			
 		}
-		
 	}
 	
 	//パケット中継
