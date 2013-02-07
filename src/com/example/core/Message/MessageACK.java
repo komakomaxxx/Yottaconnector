@@ -107,7 +107,16 @@ public class MessageACK {
 			setDuplexRootTable(packet,session.getSourceMac());
 		}else{
 		//ルートテーブル使用であれば
+			MessageRoot root;
 			updateDuplexRootTable(packet);
+			root = MessageRootTable.getRoot(packet);
+			
+			if(root == null){
+				return;
+			}
+			
+			packet.exMac();
+			packet.setDestinationMac(root.getForwardMac());
 		}
 		
 		SendSocket send = new SendSocket(YottaConnector.ip);
