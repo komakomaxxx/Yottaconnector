@@ -132,7 +132,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 				int position, long id) {
 			ListView listView = (ListView) adapter;
 			MessageManager.Message item = (MessageManager.Message) listView.getItemAtPosition(position);
-			ReceiveMessageManager.removeReceiveMessage(item.getMACAddr());
+		//	ReceiveMessageManager.removeReceiveMessage(item.getMACAddr());
 			
 			Node node = NodeList.getNode(item.getMACAddr());
 			if(node != null) {
