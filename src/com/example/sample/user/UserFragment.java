@@ -64,8 +64,7 @@ public class UserFragment extends DialogFragment implements OnClickListener, OnC
 	private View onCreateContentView() {
 		View view = (View) getActivity().getLayoutInflater().inflate(R.layout.user_fragment, null);
 		node = getArguments().getParcelable("node");
-		setNodeUserData(view);
-		setNodeYossipList(view);
+
 		
 		favoriteButton = (ToggleButton) view.findViewById(R.id.button_user_favorite);
 		messageButton = (Button) view.findViewById(R.id.button_user_sendmessage);
@@ -73,6 +72,7 @@ public class UserFragment extends DialogFragment implements OnClickListener, OnC
 		if(node.equals(YottaConnector.MyNode)){
 			favoriteButton.setEnabled(false);
 			messageButton.setEnabled(false);
+			node = YottaConnector.MyNode;
 			
 		}else{
 			
@@ -89,6 +89,8 @@ public class UserFragment extends DialogFragment implements OnClickListener, OnC
 //			fileButton = (Button) view.findViewById(R.id.button_user_sendfile);
 //			fileButton.setOnClickListener(this);
 		}
+		setNodeUserData(view);
+		setNodeYossipList(view);
 
 		return view;
 	}
@@ -98,7 +100,10 @@ public class UserFragment extends DialogFragment implements OnClickListener, OnC
 		TextView nameView = (TextView) view.findViewById(R.id.name);
 		TextView profView = (TextView) view.findViewById(R.id.profile);
 
-		iconView.setImageBitmap(node.getIcon());
+		Bitmap b =node.getIcon();
+		if(b != null){
+			iconView.setImageBitmap(b);
+		}
 		nameView.setText(node.getName());
 		profView.setText(node.getProfile());
 	}

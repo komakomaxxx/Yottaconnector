@@ -23,9 +23,9 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
@@ -38,7 +38,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 	ArrayAdapter<MessageManager.Message> adapter;
 	ListView messageList;
 	static TextView fragmentName;
-	Button sliderButton;
+	SlidingDrawer slider;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +55,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 		messageList = (ListView) getActivity().findViewById(R.id.h_MessageList);
 		messageList.setOnItemClickListener(new ClickEvent());
 		
-		sliderButton = (Button)getActivity().findViewById(R.id.h_MessagePull);
+		slider = (SlidingDrawer)getActivity().findViewById(R.id.h_MessageSliding);
 		
 		new ReceiveMessageNotify(this);
 		handler = new Handler();
@@ -69,7 +69,11 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 		getActivity().findViewById(R.id.H_Message_icon).setOnClickListener(
 				new OnClickListener() {
 					public void onClick(View v) {
-						callSlider();
+						if(slider.isOpened()){
+							slider.animateClose();
+						}else{
+							slider.animateOpen();
+						}
 					}
 				});
 		getActivity().findViewById(R.id.h_Message).setOnTouchListener(
@@ -108,6 +112,9 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 						R.layout.header_message_row,
 						ReceiveMessageManager.getReceiveList());
 				messageList.setAdapter(adapter);
+				if(ReceiveMessageManager.size() == 0){
+					closeSlider();
+				}
 			}
 		});
 
@@ -116,8 +123,8 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 		fragmentName.setText(s);
 		
 	}
-	private void callSlider() {
-		sliderButton.callOnClick();
+	private void closeSlider() {
+		slider.animateClose();
 	}
 	class ClickEvent implements OnItemClickListener {
 		// onItemClickメソッドには、AdapterView(adapter)、選択した項目View、選択された位置のint値、IDを示すlong値が渡される
@@ -125,7 +132,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 				int position, long id) {
 			ListView listView = (ListView) adapter;
 			MessageManager.Message item = (MessageManager.Message) listView.getItemAtPosition(position);
-			ReceiveMessageManager.removeReceiveMessage(item);
+			ReceiveMessageManager.removeReceiveMessage(item.getMACAddr());
 			
 			Node node = NodeList.getNode(item.getMACAddr());
 			if(node != null) {
@@ -143,9 +150,6 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 						});
 					}
 				}).start();
-			}
-			if(ReceiveMessageManager.size() == 0){
-				callSlider();
 			}
 		}
 	}

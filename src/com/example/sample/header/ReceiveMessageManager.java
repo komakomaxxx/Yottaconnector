@@ -26,7 +26,18 @@ public class ReceiveMessageManager {
 			receiveMessageList.remove(m);
 		}
 	}
-
+	public static void removeReceiveMessage(String mac) {
+		synchronized (receiveMessageList) {						
+			for(int i=0;i<receiveMessageList.size();i++){
+				MessageManager.Message rm = receiveMessageList.get(i);
+				if(mac.equals(rm.getMACAddr())){
+					receiveMessageList.remove(rm);
+					i--;
+				}
+			}
+		}
+	}
+	
 	public static void clearReceiveMessage() {
 		synchronized (receiveMessageList) {
 			receiveMessageList.clear();
