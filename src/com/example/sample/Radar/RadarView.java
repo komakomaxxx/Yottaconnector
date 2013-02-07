@@ -28,7 +28,7 @@ import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RadarView extends View {
+public class RadarView extends View{
 	private boolean view_flag = false;
 	private int centerX=0;
 	private int centerY=0;
@@ -138,33 +138,7 @@ public class RadarView extends View {
         return true;
     }
     */
-	
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		int range = 80;
-		int x = (int)event.getX();
-		int y = (int)event.getY();
 
-		Log.d("Radar","x=" + x + " y=" + y + " dn size =" + dn.size());
-		
-		if(event.getAction() == MotionEvent.ACTION_DOWN){
-			for (drawNode tdn : dn) {
-				Log.d("Radar",tdn.node.getName() + ":" + tdn.x + ":" + tdn.y);
-				if(	tdn.x > x-range &&
-					tdn.x < x+10 &&
-					tdn.y > y-range &&
-					tdn.y < y+10){
-					Log.d("RadarTouch",tdn.node.getName() + ": SUCCESS" + event.getAction());
-					//RT.onRadarTouchNodeEvent(tdn.node.getName() + ": SUCCESS");
-					RT.onRadarTouchNodeEvent(tdn.node);
-					break;
-				}
-			}
-		}
-		
-		
-		return view_flag;
-	}
 
 	@Override
 	protected void onDraw(Canvas canvas){
@@ -248,4 +222,33 @@ public class RadarView extends View {
 			
 		}
 	}
+	
+	//ここから下タッチ操作系
+	
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		int range = 80;
+		int x = (int)event.getX();
+		int y = (int)event.getY();
+
+		Log.d("Radar","x=" + x + " y=" + y + " dn size =" + dn.size());
+		
+		if(event.getAction() == MotionEvent.ACTION_UP){
+			for (drawNode tdn : dn) {
+				Log.d("Radar",tdn.node.getName() + ":" + tdn.x + ":" + tdn.y);
+				if(	tdn.x > x-range &&
+					tdn.x < x+10 &&
+					tdn.y > y-range &&
+					tdn.y < y+10){
+					Log.d("RadarTouch",tdn.node.getName() + ": SUCCESS" + event.getAction());
+					//RT.onRadarTouchNodeEvent(tdn.node.getName() + ": SUCCESS");
+					RT.onRadarTouchNodeEvent(tdn.node);
+					break;
+				}
+			}
+		}	
+		return true;
+	}
+	
 }
