@@ -80,7 +80,7 @@ public class ImageSessionSYN {
 						if(StartFlug){
 							Thread.sleep(100);
 						}else{
-							Thread.sleep(1000*60*2);
+							Thread.sleep(1000*60*1);
 						}
 					} catch (InterruptedException e) {
 						// TODO 自動生成された catch ブロック

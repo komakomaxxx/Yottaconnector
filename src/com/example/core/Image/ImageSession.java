@@ -71,7 +71,7 @@ public class ImageSession{
 				// TODO 自動生成されたメソッド・スタブ
 				ImageSessionList.removeSession(getInstance());
 			}
-		},100000);
+		},30000);
 	}
 	
 	public void timerClear(){
