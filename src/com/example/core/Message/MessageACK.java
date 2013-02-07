@@ -101,8 +101,13 @@ public class MessageACK {
 			
 			//セッションテーブルがなければ
 			if(session == null){
+				Log.d(tag,"[packetRelay] session is null");
 				return;
 			}
+				Log.d(tag,"[packetRelay] session is not null");
+				
+			packet.exMac();
+			packet.setDestinationMac(session.getSourceMac());
 			
 			setDuplexRootTable(packet,session.getSourceMac());
 		}else{
@@ -112,8 +117,10 @@ public class MessageACK {
 			root = MessageRootTable.getRoot(packet);
 			
 			if(root == null){
+				Log.d(tag,"[packetRelay] root is null");
 				return;
 			}
+				Log.d(tag,"[packetRelay] root is not null");
 			
 			packet.exMac();
 			packet.setDestinationMac(root.getForwardMac());
