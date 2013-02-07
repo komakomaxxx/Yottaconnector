@@ -68,7 +68,8 @@ public class ImageData{
 			ImageSession is = ImageSessionList.getSession(p);
 			ImageSessionList.resetTimeOut(is);
 			if(imageBuf.size() == 0){
-				if(is != null){	
+				if(is != null){
+					Log.d("ImageData","0 packet get");
 					is.setStatus(0x02);
 					Packet sendPacket = new Packet();
 					sendPacket.setType(9);
@@ -89,7 +90,8 @@ public class ImageData{
 					
 				}	
 			}else{
-				if(is != null){	
+				if(is != null){
+					Log.d("ImageData","image packet get");
 					List<Integer> tempImageBuf = new ArrayList<Integer>(imageBuf);
 					List<Character> CharacterImage = new ArrayList<Character>();
 					
@@ -113,12 +115,14 @@ public class ImageData{
 			ImageSession is = ImageSessionList.getSessionRe(p);
 			ImageSessionList.resetTimeOut(is);
 			if(imageBuf.size() == 0){
+				Log.d("ImageData","0 packet Relay");
 				if(is != null && is.getStatus() == 0x01){
 					is.setStatus(0x02);
 					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
 					setRaleyPacket(p);
 				}
 			}else{
+				Log.d("ImageData","image packet Relay");
 				if(is != null && is.getStatus() == 0x03){
 					p.setDestinationMac(is.getSourceMac());
 					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
@@ -145,6 +149,7 @@ public class ImageData{
 	
 	//空パケットの送信
 	public static void SynAckPacketSend(Packet packet){
+		Log.d("ImageData","0 packet send");
 		packet.setType(Packet.ImageDATA);
 		
 		packet.exOriginalMac();
@@ -169,6 +174,7 @@ public class ImageData{
 	
 	//新規画像データ送信
 	public static void SendImageData(Bitmap sendBitmap,Packet p){
+		Log.d("ImageData","image packet send");
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		sendBitmap.compress(CompressFormat.JPEG, 100, bos);
 		byte[] imageArray = bos.toByteArray();
