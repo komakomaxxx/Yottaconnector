@@ -7,6 +7,8 @@ import com.example.core.SendSocket;
 public class ImageSessionSYN {
 	
 	private static int SessionID = 0;
+	
+	private static boolean StartFlug = true;
 
 	//パケット受信時動作振り分けルーチン
 	public static void cntrol(Packet packet){
@@ -62,11 +64,16 @@ public class ImageSessionSYN {
 					 node = NodeList.getNoImageNode();
 				
 					if(node != null){
+						StartFlug = false;
 						break;
 					}
 					
 					try {
-						Thread.sleep(1000*60*2);
+						if(StartFlug){
+							Thread.sleep(100);
+						}else{
+							Thread.sleep(1000*60*2);
+						}
 					} catch (InterruptedException e) {
 						// TODO 自動生成された catch ブロック
 						e.printStackTrace();

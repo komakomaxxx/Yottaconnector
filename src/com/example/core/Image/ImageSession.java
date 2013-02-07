@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 import com.example.core.Packet;
 
-public class ImageSession extends TimerTask {
+public class ImageSession{
 	public static final int STS_SYN = 0x00;
 	public static final int STS_ACK = 0x01;
 	public static final int STS_OK = 0x02;
@@ -25,12 +25,6 @@ public class ImageSession extends TimerTask {
 		this.SourceMac = new String(packet.getSourceMac());
 		this.TypeNum = packet.getTypeNum();
 		this.SessionStatus = STS_SYN;
-	}
-	
-	@Override
-	public void run() {
-		// TODO 自動生成されたメソッド・スタブ
-		ImageSessionList.removeSession(this);
 	}
 	
 	public void setStatus(int status){
@@ -65,9 +59,19 @@ public class ImageSession extends TimerTask {
 		return OriginalDestinationMac;
 	}
 	
+	private ImageSession getInstance(){
+		return this;
+	}
+	
 	public void timerStart(){
 		timeOut = new Timer(true);
-		timeOut.schedule(this,100000);
+		timeOut.schedule(new TimerTask(){
+			@Override
+			public void run() {
+				// TODO 自動生成されたメソッド・スタブ
+				ImageSessionList.removeSession(getInstance());
+			}
+		},100000);
 	}
 	
 	public void timerClear(){
