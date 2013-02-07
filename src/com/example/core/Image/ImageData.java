@@ -13,6 +13,7 @@ import com.example.core.SplitImage;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 public class ImageData{
@@ -51,6 +52,9 @@ public class ImageData{
 			}
 			Log.d("ImageData", "Received Image ByteArraySize is" + bytes.length);
 			Log.d("ImageData", "Get Image Node is " + NodeList.getNode(NodeMac).getName());
+			
+			NodeList.getNode(NodeMac).setIcon(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+			
 			
 			ImageList.clear();
 			bytes = null;

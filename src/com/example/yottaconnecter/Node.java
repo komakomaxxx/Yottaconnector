@@ -116,6 +116,27 @@ public class Node implements Parcelable {
 	public void setProfile(String profile){
 		this.profile = profile;
 	}
+	
+	public void setIcon(Bitmap bm){
+		this.Icon = bm;
+		
+		int size = 100;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		Icon.compress(CompressFormat.JPEG, 100, bos);
+		byte[] imageArray = bos.toByteArray();
+		
+		Bitmap _bm = makeBitmap(0, imageArray, size, size);
+		
+		int w = _bm.getWidth();
+        int h = _bm.getHeight();
+        float scale = Math.min((float) size / w, (float) size / h);
+        Matrix matrix = new Matrix();
+        
+        matrix.postScale(scale, scale);
+        this.RadarIcon = Bitmap.createBitmap(_bm, 0, 0, w, h, matrix, true);
+	}
+	
+	
 	public void nodeUpdate(String name, double ido, double keido,String profile ) {
 		this.Name = name;
 		this.profile = profile;
