@@ -80,11 +80,15 @@ public class ImageData{
 	
 	//パケット振り分け
 	public static void setImagePacket(Packet p,List<Integer> imageBuf){
+		
 		Log.d("ImageData", p.getOriginalDestinationMac() + "==" + YottaConnector.MyNode.getMACAddr());
+		//自分宛パケット受信
 		if(p.getOriginalDestinationMac().equals(YottaConnector.MyNode.getMACAddr())){
-			ImageSession is = ImageSessionList.getSessionRe(p);
-			ImageSessionList.resetTimeOut(is);
+			
+			//自分宛0パケット受信
 			if(imageBuf.size() == 0){
+				ImageSession is = ImageSessionList.getSession(p);
+				ImageSessionList.resetTimeOut(is);
 				if(is != null){
 					Log.d("ImageData","0 packet get");
 					is.setStatus(0x02);
@@ -111,7 +115,12 @@ public class ImageData{
 				}else{
 					Log.d("ImageData","0 packet get.but ImageSession is null");
 				}
-			}else{
+			}
+			
+			//自分宛画像パケット受信
+			else{
+				ImageSession is = ImageSessionList.getSessionRe(p);
+				ImageSessionList.resetTimeOut(is);
 				if(is != null){
 					Log.d("ImageData","image packet get");
 					List<Integer> tempImageBuf = new ArrayList<Integer>(imageBuf);
@@ -137,7 +146,11 @@ public class ImageData{
 					Log.d("ImageData","image packet get.but ImageSession is null");
 				}
 			}
-		}else{
+		}
+		//中継
+		else{
+			
+			//中継0パケット受信
 			if(imageBuf.size() == 0){
 				ImageSession is = ImageSessionList.getSession(p);
 				ImageSessionList.resetTimeOut(is);
@@ -147,7 +160,10 @@ public class ImageData{
 					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
 					setRaleyPacket(p);
 				}
-			}else{
+			}
+			
+			//中継画像パケット受信
+			else{
 				ImageSession is = ImageSessionList.getSessionRe(p);
 				ImageSessionList.resetTimeOut(is);
 				Log.d("ImageData","image packet Relay");
@@ -177,6 +193,13 @@ public class ImageData{
 	//空パケットの送信
 	public static void SynAckPacketSend(Packet packet){
 		Log.d("ImageData","0 packet send");
+		ImageSession is = ImageSessionList.getSessionRe(packet);
+		if(is.getStatus() != 0x01){
+			return;
+		}
+		is.setFindMac(is.getOriginalDestinationMac());
+		is.setOriginalDestinationMac(packet.getOriginalSourceMac());
+		
 		packet.setType(Packet.ImageDATA);
 		
 		packet.exOriginalMac();
