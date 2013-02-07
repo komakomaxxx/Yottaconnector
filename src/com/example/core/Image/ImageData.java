@@ -79,7 +79,14 @@ public class ImageData{
 					sendPacket.setTypeNum(p.getTypeNum());
 					
 					//
-					SendImageData(NodeList.getNode(is.getFindMac()).getIcon(), sendPacket);
+					if(is.getFindMac().equals(YottaConnector.MyNode.getMACAddr())){
+						SendImageData(YottaConnector.MyNode.getIcon(), sendPacket);
+					}else if((NodeList.getNode(is.getFindMac()) != null ) && (NodeList.getNode(is.getFindMac()).getIcon() != null)){
+						SendImageData(NodeList.getNode(is.getFindMac()).getIcon(), sendPacket);
+					}else{
+						Log.d("ImageData","ERR");
+					}
+					
 				}	
 			}else{
 				if(is != null){	
