@@ -62,7 +62,10 @@ public class ImageData{
 	
 	//セッションタイムアウト
 	public static void ImageDataTimeOut(){
-		ImageList.clear();
+		if(ImageList != null){
+			ImageList.clear();
+		}
+		
 		bytes = null;
 		
 		ImageSessionSYN.sendImageSYN();
