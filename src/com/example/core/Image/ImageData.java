@@ -82,7 +82,7 @@ public class ImageData{
 	public static void setImagePacket(Packet p,List<Integer> imageBuf){
 		Log.d("ImageData", p.getOriginalDestinationMac() + "==" + YottaConnector.MyNode.getMACAddr());
 		if(p.getOriginalDestinationMac().equals(YottaConnector.MyNode.getMACAddr())){
-			ImageSession is = ImageSessionList.getSession(p);
+			ImageSession is = ImageSessionList.getSessionRe(p);
 			ImageSessionList.resetTimeOut(is);
 			if(imageBuf.size() == 0){
 				if(is != null){
@@ -96,7 +96,7 @@ public class ImageData{
 					sendPacket.setDestinationMac(p.getSourceMac());
 					sendPacket.setTypeNum(p.getTypeNum());
 					
-					//
+					
 					if(is.getFindMac().equals(YottaConnector.MyNode.getMACAddr())){
 						SendImageData(YottaConnector.MyNode.getIcon(), sendPacket);
 					}else if((NodeList.getNode(is.getFindMac()) != null ) && (NodeList.getNode(is.getFindMac()).getIcon() != null)){
@@ -135,9 +135,9 @@ public class ImageData{
 				}
 			}
 		}else{
-			ImageSession is = ImageSessionList.getSessionRe(p);
-			ImageSessionList.resetTimeOut(is);
 			if(imageBuf.size() == 0){
+				ImageSession is = ImageSessionList.getSession(p);
+				ImageSessionList.resetTimeOut(is);
 				Log.d("ImageData","0 packet Relay");
 				if(is != null && is.getStatus() == 0x01){
 					is.setStatus(0x02);
@@ -145,8 +145,10 @@ public class ImageData{
 					setRaleyPacket(p);
 				}
 			}else{
+				ImageSession is = ImageSessionList.getSessionRe(p);
+				ImageSessionList.resetTimeOut(is);
 				Log.d("ImageData","image packet Relay");
-				if(is != null && is.getStatus() == 0x03){
+				if(is != null && is.getStatus() == 0x02){
 					p.setDestinationMac(is.getSourceMac());
 					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
 					setRaleyPacket(p);	
