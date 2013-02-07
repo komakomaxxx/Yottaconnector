@@ -142,7 +142,7 @@ public class SettingData implements Runnable{
 			Log.d("Image","get typecode 8");
 			ImageSessionACK.cntrol(packet);
 		} else if (type == Packet.ImageDATA) {
-			Log.d("Image","get typecode 9");
+			Log.d("Image","get typecode 9:packet size is " + tmpData.length());
 			ImageData.setImagePacket(packet, imageBuf);
 		} else {
 		}

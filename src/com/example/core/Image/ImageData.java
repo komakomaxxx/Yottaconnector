@@ -23,7 +23,7 @@ public class ImageData{
 	
 	
 	//画像データバッファリング
-	private static void setImageData(char[] ArrayImage,int piece,int sum){
+	private static void setImageData(char[] ArrayImage,int piece,int sum,String NodeMac){
 		if(ImageList == null){
 			ImageList = new ArrayList<SplitImage>(sum);
 			Log.d("ImageData", "first add [" + piece + "/" + ImageList.size() + "] sum=" + sum);
@@ -50,10 +50,22 @@ public class ImageData{
 				bytes[i] = Bytes[i].byteValue();
 			}
 			Log.d("ImageData", "Received Image ByteArraySize is" + bytes.length);
+			Log.d("ImageData", "Get Image Node is " + NodeList.getNode(NodeMac).getName());
+			
+			ImageList.clear();
+			bytes = null;
 			
 			//imageSYNを呼ぶ
 			ImageSessionSYN.sendImageSYN();
 		}
+	}
+	
+	//セッションタイムアウト
+	public static void ImageDataTimeOut(){
+		ImageList.clear();
+		bytes = null;
+		
+		ImageSessionSYN.sendImageSYN();
 	}
 	
 	//byte[]結合済み画像データ返却
@@ -108,7 +120,7 @@ public class ImageData{
 					p.setImageArray(ca);
 					List<String> data = p.putData();
 					
-					setImageData(p.getImageArray(), Integer.parseInt(data.get(0)), Integer.parseInt(data.get(1)));
+					setImageData(p.getImageArray(), Integer.parseInt(data.get(0)), Integer.parseInt(data.get(1)),is.getFindMac());
 				}
 			}
 		}else{
