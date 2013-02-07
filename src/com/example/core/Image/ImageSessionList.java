@@ -59,6 +59,7 @@ public class ImageSessionList {
 		SessionList.remove(imageSession);
 		if(imageSession.getOriginalSourceMac().compareTo(YottaConnector.MyNode.getMACAddr()) == 0){
 			//ImageSYNクラスを実行する
+			ImageData.ImageDataTimeOut();
 		}
 	}
 }
