@@ -44,6 +44,7 @@ public class NodeListFragment extends Fragment implements
 	private NodeListListenerNotify nlln;
 	private EditText searchBox;
 	private ImageButton updata;
+	private Handler myHandler;
 
 	// ------------------------------
 
@@ -53,6 +54,8 @@ public class NodeListFragment extends Fragment implements
 
 		nlln = new NodeListListenerNotify(NodeList.nodelist.size());
 		nlln.setListener(this);
+		
+		myHandler = new Handler();
 
 		return inflater.inflate(R.layout.nodelist_fragment, container, false);
 		// return inflater.inflate(R.layout.nodelist_fragment_var2, container,
@@ -161,13 +164,13 @@ public class NodeListFragment extends Fragment implements
 	}
 
 	public void onNodeChangeListener(int length) {
-//		Handler mHandler = new Handler();
-//	      mHandler.post(new Runnable() {
-//	          public void run() {
-//	        	  updata.callOnClick();
-//	          }
-//	        });
-//		
+		
+		myHandler.post(new Runnable() {
+			public void run() {
+				adapter.clear();
+				updata.callOnClick();
+        	}
+        });
 	}
 
 	// -------------------------inner--------------------------------
