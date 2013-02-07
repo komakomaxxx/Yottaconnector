@@ -56,17 +56,18 @@ public class SendSocket implements Runnable{
 		// TODO 自動生成されたメソッド・スタブ
 		Socket socket;
 		try {
-			
-			socket = new Socket(host,9999);
-			
-			OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream());
 			synchronized (i) {
+				socket = new Socket(host,9999);
+				
+	
+				OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream());
+				
 				osw.write(SendCharArray);
 				osw.close();
+
+				socket.close();
+				Log.d("SendSocket","SendCharArray count : " + name());
 			}
-			
-			socket.close();
-			Log.d("SendSocket","SendCharArray count : " + name());
 			
 		} catch (UnknownHostException e) {
 			// TODO 自動生成された catch ブロック
