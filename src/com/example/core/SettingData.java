@@ -85,10 +85,6 @@ public class SettingData implements Runnable{
 		Log.d("SettingData", "[tmpdata length is " + tmpData.length() + "]   [iBuf size is " + iBuf.size() + "]");
 		
 		
-		if(tmpSM.equals("3085a9df87d1")){
-			return;
-		}
-		
 		//セッションチェック
 		if(SessionCtl.sreachSession(tmpOSM,Integer.parseInt(tmpSN,16)) == true){	
 			Log.d("settingData", "sessionData HiT"+tmpT+":"+tmpOSM+":"+Integer.parseInt(tmpSN,16));
