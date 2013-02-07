@@ -40,45 +40,55 @@ public class ImageSessionSYN {
 	}
 	
 	public static void sendImageSYN(){
-		Node node;
 		
-		int type = Packet.ImageSYN;
-		String oSrcMac = YottaConnector.MyNode.getMACAddr();
-		String oDestMac = null;
-		String srcMac = oSrcMac;
-		String destMac = Packet.broadCastMACaddr;
-		int hopLimit = Packet.HopLimitMax;
-		int typeNum = getSessionID();	
-		
-		//ノードリストからイメージのないノードを取得
-		//取得できるまでルーブ
-		while(true){
-			 node = NodeList.getNoImageNode();
-		
-			if(node != null){
-				break;
-			}
+		(new Thread(new Runnable() {
 			
-			try {
-				Thread.sleep(1000*60*2);
-			} catch (InterruptedException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
+			@Override
+			public void run() {
+				// TODO 自動生成されたメソッド・スタブ
+				Node node;
+				
+				int type = Packet.ImageSYN;
+				String oSrcMac = YottaConnector.MyNode.getMACAddr();
+				String oDestMac = null;
+				String srcMac = oSrcMac;
+				String destMac = Packet.broadCastMACaddr;
+				int hopLimit = Packet.HopLimitMax;
+				int typeNum = getSessionID();	
+				
+				//ノードリストからイメージのないノードを取得
+				//取得できるまでルーブ
+				while(true){
+					 node = NodeList.getNoImageNode();
+				
+					if(node != null){
+						break;
+					}
+					
+					try {
+						Thread.sleep(1000*60*2);
+					} catch (InterruptedException e) {
+						// TODO 自動生成された catch ブロック
+						e.printStackTrace();
+					}
+				}
+				
+				//ノードのMACアドレス取得
+				oDestMac = node.getMACAddr();
+				
+				//パケットヘッダ作成
+				Packet sendPacket = new Packet(type,oSrcMac,oDestMac,srcMac,destMac,hopLimit,typeNum);
+				
+				//セッション作成
+				ImageSessionList.addSession(sendPacket);
+				
+				//パケット送信
+				SendSocket send = new SendSocket(YottaConnector.ip);
+				send.makeNewPacket(sendPacket);
+				
 			}
-		}
+		})).start();
 		
-		//ノードのMACアドレス取得
-		oDestMac = node.getMACAddr();
-		
-		//パケットヘッダ作成
-		Packet sendPacket = new Packet(type,oSrcMac,oDestMac,srcMac,destMac,hopLimit,typeNum);
-		
-		//セッション作成
-		ImageSessionList.addSession(sendPacket);
-		
-		//パケット送信
-		SendSocket send = new SendSocket(YottaConnector.ip);
-		send.makeNewPacket(sendPacket);
 	}
 	
 	//パケット中継ルーチン
