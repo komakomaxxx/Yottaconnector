@@ -23,7 +23,7 @@ public class YossipListenerNotify implements Runnable{
 		// TODO 自動生成されたメソッド・スタブ
 		while(true){
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();

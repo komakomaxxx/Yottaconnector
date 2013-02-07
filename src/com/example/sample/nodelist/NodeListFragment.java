@@ -213,4 +213,9 @@ public class NodeListFragment extends Fragment implements
 
 		}
 	}
+
+	@Override
+	public void onFirstNodeGet() {
+		// TODO 自動生成されたメソッド・スタブ
+	}
 }

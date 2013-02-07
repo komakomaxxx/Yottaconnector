@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 import com.example.core.Socket_listen;
 import com.example.core.Hello.Hello;
+import com.example.core.Image.ImageSessionSYN;
 import com.example.core.NodeExchange.NodeExchangeReqest;
 import com.example.sample.Radar.RadarFragment;
 import com.example.sample.friendlist.FriendListManager;
@@ -48,7 +49,7 @@ import com.example.yottaconnecter.R;
 
 
 
-public class YottaConnector extends FragmentActivity implements SensorEventListener,LocationListener{
+public class YottaConnector extends FragmentActivity implements SensorEventListener,LocationListener,NodeListListener{
 
 	private RadarFragment rf;
 	private SensorManager sensorManager;
@@ -96,14 +97,20 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 			manager = (LocationManager)getSystemService(LOCATION_SERVICE);
 		}
 		
-        // フレンドリスト読み込み
-        FriendListManager.onLoadFriendList(this);
-        getMyNodeData();
+		//自ノード情報取得
+		getMyNodeData();
+
+      	//画像送受信処理開始
+      	Log.d("Image","Start Image Session");
+      	ImageSessionSYN.sendImageSYN();
 
       	//Helloの定期送信
       	Hello.startSendHello(10000);
       	NodeExchangeReqest.startSendTimer(20000);
       	
+      	// フレンドリスト読み込み
+        FriendListManager.onLoadFriendList(this);
+        
     }
 
     @Override
@@ -258,5 +265,18 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		
 		MyNode = new Node(myMACaddrString, data[0], 0, 0, icon, data[1]);
 		
+	}
+
+	@Override
+	public void onNodeChangeListener(int length) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	@Override
+	public void onFirstNodeGet() {
+		// TODO 自動生成されたメソッド・スタブ
+		Toast.makeText(this, "get first node", Toast.LENGTH_SHORT).show();
+		Log.d("FIRST NODE", "GET NODE");
 	}
 }

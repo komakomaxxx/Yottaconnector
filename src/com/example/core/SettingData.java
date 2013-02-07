@@ -84,6 +84,11 @@ public class SettingData implements Runnable{
 		Log.d("settingData",tmpT+":"+tmpOSM+":"+tmpODM+":"+tmpSM+":"+tmpDM+":"+tmpHL+":"+tmpSN+":"+tmpTN+"["+tmpData+"]");
 		Log.d("SettingData", "[tmpdata length is " + tmpData.length() + "]   [iBuf size is " + iBuf.size() + "]");
 		
+		
+		if(tmpSM.equals("3085a9df87d1")){
+			return;
+		}
+		
 		//セッションチェック
 		if(SessionCtl.sreachSession(tmpOSM,Integer.parseInt(tmpSN,16)) == true){	
 			Log.d("settingData", "sessionData HiT"+tmpT+":"+tmpOSM+":"+Integer.parseInt(tmpSN,16));
@@ -92,10 +97,7 @@ public class SettingData implements Runnable{
 		else{
 			Log.d("settingData", "sessionData noHiT"+tmpT+":"+tmpOSM+":"+Integer.parseInt(tmpSN,16));
 		}
-		
-//		if(tmpSM.equals("3085a9dd58af") == false){
-//			return;
-//		}
+
 		if(Integer.parseInt(tmpT,16) == 0x06){
 			Log.d("nodeREPRecv",Integer.parseInt(tmpTN,16) +":"+ tmpOSM + "->"+tmpODM);
 		}
@@ -134,11 +136,13 @@ public class SettingData implements Runnable{
 		} else if (type == Packet.NodeExREP) {
 			NodeExchangeReplay.recv(packet);
 		} else if (type == Packet.ImageSYN) {
-			
+			Log.d("Image","get typecode 7");
 			ImageSessionSYN.cntrol(packet);
 		} else if (type == Packet.ImageACK) {
+			Log.d("Image","get typecode 8");
 			ImageSessionACK.cntrol(packet);
 		} else if (type == Packet.ImageDATA) {
+			Log.d("Image","get typecode 9");
 			ImageData.setImagePacket(packet, imageBuf);
 		} else {
 		}
