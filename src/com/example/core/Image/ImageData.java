@@ -29,7 +29,8 @@ public class ImageData{
 			ImageList = new ArrayList<SplitImage>(sum);
 			Log.d("ImageData", "first add [" + piece + "/" + ImageList.size() + "] sum=" + sum);
 		}
-		Log.d("ImageData", "add [" + piece + "/" + ImageList.size() + "] sum=" + sum);
+		Node n = NodeList.getNode(NodeMac);
+		Log.d("ImageData", n.getName() + "'s image add [" + piece + "/" + ImageList.size() + "] sum=" + sum);
 		ImageList.add(new SplitImage(piece, ArrayImage));
 		if(ImageList.size() == sum){
 			List<Byte> ByteImage = new ArrayList<Byte>();
@@ -51,11 +52,14 @@ public class ImageData{
 				bytes[i] = Bytes[i].byteValue();
 			}
 
-			Node n = NodeList.getNode(NodeMac);
+			
 			if(n != null){
 				Log.d("ImageData", "Received Image ByteArraySize is" + bytes.length);
 				Log.d("ImageData", "Get Image Node is " + n.getName());
-				n.setIcon(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+				Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+				if(bm != null){
+					n.setIcon(bm);
+				}
 			}
 			
 			
