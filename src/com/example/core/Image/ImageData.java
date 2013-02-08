@@ -54,10 +54,10 @@ public class ImageData{
 
 			
 			if(n != null){
-				Log.d("ImageData", "Received Image ByteArraySize is" + bytes.length);
-				Log.d("ImageData", "Get Image Node is " + n.getName());
 				Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 				if(bm != null){
+					Log.d("ImageData", "Received Image ByteArraySize is" + bytes.length);
+					Log.d("ImageData", "Get Image Node is " + n.getName());
 					n.setIcon(bm);
 				}
 			}
