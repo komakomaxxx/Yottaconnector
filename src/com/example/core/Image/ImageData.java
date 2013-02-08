@@ -84,8 +84,6 @@ public class ImageData{
 	
 	//パケット振り分け
 	public static void setImagePacket(Packet p,List<Integer> imageBuf){
-		
-		Log.d("ImageData", p.getOriginalDestinationMac() + "==" + YottaConnector.MyNode.getMACAddr());
 		//自分宛パケット受信
 		if(p.getOriginalDestinationMac().equals(YottaConnector.MyNode.getMACAddr())){
 			
