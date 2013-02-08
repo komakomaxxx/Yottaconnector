@@ -164,6 +164,10 @@ public class ImageData{
 				if(is != null && is.getStatus() == 0x01){
 					is.setStatus(0x02);
 					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
+					char[] kara = new char[2];
+					kara[0] = 0xffd8;
+					kara[1] = 0xffd9;
+					p.setImageArray(kara);
 					setRaleyPacket(p);
 				}
 			}
