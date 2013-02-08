@@ -154,35 +154,37 @@ public class ImageData{
 		}
 		//中継
 		else{
-			
-			//中継0パケット受信
-			if(imageBuf.size() == 0){
-				ImageSession is = ImageSessionList.getSession(p);
-				ImageSessionList.resetTimeOut(is);
-				Log.d("ImageData","0 packet Relay");
-				if(is != null && is.getStatus() == 0x01){
-					is.setStatus(0x02);
-					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
-					char[] kara = new char[2];
-					kara[0] = 0xffd8;
-					kara[1] = 0xffd9;
-					p.setImageArray(kara);
-					setRaleyPacket(p);
+			//ホップリミットが0のときは中継しない
+			if(p.getHopLimit() != 0){
+				
+				//中継0パケット受信
+				if(imageBuf.size() == 0){
+					ImageSession is = ImageSessionList.getSession(p);
+					ImageSessionList.resetTimeOut(is);
+					Log.d("ImageData","0 packet Relay");
+					if(is != null && is.getStatus() == 0x01){
+						is.setStatus(0x02);
+						p.setSourceMac(YottaConnector.MyNode.getMACAddr());
+						char[] kara = new char[2];
+						kara[0] = 0xffd8;
+						kara[1] = 0xffd9;
+						p.setImageArray(kara);
+						setRaleyPacket(p);
+					}
+				}
+				
+				//中継画像パケット受信
+				else{
+					ImageSession is = ImageSessionList.getSessionRe(p);
+					ImageSessionList.resetTimeOut(is);
+					Log.d("ImageData","image packet Relay");
+					if(is != null && is.getStatus() == 0x02){
+						p.setDestinationMac(is.getSourceMac());
+						p.setSourceMac(YottaConnector.MyNode.getMACAddr());
+						setRaleyPacket(p);	
+					}
 				}
 			}
-			
-			//中継画像パケット受信
-			else{
-				ImageSession is = ImageSessionList.getSessionRe(p);
-				ImageSessionList.resetTimeOut(is);
-				Log.d("ImageData","image packet Relay");
-				if(is != null && is.getStatus() == 0x02){
-					p.setDestinationMac(is.getSourceMac());
-					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
-					setRaleyPacket(p);	
-				}
-			}
-			
 		}
 	}
 	
