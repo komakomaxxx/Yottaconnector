@@ -191,6 +191,22 @@ public class ImageData{
 					Log.d("ImageData","image packet Relay");
 					if(is != null && is.getStatus() == 0x02){
 						p.setDestinationMac(is.getSourceMac());
+						
+						List<Integer> tempImageBuf = new ArrayList<Integer>(imageBuf);
+						List<Character> CharacterImage = new ArrayList<Character>();
+						
+						for (Integer i : tempImageBuf) {
+							CharacterImage.add((char)(i.intValue()));
+						}
+						
+						char[] ca = new char[CharacterImage.size()];
+						
+						for(int i = 0;i < CharacterImage.size();i++){
+							ca[i] = CharacterImage.get(i);
+						}
+						
+						p.setImageArray(ca);
+						
 						setRaleyPacket(p);	
 					}
 				}
