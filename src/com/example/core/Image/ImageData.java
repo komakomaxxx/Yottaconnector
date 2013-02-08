@@ -108,8 +108,12 @@ public class ImageData{
 					
 					if(is.getFindMac().equals(YottaConnector.MyNode.getMACAddr())){
 						SendImageData(YottaConnector.MyNode.getRadarIcon(), sendPacket);
+						
+						Log.d("ImageData","Find mac is me");
 					}else if((NodeList.getNode(is.getFindMac()) != null ) && (NodeList.getNode(is.getFindMac()).getRadarIcon() != null)){
 						SendImageData(NodeList.getNode(is.getFindMac()).getRadarIcon(), sendPacket);
+						
+						Log.d("ImageData","Find mac is " + NodeList.getNode(is.getFindMac()).getName());
 					}else if(is.getFindMac() == null){
 						Log.d("ImageData","ERR:find mac is null");
 					}
@@ -164,7 +168,6 @@ public class ImageData{
 					Log.d("ImageData","0 packet Relay");
 					if(is != null && is.getStatus() == 0x01){
 						is.setStatus(0x02);
-						p.setSourceMac(YottaConnector.MyNode.getMACAddr());
 						char[] kara = new char[2];
 						kara[0] = 0xffd8;
 						kara[1] = 0xffd9;
@@ -180,7 +183,6 @@ public class ImageData{
 					Log.d("ImageData","image packet Relay");
 					if(is != null && is.getStatus() == 0x02){
 						p.setDestinationMac(is.getSourceMac());
-						p.setSourceMac(YottaConnector.MyNode.getMACAddr());
 						setRaleyPacket(p);	
 					}
 				}
