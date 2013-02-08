@@ -15,29 +15,32 @@ import android.util.Log;
 
 public class NodeList {
 	public static List<Node> nodelist;
-	public static List<Node> nearnodelist;
+	public static List<Node> nearNodelist;
 	final static int NODE_MAX_SIZE =10000;
 
 	static {
 		nodelist = new ArrayList<Node>(NODE_MAX_SIZE);
-		nearnodelist = new ArrayList<Node>(NODE_MAX_SIZE);
+		nearNodelist = new ArrayList<Node>(NODE_MAX_SIZE);
 	}
 	public synchronized static void updateNodeList(ArrayList<Node> newNodeList) {
 		
 		List<Node> removelist = new ArrayList<Node>(nodelist);
 		//差分を削除する(消えたNodeの削除)
 		removelist.removeAll(newNodeList);
+		//
+		removelist.removeAll(nearNodelist);
 
 
 Log.d("NodeRemove","remove size:"+removelist.size());
-	nodelist.removeAll(removelist);
+
+		nodelist.removeAll(removelist);
 		//ノードの追加更新
 		for(Node n : newNodeList){
 			addNode(n);
 		}
 	}
 	public synchronized static void updateNearNodeList(ArrayList<Node> newNearNodeList) {
-		List<Node> removelist = new ArrayList<Node>(nearnodelist);
+		List<Node> removelist = new ArrayList<Node>(nearNodelist);
 		//差分を削除する(消えたNodeの削除)
 		removelist.removeAll(newNearNodeList);
 
@@ -45,7 +48,7 @@ Log.d("NodeRemove","remove size:"+removelist.size());
 Log.d("NodeRemove hello ","remove size:"+removelist.size());
 		nodelist.removeAll(removelist);
 		
-		nearnodelist = new ArrayList<Node>(newNearNodeList);
+		nearNodelist = new ArrayList<Node>(newNearNodeList);
 		
 		//ノードの更新
 		for(Node n : newNearNodeList){
