@@ -98,7 +98,7 @@ public class ImageData{
 			if(imageBuf.size() == 0){
 				ImageSession is = ImageSessionList.getSession(p);
 				ImageSessionList.resetTimeOut(is);
-				if(is != null){
+				if((is != null) && (is.getStatus() == 0x01)){
 					Log.d("ImageData","0 packet get");
 					is.setStatus(0x02);
 					Packet sendPacket = new Packet();
@@ -134,7 +134,7 @@ public class ImageData{
 			else{
 				ImageSession is = ImageSessionList.getSessionRe(p);
 				ImageSessionList.resetTimeOut(is);
-				if(is != null){
+				if((is != null) && (is.getStatus() == 0x02)){
 					Log.d("ImageData","image packet get");
 					List<Integer> tempImageBuf = new ArrayList<Integer>(imageBuf);
 					List<Character> CharacterImage = new ArrayList<Character>();
@@ -216,6 +216,7 @@ public class ImageData{
 		}
 		is.setFindMac(is.getOriginalDestinationMac());
 		is.setOriginalDestinationMac(packet.getOriginalSourceMac());
+		is.setStatus(0x02);
 		
 		packet.setType(Packet.ImageDATA);
 		
