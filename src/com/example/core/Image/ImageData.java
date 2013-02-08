@@ -99,21 +99,27 @@ public class ImageData{
 				if((is != null) && (is.getStatus() == 0x01)){
 					Log.d("ImageData","0 packet get");
 					is.setStatus(0x02);
-					Packet sendPacket = new Packet();
-					sendPacket.setType(9);
-					sendPacket.setOriginalSourceMac(YottaConnector.MyNode.getMACAddr());
-					sendPacket.setOriginalDestinationMac(p.getOriginalSourceMac());
-					sendPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
-					sendPacket.setDestinationMac(p.getSourceMac());
-					sendPacket.setTypeNum(p.getTypeNum());
+//					Packet sendPacket = new Packet();
+//					sendPacket.setType(9);
+//					sendPacket.setOriginalSourceMac(YottaConnector.MyNode.getMACAddr());
+//					sendPacket.setOriginalDestinationMac(p.getOriginalSourceMac());
+//					sendPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
+//					sendPacket.setDestinationMac(p.getSourceMac());
+//					sendPacket.setTypeNum(p.getTypeNum());
+//					
+					p.setType(9);
+					p.exOriginalMac();
+					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
+					p.setDestinationMac(is.getSourceMac());
+					
 					
 					
 					if(is.getFindMac().equals(YottaConnector.MyNode.getMACAddr())){
-						SendImageData(YottaConnector.MyNode.getRadarIcon(), sendPacket);
+						SendImageData(YottaConnector.MyNode.getRadarIcon(), p);
 						
 						Log.d("ImageDataFind","Find mac is me");
 					}else if((NodeList.getNode(is.getFindMac()) != null ) && (NodeList.getNode(is.getFindMac()).getRadarIcon() != null)){
-						SendImageData(NodeList.getNode(is.getFindMac()).getRadarIcon(), sendPacket);
+						SendImageData(NodeList.getNode(is.getFindMac()).getRadarIcon(), p);
 						
 						Log.d("ImageDataFind","Find mac is " + NodeList.getNode(is.getFindMac()).getName());
 					}else if(is.getFindMac() == null){
