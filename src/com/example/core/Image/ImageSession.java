@@ -3,6 +3,8 @@ package com.example.core.Image;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.util.Log;
+
 import com.example.core.Packet;
 
 public class ImageSession{
@@ -48,7 +50,7 @@ public class ImageSession{
 	}
 	
 	public String getOriginalSourceMac(){
-		return OriginalDestinationMac;
+		return OriginalSourceMac;
 	}
 	
 	public void setOriginalDestinationMac(String mac){
@@ -64,11 +66,15 @@ public class ImageSession{
 	}
 	
 	public void timerStart(){
+		String tag = "imageSession";
 		timeOut = new Timer(true);
+		Log.d(tag,"timer["+timeOut);
 		timeOut.schedule(new TimerTask(){
 			@Override
 			public void run() {
+		String tag = "imageSession";
 				// TODO 自動生成されたメソッド・スタブ
+				Log.d(tag, "timer[run]");
 				ImageSessionList.removeSession(getInstance());
 			}
 		},30000);

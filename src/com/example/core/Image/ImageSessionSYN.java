@@ -76,6 +76,7 @@ public class ImageSessionSYN {
 						break;
 					}
 					
+		Log.d(tag,"roop");
 					try {
 						if(StartFlug){
 							Thread.sleep(100);
