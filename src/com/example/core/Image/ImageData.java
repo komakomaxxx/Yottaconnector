@@ -50,12 +50,11 @@ public class ImageData{
 			for(int i = 0; i < Bytes.length;i++){
 				bytes[i] = Bytes[i].byteValue();
 			}
-			Log.d("ImageData", "Received Image ByteArraySize is" + bytes.length);
-			Log.d("ImageData", "Get Image Node is " + NodeList.getNode(NodeMac).getName());
-			
-			
+
 			Node n = NodeList.getNode(NodeMac);
 			if(n != null){
+				Log.d("ImageData", "Received Image ByteArraySize is" + bytes.length);
+				Log.d("ImageData", "Get Image Node is " + NodeList.getNode(NodeMac).getName());
 				n.setIcon(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
 			}
 			
