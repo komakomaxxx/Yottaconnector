@@ -75,6 +75,7 @@ public class ImageSession{
 	}
 	
 	public void timerClear(){
+		if(timeOut == null) return;
 		timeOut.cancel();
 		timeOut = null;
 	}
