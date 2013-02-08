@@ -24,7 +24,7 @@ public class ImageData{
 	
 	
 	//画像データバッファリング
-	private static void setImageData(char[] ArrayImage,int piece,int sum,String NodeMac){
+	private static void setImageData(char[] ArrayImage,int piece,int sum,String NodeMac,ImageSession is){
 		if(ImageList == null){
 			ImageList = new ArrayList<SplitImage>(sum);
 			Log.d("ImageData", "first add [" + piece + "/" + ImageList.size() + "] sum=" + sum);
@@ -65,7 +65,7 @@ public class ImageData{
 			
 			ImageList.clear();
 			bytes = null;
-			
+			ImageSessionList.removeSession(is);
 			//imageSYNを呼ぶ
 			ImageSessionSYN.sendImageSYN();
 		}
@@ -152,7 +152,7 @@ public class ImageData{
 					p.setImageArray(ca);
 					List<String> data = p.putData();
 					
-					setImageData(p.getImageArray(), Integer.parseInt(data.get(0)), Integer.parseInt(data.get(1)),is.getFindMac());
+					setImageData(p.getImageArray(), Integer.parseInt(data.get(0)), Integer.parseInt(data.get(1)),is.getFindMac(),is);
 				}
 				else
 				{
