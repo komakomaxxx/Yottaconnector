@@ -139,7 +139,7 @@ public class ImageData{
 				ImageSession is = ImageSessionList.getSessionRe(p);
 				ImageSessionList.resetTimeOut(is);
 				if((is != null) && (is.getStatus() == 0x02)){
-					Log.d("ImageData","image packet get");
+					Log.d("ImageData","image packet get : SourceMac is " + p.getSourceMac());
 					List<Integer> tempImageBuf = new ArrayList<Integer>(imageBuf);
 					List<Character> CharacterImage = new ArrayList<Character>();
 					
@@ -234,7 +234,6 @@ public class ImageData{
 		if(is.getStatus() != 0x01){
 			return;
 		}
-		is.setFindMac(is.getOriginalDestinationMac());
 		is.setOriginalDestinationMac(packet.getOriginalSourceMac());
 		is.setStatus(0x02);
 		
