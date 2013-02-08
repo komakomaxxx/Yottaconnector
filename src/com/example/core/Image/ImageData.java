@@ -54,7 +54,7 @@ public class ImageData{
 			Node n = NodeList.getNode(NodeMac);
 			if(n != null){
 				Log.d("ImageData", "Received Image ByteArraySize is" + bytes.length);
-				Log.d("ImageData", "Get Image Node is " + NodeList.getNode(NodeMac).getName());
+				Log.d("ImageData", "Get Image Node is " + n.getName());
 				n.setIcon(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
 			}
 			
@@ -109,11 +109,11 @@ public class ImageData{
 					if(is.getFindMac().equals(YottaConnector.MyNode.getMACAddr())){
 						SendImageData(YottaConnector.MyNode.getRadarIcon(), sendPacket);
 						
-						Log.d("ImageData","Find mac is me");
+						Log.d("ImageDataFind","Find mac is me");
 					}else if((NodeList.getNode(is.getFindMac()) != null ) && (NodeList.getNode(is.getFindMac()).getRadarIcon() != null)){
 						SendImageData(NodeList.getNode(is.getFindMac()).getRadarIcon(), sendPacket);
 						
-						Log.d("ImageData","Find mac is " + NodeList.getNode(is.getFindMac()).getName());
+						Log.d("ImageDataFind","Find mac is " + NodeList.getNode(is.getFindMac()).getName());
 					}else if(is.getFindMac() == null){
 						Log.d("ImageData","ERR:find mac is null");
 					}
