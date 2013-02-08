@@ -83,7 +83,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		//nl.testMakeNodeList();
 		//testNodeCreate(nl);
 		
-		new Socket_listen(ip);
+		//new Socket_listen(ip);
 		
 		rf = (RadarFragment) mAdapter.getRadarFragment();
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -99,6 +99,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		
 		//自ノード情報取得
 		getMyNodeData();
+		new Socket_listen(ip);
 
       	//画像送受信処理開始
       	Log.d("Image","Start Image Session");
@@ -106,7 +107,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 
       	//Helloの定期送信
       	Hello.startSendHello(10000);
-      	NodeExchangeReqest.startSendTimer(20000);
+      	NodeExchangeReqest.startSendTimer(10000);
       	
       	// フレンドリスト読み込み
         FriendListManager.onLoadFriendList(this);
