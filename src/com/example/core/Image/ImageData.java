@@ -66,8 +66,6 @@ public class ImageData{
 			ImageList.clear();
 			bytes = null;
 			ImageSessionList.removeSession(is);
-			//imageSYNを呼ぶ
-			ImageSessionSYN.sendImageSYN();
 		}
 	}
 	
