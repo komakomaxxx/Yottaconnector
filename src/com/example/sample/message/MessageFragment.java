@@ -1,6 +1,7 @@
 package com.example.sample.message;
 
 import com.example.core.Message.Message;
+import com.example.sample.header.ReceiveMessageManager;
 import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.R;
 
@@ -276,6 +277,8 @@ public class MessageFragment extends DialogFragment implements TextWatcher, View
 			Bundle bundle = new Bundle();
 			bundle.putParcelable("node", node);
 			dialog.setArguments(bundle);
+			// header部のメッセージ通知を削除
+			ReceiveMessageManager.removeReceiveMessage(node.getMACAddr());
 			return dialog;
 		}
 	}
