@@ -111,6 +111,10 @@ public class ImageSessionSYN {
 	private static void packetRelay(Packet packet){
 		packet.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		
+		if(packet.getHopLimit() == 0){
+			return;
+		}
+		
 		//パケット送信
 		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeRaleyPacket(packet);
