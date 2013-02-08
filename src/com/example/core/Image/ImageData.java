@@ -108,9 +108,9 @@ public class ImageData{
 					
 					
 					if(is.getFindMac().equals(YottaConnector.MyNode.getMACAddr())){
-						SendImageData(YottaConnector.MyNode.getIcon(), sendPacket);
-					}else if((NodeList.getNode(is.getFindMac()) != null ) && (NodeList.getNode(is.getFindMac()).getIcon() != null)){
-						SendImageData(NodeList.getNode(is.getFindMac()).getIcon(), sendPacket);
+						SendImageData(YottaConnector.MyNode.getRadarIcon(), sendPacket);
+					}else if((NodeList.getNode(is.getFindMac()) != null ) && (NodeList.getNode(is.getFindMac()).getRadarIcon() != null)){
+						SendImageData(NodeList.getNode(is.getFindMac()).getRadarIcon(), sendPacket);
 					}else if(is.getFindMac() == null){
 						Log.d("ImageData","ERR:find mac is null");
 					}

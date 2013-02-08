@@ -66,7 +66,6 @@ public class SendSocket implements Runnable{
 				osw.close();
 
 				socket.close();
-				Log.d("SendSocket","SendCharArray count : " + name());
 			}
 			
 		} catch (UnknownHostException e) {
