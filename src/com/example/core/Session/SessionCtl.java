@@ -2,7 +2,6 @@ package com.example.core.Session;
 
 
 
-import android.util.Log;
 
 public class SessionCtl {
 	final static int QueueSize = 10000;
@@ -17,7 +16,6 @@ public class SessionCtl {
 		for( int i=0;i < QueueSize;i++){
 			if (sessionQueue[getP] != null ){
 				if(sessionQueue[getP].equals(searchData)){
-					Log.d("1hit", searchData);
 					return true;			
 				}
 			}
