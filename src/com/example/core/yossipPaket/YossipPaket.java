@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import android.util.Log;
 
 import com.example.yottaconnecter.Yossip;
 import com.example.yottaconnecter.YossipList;
@@ -41,7 +40,6 @@ public class YossipPaket {
 			d = Yossip.timeFormat.parse(YossipTime);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			Log.d(tag,"yossipTimeFomat Err");
 		}
 		YossipList.addYossip(new Yossip(yossip,d,macAddr,name));
 		
@@ -55,9 +53,6 @@ public class YossipPaket {
 		recvPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		
 		new SendSocket().makeRaleyPacket(recvPacket);
-	}
-	public static void send() {
-		
 	}
 	public static void sendYossip( String yos ) {
 		

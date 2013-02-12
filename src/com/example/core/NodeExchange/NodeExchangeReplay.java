@@ -4,11 +4,9 @@ import java.util.ArrayList;
 
 import com.example.core.Packet;
 import com.example.core.SendSocket;
-import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.YottaConnector;
 
-import android.content.res.Resources.Theme;
-import android.util.Log;
+
 
 
 public class NodeExchangeReplay {
@@ -24,10 +22,8 @@ public class NodeExchangeReplay {
 		NodeExchangeSessionData session = NodeExchangeReqest.searchSession(oDstMac,tNum);
 		
 		if(session != null){
-Log.d(tag,"recv"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 			if( oDstMac.equals(YottaConnector.MyNode.getMACAddr())){
-				Log.d(tag, "Get Replay to "+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac());
 				
 				/*ノードリスト追加*/
 				ArrayList<String> dataList = recvPacket.putData();
@@ -47,7 +43,6 @@ Log.d(tag,"recv"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()
 			}	
 		}
 		else{
-Log.d(tag, "NoSession"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		}
 	}
@@ -82,7 +77,6 @@ Log.d(tag, "NoSession"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourc
 
 		SendSocket.newSend(sendPacket);
 		//new SendSocket().makeNewPacket(sendPacket);	
-Log.d(tag,"send"+recvPacket.getTypeNum() +":"+ sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
 		
 	}
 	

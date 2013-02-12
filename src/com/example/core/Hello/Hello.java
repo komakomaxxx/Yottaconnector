@@ -7,7 +7,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 import com.example.core.Packet;
 import com.example.core.SendSocket;
 import com.example.yottaconnecter.Node;
@@ -33,7 +32,6 @@ public class Hello {
 		Double keido = Double.valueOf(dataList.get(2));
 		String profile = dataList.get(3);
 		
-		Log.d(tag,"[" +macAddr+":"+name+":"+ido+":"+keido+":"+profile  );
 		//HelloNodeData n = new HelloNodeData(macAddr,name,ido,keido,null,profile);
 		HelloNodeData n = new HelloNodeData(macAddr,name,ido,keido,null,profile);
 		//node に追加
@@ -69,7 +67,6 @@ public class Hello {
 		//data部設定
 		sendPacket.createData(dataList);		
 		//送信
-Log.d(tag, "send Hello");
 		new SendSocket().makeNewPacket(sendPacket);
 	}
 	
@@ -89,7 +86,6 @@ Log.d(tag, "send Hello");
 		for(HelloNodeData nd : nearNodeList){
 			if(nd.ttlDecrement() == false){
 				removeNodeList.add(nd);
-Log.d(tag, "Noderemove Hello:"+nd.getMACAddr());
 			}
 		}
 		nearNodeList.removeAll(removeNodeList);
@@ -152,7 +148,6 @@ class HelloNodeData  extends Node{
 	}
 	protected boolean ttlDecrement() {
 		ttl = ttl -1;
-Log.d("TTL Hello", ""+ ttl);
 		if(ttl <= 0){
 			return false;
 		}

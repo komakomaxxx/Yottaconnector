@@ -1,7 +1,6 @@
 package com.example.core.NodeExchange;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,10 +10,7 @@ import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.YottaConnector;
 
-import android.R.bool;
 import android.graphics.Bitmap;
-import android.util.Log;
-import android.widget.SeekBar;
 
 
 
@@ -43,7 +39,6 @@ public class NodeExchangeReqest {
 			
 		}
 		
-Log.d(tag,""+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		//パケット解析
 		hopLimit = recvPacket.getHopLimit();
@@ -74,7 +69,6 @@ Log.d(tag,""+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->
 		//ヘッダ作成
 		recvPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		
-Log.d(tag,"relay:"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		//送信
 		SendSocket.RelaySend(recvPacket);
@@ -103,7 +97,6 @@ Log.d(tag,"relay:"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac
 		addSession(srcMac,srcMac,tNum);
 		
 	
-Log.d(tag, "start send "+sendPacket.getTypeNum());
 		//new SendSocket().makeNewPacket(sendPacket);
 		
 		SendSocket.newSend(sendPacket);
@@ -156,7 +149,6 @@ Log.d(tag, "start send "+sendPacket.getTypeNum());
 		 一致するsessionDataをListから破棄する
 		 */
 		if(YottaConnector.MyNode.getMACAddr().equals(sd.getSrcMac())){
-Log.d("nodeExREQ","recv Node Size:"+newNodeList.size());
 			updateNodeList();
 
 			//NodeListの初期化
@@ -198,7 +190,6 @@ Log.d("nodeExREQ","recv Node Size:"+newNodeList.size());
 		for(NodeExData nd : newNodeList){
 			if(nd.ttlDecrement() == false){
 				removeList.add(nd);
-Log.d("Noderemove Node", ""+nd.getMACAddr());
 			}
 		}
 		newNodeList.removeAll(removeList);
@@ -275,7 +266,6 @@ class NodeExData  extends Node{
 	}
 	public boolean ttlDecrement() {
 		ttl = ttl -1;
-Log.d("TTL NodeEx", ""+ ttl + this.getMACAddr());
 		if(ttl <= 0){
 			return false;
 		}else{

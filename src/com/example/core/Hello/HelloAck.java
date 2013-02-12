@@ -6,7 +6,7 @@ import com.example.core.Packet;
 import com.example.core.SendSocket;
 import com.example.yottaconnecter.YottaConnector;
 
-import android.util.Log;
+
 
 
 public class HelloAck {
@@ -32,7 +32,6 @@ public class HelloAck {
 			Hello.addNearNode(n);
 			
 			
-			Log.d(tag,"tNum = "+sessionNum + "[" +macAddr+":"+name+":"+ido+":"+keido+":"+profile  );
 			
 		}
 	}
@@ -67,7 +66,6 @@ public class HelloAck {
 		//data部設定
 		sendPack.createData(dataList);
 		
-		Log.d(tag,"send Hello ACK to "+dstMac);
 		new SendSocket().makeNewPacket(sendPack);
 	}
 }
