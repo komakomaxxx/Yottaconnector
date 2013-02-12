@@ -13,7 +13,6 @@ import com.example.core.NodeExchange.*;
 import com.example.core.Session.*;
 import android.provider.MediaStore.Images;
 import android.service.textservice.SpellCheckerService.Session;
-import android.util.Log;
 
 public class SettingData implements Runnable{
 	private Thread thread;
@@ -79,12 +78,6 @@ public class SettingData implements Runnable{
 		}
 		String tmpData = new String(dbuf,0,countMax);
 		
-		
-		
-		Log.d("settingData",tmpT+":"+tmpOSM+":"+tmpODM+":"+tmpSM+":"+tmpDM+":"+tmpHL+":"+tmpSN+":"+tmpTN+"["+tmpData+"]");
-		Log.d("SettingData", "[tmpdata length is " + tmpData.length() + "]   [iBuf size is " + iBuf.size() + "]");
-		
-		
 		//ブロックするデバイス
 		String hanawa="3085a9df87d1";
 		//String komai="3085a9dae2f7";
@@ -95,18 +88,14 @@ public class SettingData implements Runnable{
 		}
 		//セッションチェック
 		if(SessionCtl.sreachSession(tmpOSM,Integer.parseInt(tmpSN,16)) == true){	
-			Log.d("settingData", "sessionData HiT"+tmpT+":"+tmpOSM+":"+Integer.parseInt(tmpSN,16));
 			return;
 		}
 		else{
-			Log.d("settingData", "sessionData noHiT"+tmpT+":"+tmpOSM+":"+Integer.parseInt(tmpSN,16));
 		}
 
 		if(Integer.parseInt(tmpT,16) == 0x06){
-			Log.d("nodeREPRecv",Integer.parseInt(tmpTN,16) +":"+ tmpOSM + "->"+tmpODM);
 		}
 		if(Integer.parseInt(tmpT,16) == 0x05){
-			Log.d("nodeREQRecv",Integer.parseInt(tmpTN,16) +":"+ tmpOSM + "->"+tmpODM);
 		}
 		
 		
@@ -124,7 +113,6 @@ public class SettingData implements Runnable{
 	
 		int type = packet.getType();
 		
-		Log.d("recv", "type=" + type +":"+ packet.getOriginalSourceMac() );
 		if (type == Packet.Hello) {
 			Hello.recv(packet);
 		} else if (type == Packet.HelloAck) {
@@ -140,13 +128,10 @@ public class SettingData implements Runnable{
 		} else if (type == Packet.NodeExREP) {
 			NodeExchangeReplay.recv(packet);
 		} else if (type == Packet.ImageSYN) {
-			Log.d("Image","get typecode 7");
 			ImageSessionSYN.cntrol(packet);
 		} else if (type == Packet.ImageACK) {
-			Log.d("Image","get typecode 8");
 			ImageSessionACK.cntrol(packet);
 		} else if (type == Packet.ImageDATA) {
-			Log.d("Image","get typecode 9:image packet size is " + imageBuf.size());
 			ImageData.setImagePacket(packet, imageBuf);
 		} else {
 		}

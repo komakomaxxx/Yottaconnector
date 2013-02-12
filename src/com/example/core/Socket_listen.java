@@ -7,13 +7,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-
-
-import android.app.Activity;
-import android.util.Log;
 
 
 public class Socket_listen implements Runnable{
@@ -43,8 +37,6 @@ public class Socket_listen implements Runnable{
 		Socket socket;
 		BufferedReader reader;
 		
-		Log.d("MyApp", "run");
-		
 		try {
 			socket = new Socket(host, port);		
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()),10*1024);
@@ -52,7 +44,6 @@ public class Socket_listen implements Runnable{
 			while(true){
 				int line = reader.read();
 				if(line == -1){
-					Log.d("socket_listen","end stream");
 				}
 				ExchangeData(line);
 				
@@ -60,17 +51,14 @@ public class Socket_listen implements Runnable{
 		} catch (UnknownHostException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
-			Log.d("MyApp", "UnknownHostException");
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
-			Log.d("MyApp", "IOException");
 //		} catch (InterruptedException e) {
 //			// TODO 自動生成された catch ブロック
 //			e.printStackTrace();
 		}
-		
-		Log.d("Socket_Listen","socsoc");
+
 	}
 	
 	public void ExchangeData(int line) {
@@ -78,7 +66,6 @@ public class Socket_listen implements Runnable{
 		
 		if(Status == 0 && line == 0x02){
 			Status = 1;
-			Log.d("Socket_Listen","Status = 1 start Packet Buffering");
 		}else if(Status == 1){
 			if(line != 0x03){
 				bufQ.add(line);
@@ -88,7 +75,6 @@ public class Socket_listen implements Runnable{
 				}else{
 					//キューを振り分けスレッドに渡す
 					makeReceivePacket();
-					Log.d("Socket_Listen","Status = 0 end Packet Buffering");
 					bufQ.clear();
 					Status = 0;
 				}
@@ -97,13 +83,11 @@ public class Socket_listen implements Runnable{
 		else if (Status == 2) {
 			if(line == 0xffd8){
 				Status = 3;
-				Log.d("Socket_Listen","Status = 3 start Image Buffering");
 			}
 		}
 		else if(Status == 3){
 			if(line == 0xFFD9){
 					Status = 0;
-					Log.d("Socket_Listen","Status = 0 end Image Buffering.ImageBuffer size is " + imageBuf.size());
 					makeReceiveImagePacket();
 					bufQ.clear();
 					imageBuf.clear();
