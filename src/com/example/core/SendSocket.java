@@ -20,6 +20,7 @@ import android.service.textservice.SpellCheckerService.Session;
 import android.util.Log;
 
 import com.example.core.Session.*;
+import com.example.yottaconnecter.YottaConnector;
 
 public class SendSocket implements Runnable{
 
@@ -43,12 +44,12 @@ public class SendSocket implements Runnable{
 	
 
 	public SendSocket() {
-		this.host = "192.168.0.101";
+		this.host = YottaConnector.ip;
 	}
 	public SendSocket(String host) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		
-		this.host = "192.168.0.101";
+		this.host = YottaConnector.ip;
 	}
 
 	@Override
