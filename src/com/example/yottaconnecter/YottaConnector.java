@@ -264,7 +264,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 			e.printStackTrace();
 		}
 		
-		MyNode = new Node(myMACaddrString, data[0], 0, 0, icon, data[1]);
+		MyNode = new Node(myMACaddrString, data[0], this.ido, this.keido, icon, data[1]);
 		
 	}
 
