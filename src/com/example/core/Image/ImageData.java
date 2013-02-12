@@ -30,11 +30,11 @@ public class ImageData{
 			Log.d("ImageData", "first add [" + piece + "/" + ImageList.size() + "] sum=" + sum);
 		}
 		Node n = NodeList.getNode(NodeMac);
-		Log.d("ImageData", n.getName() + "'s image add [" + piece + "/" + ImageList.size() + "] sum=" + sum);
+		//Log.d("ImageData", n.getName() + "'s image add [" + piece + "/" + ImageList.size() + "] sum=" + sum);
 		ImageList.add(new SplitImage(piece, ArrayImage));
 		if(ImageList.size() == sum){
 			List<Byte> ByteImage = new ArrayList<Byte>();
-			Log.d("ImageData", "Make ImageList complete.List size is" + ImageList.size());
+			//Log.d("ImageData", "Make ImageList complete.List size is" + ImageList.size());
 			
 			Collections.sort(ImageList, new ImageComparator());
 			
