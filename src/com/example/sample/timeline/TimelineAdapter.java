@@ -93,6 +93,15 @@ public class TimelineAdapter extends ArrayAdapter<Yossip> {
 			holder = (ViewHolder) v.getTag();
 			holder.timelineYossip.setSingleLine(false);
 		}
+		
+		if(currentYossip.getYossipIcon() == null)
+		{
+			Node node = NodeList.getNode(currentYossip.getYossipUserMac());
+			if(node != null)
+			{
+				currentYossip.setIcon(node.getRadarIcon());
+			}
+		}
 		IconTask task = new IconTask(holder.timelineIcon);
 		task.execute(currentYossip.getYossipIcon());
 	    holder.timelineName.setText(currentYossip.getYossipUser());

@@ -57,4 +57,8 @@ public class Yossip {
 	public String getYossipUserMac(){
 		return yossipUserMac;
 	}
+	public void setIcon(Bitmap icon)
+	{
+		this.yossipIcon = icon;
+	}
 }
