@@ -1,9 +1,6 @@
 package com.example.core.Image;
 
 import java.util.ArrayList;
-
-import android.util.Log;
-
 import com.example.yottaconnecter.*;
 import com.example.core.Packet;
 
@@ -58,12 +55,10 @@ public class ImageSessionList {
 	
 	static public synchronized void removeSession(ImageSession imageSession){
 		String tag = "ImageSessionList";
-		Log.d(tag,"removeSession["+imageSession.getOriginalSourceMac());
 		imageSession.timerClear();
 		SessionList.remove(imageSession);
 		if(imageSession.getOriginalSourceMac().compareTo(YottaConnector.MyNode.getMACAddr()) == 0){
 			//ImageSYNクラスを実行する
-			Log.d(tag,"ImageDataTimeOut");
 			ImageData.ImageDataTimeOut();
 		}
 	}

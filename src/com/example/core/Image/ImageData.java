@@ -27,14 +27,11 @@ public class ImageData{
 	private static void setImageData(char[] ArrayImage,int piece,int sum,String NodeMac,ImageSession is){
 		if(ImageList == null){
 			ImageList = new ArrayList<SplitImage>(sum);
-			Log.d("ImageData", "first add [" + piece + "/" + ImageList.size() + "] sum=" + sum);
 		}
 		Node n = NodeList.getNode(NodeMac);
-		//Log.d("ImageData", n.getName() + "'s image add [" + piece + "/" + ImageList.size() + "] sum=" + sum);
 		ImageList.add(new SplitImage(piece, ArrayImage));
 		if(ImageList.size() == sum){
 			List<Byte> ByteImage = new ArrayList<Byte>();
-			//Log.d("ImageData", "Make ImageList complete.List size is" + ImageList.size());
 			
 			Collections.sort(ImageList, new ImageComparator());
 			
@@ -56,8 +53,6 @@ public class ImageData{
 			if(n != null){
 				Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 				if(bm != null){
-					Log.d("ImageData", "Received Image ByteArraySize is" + bytes.length);
-					Log.d("ImageData", "Get Image Node is " + n.getName());
 					n.setIcon(bm);
 				}
 			}
@@ -71,8 +66,6 @@ public class ImageData{
 	
 	//セッションタイムアウト
 	public static void ImageDataTimeOut(){
-		Log.d("ImageData","imagedata is TimeOut");
-		
 		if(ImageList != null){
 			ImageList.clear();
 		}
@@ -97,16 +90,8 @@ public class ImageData{
 				ImageSession is = ImageSessionList.getSession(p);
 				ImageSessionList.resetTimeOut(is);
 				if((is != null) && (is.getStatus() == 0x01)){
-					Log.d("ImageData","0 packet get");
 					is.setStatus(0x02);
-//					Packet sendPacket = new Packet();
-//					sendPacket.setType(9);
-//					sendPacket.setOriginalSourceMac(YottaConnector.MyNode.getMACAddr());
-//					sendPacket.setOriginalDestinationMac(p.getOriginalSourceMac());
-//					sendPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
-//					sendPacket.setDestinationMac(p.getSourceMac());
-//					sendPacket.setTypeNum(p.getTypeNum());
-//					
+					
 					p.setType(9);
 					p.exOriginalMac();
 					p.setSourceMac(YottaConnector.MyNode.getMACAddr());
@@ -117,20 +102,14 @@ public class ImageData{
 					if(is.getFindMac().equals(YottaConnector.MyNode.getMACAddr())){
 						SendImageData(YottaConnector.MyNode.getRadarIcon(), p);
 						
-						Log.d("ImageDataFind","Find mac is me");
 					}else if((NodeList.getNode(is.getFindMac()) != null ) && (NodeList.getNode(is.getFindMac()).getRadarIcon() != null)){
 						SendImageData(NodeList.getNode(is.getFindMac()).getRadarIcon(), p);
-						
-						Log.d("ImageDataFind","Find mac is " + NodeList.getNode(is.getFindMac()).getName());
 					}else if(is.getFindMac() == null){
-						Log.d("ImageData","ERR:find mac is null");
 					}
 					else{
-						Log.d("ImageData","ERR:find mac is " + is.getFindMac());
 					}
 					
 				}else{
-					Log.d("ImageData","0 packet get.but ImageSession is null");
 				}
 			}
 			
@@ -139,7 +118,6 @@ public class ImageData{
 				ImageSession is = ImageSessionList.getSessionRe(p);
 				ImageSessionList.resetTimeOut(is);
 				if((is != null) && (is.getStatus() == 0x02)){
-					Log.d("ImageData","image packet get : SourceMac is " + p.getSourceMac());
 					List<Integer> tempImageBuf = new ArrayList<Integer>(imageBuf);
 					List<Character> CharacterImage = new ArrayList<Character>();
 					
@@ -160,7 +138,6 @@ public class ImageData{
 				}
 				else
 				{
-					Log.d("ImageData","image packet get.but ImageSession is null");
 				}
 			}
 		}
@@ -173,7 +150,6 @@ public class ImageData{
 				if(imageBuf.size() == 0){
 					ImageSession is = ImageSessionList.getSession(p);
 					ImageSessionList.resetTimeOut(is);
-					Log.d("ImageData","0 packet Relay");
 					if(is != null && is.getStatus() == 0x01){
 						is.setStatus(0x02);
 						char[] kara = new char[2];
@@ -188,7 +164,6 @@ public class ImageData{
 				else{
 					ImageSession is = ImageSessionList.getSessionRe(p);
 					ImageSessionList.resetTimeOut(is);
-					Log.d("ImageData","image packet Relay");
 					if(is != null && is.getStatus() == 0x02){
 						p.setDestinationMac(is.getSourceMac());
 						
@@ -234,7 +209,6 @@ public class ImageData{
 	
 	//空パケットの送信
 	public static void SynAckPacketSend(Packet packet){
-		Log.d("ImageData","0 packet send");
 		ImageSession is = ImageSessionList.getSessionRe(packet);
 		if(is.getStatus() != 0x01){
 			return;
@@ -266,12 +240,10 @@ public class ImageData{
 	
 	//新規画像データ送信
 	public static void SendImageData(Bitmap sendBitmap,Packet p){
-		Log.d("ImageData","image packet send");
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		sendBitmap.compress(CompressFormat.JPEG, 100, bos);
 		byte[] imageArray = bos.toByteArray();
-		
-		Log.d("ImageData", "Original Image ByteArraySize is" + imageArray.length);
+
 		List<char[]> tmpList = new ArrayList<char[]>();
 	 	tmpList = isolationImageData(imageArray);
 	 	

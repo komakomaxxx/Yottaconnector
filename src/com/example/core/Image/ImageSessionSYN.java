@@ -1,6 +1,5 @@
 package com.example.core.Image;
 
-import android.util.Log;
 
 import com.example.yottaconnecter.*;
 import com.example.core.Packet;
@@ -23,8 +22,6 @@ public class ImageSessionSYN {
 		}
 		
 		ImageSessionList.addSession(packet);
-		Log.d(tag,"cntrol");
-		
 		//OriginalDestinationMacが自分宛のパケットでない場合
 		if(packet.getOriginalDestinationMac().compareTo(YottaConnector.MyNode.getMACAddr()) != 0){
 			
@@ -32,19 +29,16 @@ public class ImageSessionSYN {
 			Node node = NodeList.getNode(packet.getOriginalDestinationMac());
 			
 			if(node != null && node.getIcon() != null){
-		Log.d(tag,"find Icon");
 				//ACKを送信
 				ImageSessionACK.sendACK(packet);
 			}else{
 				//転送処理
-		Log.d(tag,"Relay SYN");
 				packetRelay(packet);
 			}
 			
 		}else{
 		//OriginalDestinationMacが自分宛のパケットの場合
 			//ACKを送信
-		Log.d(tag,"send ACK myMAC");
 			ImageSessionACK.sendACK(packet);
 		}
 		
@@ -77,7 +71,6 @@ public class ImageSessionSYN {
 						break;
 					}
 					
-		Log.d(tag,"roop");
 					try {
 						if(StartFlug){
 							Thread.sleep(100);
@@ -90,7 +83,6 @@ public class ImageSessionSYN {
 					}
 				}
 				
-		Log.d(tag,"send SYN");
 				//ノードのMACアドレス取得
 				oDestMac = node.getMACAddr();
 				

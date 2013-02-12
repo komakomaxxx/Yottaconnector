@@ -1,23 +1,11 @@
 package com.example.core;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 import android.R.integer;
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Bitmap.CompressFormat;
-import android.net.wifi.WifiManager;
-import android.service.textservice.SpellCheckerService.Session;
-import android.util.Log;
 
 import com.example.core.Session.*;
 import com.example.yottaconnecter.YottaConnector;
@@ -92,13 +80,6 @@ public class SendSocket implements Runnable{
 		return i;
 	}
 	public void makeNewPacket(Packet packet){
-
-		if(packet.getType()==0x06){
-			Log.d("NodeREP Send",packet.getTypeNum()+":"+ packet.getOriginalSourceMac() +"->"+packet.getOriginalDestinationMac());
-		}
-		if(packet.getType()==0x05){
-			Log.d("NodeREQ Send",packet.getTypeNum()+":"+ packet.getOriginalSourceMac() +"->"+packet.getOriginalDestinationMac());
-		}
 		
 		SendCharArray = makePacket(packet,getSequenceNUM());
 		

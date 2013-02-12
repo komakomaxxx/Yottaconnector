@@ -1,6 +1,5 @@
 package com.example.core.Image;
 
-import android.util.Log;
 
 import com.example.yottaconnecter.*;
 import com.example.core.Packet;
@@ -15,7 +14,6 @@ public class ImageSessionACK {
 		
 		session = ImageSessionList.getSessionRe(packet);
 		
-		Log.d(tag,"control");
 		//セッションが存在しないか、ステータスがSYNでない場合処理を行わない
 		if(session == null || session.getStatus() != ImageSession.STS_SYN){
 			return;
@@ -39,8 +37,7 @@ public class ImageSessionACK {
 		if(session == null){
 			return;
 		}
-		Log.d(tag,"sendACK");
-			
+
 		//画像要求MACアドレスをセッションに設定
 		session.setFindMac(packet.getOriginalDestinationMac());
 		
@@ -63,8 +60,7 @@ public class ImageSessionACK {
 	}
 	
 	public static void packetRelay(ImageSession session,Packet packet){
-		
-		Log.d(tag,"packetRelay");
+
 		//パケットヘッダ付け替え
 		packet.exMac();
 		packet.setDestinationMac(session.getSourceMac());
@@ -76,7 +72,6 @@ public class ImageSessionACK {
 
 	private static void sessionReplace(ImageSession session,Packet packet){
 		
-		Log.d(tag,"sessionReplace");
 		//画像要求MACアドレスを設定
 		session.setFindMac(session.getOriginalDestinationMac());
 		

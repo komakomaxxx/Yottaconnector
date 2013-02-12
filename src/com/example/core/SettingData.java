@@ -86,14 +86,13 @@ public class SettingData implements Runnable{
 		
 		
 		//ブロックするデバイス
-		//String hanawa="3085a9df87d1";
-		//String komai="3083a9dae2f7";
+		String hanawa="3085a9df87d1";
+		//String komai="3085a9dae2f7";
 		//String togo="3085a9dd58af";
-		//String hasegawa="08606e2837e5";
-		//if(tmpSM.equals(arg0)){
-		//	return;
-		//}
-		
+
+		if(tmpSM.equals(hanawa)){
+			return;
+		}
 		//セッションチェック
 		if(SessionCtl.sreachSession(tmpOSM,Integer.parseInt(tmpSN,16)) == true){	
 			Log.d("settingData", "sessionData HiT"+tmpT+":"+tmpOSM+":"+Integer.parseInt(tmpSN,16));

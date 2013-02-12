@@ -21,7 +21,7 @@ public class Socket_listen implements Runnable{
 	private Thread thread;
     private String host;
     private List<Integer> bufQ = new ArrayList<Integer>(1000);
- 	private List<Integer> imageBuf = new ArrayList<Integer>();
+ 	private List<Integer> imageBuf = new ArrayList<Integer>(1000);
  	private int Status = 0;
  	
     //private Queue<Integer> bufQ = new LinkedList<Integer>();
@@ -50,9 +50,10 @@ public class Socket_listen implements Runnable{
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()),10*1024);
 			
 			while(true){
-				//Thread.sleep(100);
 				int line = reader.read();
-				
+				if(line == -1){
+					Log.d("socket_listen","end stream");
+				}
 				ExchangeData(line);
 				
 			}
@@ -68,6 +69,8 @@ public class Socket_listen implements Runnable{
 //			// TODO 自動生成された catch ブロック
 //			e.printStackTrace();
 		}
+		
+		Log.d("Socket_Listen","socsoc");
 	}
 	
 	public void ExchangeData(int line) {
