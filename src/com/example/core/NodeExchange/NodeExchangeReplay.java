@@ -79,12 +79,7 @@ Log.d(tag, "NoSession");
 		//data部設定
 		sendPacket.setSequenceNum(recvPacket.getSequenceNum());
 		sendPacket.createData(dataList);
-		
-//		int sNum = SendSocket.getSequenceNUM();
-//		sendPacket.setSequenceNum(sNum);
-//
-//		new SendSocket().makeRaleyPacket(sendPacket);	
-//		new SendSocket().makeRaleyPacket(sendPacket);
+
 		
 		new SendSocket().makeNewPacket(sendPacket);	
 Log.d(tag,"send"+recvPacket.getTypeNum() +":"+ sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());

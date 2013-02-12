@@ -53,6 +53,12 @@ Log.d(tag,""+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->
 		
 		if(hopLimit != 0 ){
 			//中継
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			relay(recvPacket);
 		}
 	}
@@ -95,12 +101,7 @@ Log.d(tag,"relay:"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac
 		
 		addSession(srcMac,srcMac,tNum);
 		
-		
-		int sNum = SendSocket.getSequenceNUM();
-		sendPacket.setSequenceNum(sNum);
-//		new SendSocket().makeRaleyPacket(sendPacket);
-//		new SendSocket().makeRaleyPacket(sendPacket);
-		
+	
 Log.d(tag, "start send "+sendPacket.getTypeNum());
 		new SendSocket().makeNewPacket(sendPacket);
 		
@@ -272,7 +273,7 @@ class NodeExData  extends Node{
 	}
 	public boolean ttlDecrement() {
 		ttl = ttl -1;
-Log.d("TTL NodeEx", ""+ ttl);
+Log.d("TTL NodeEx", ""+ ttl + this.getMACAddr());
 		if(ttl <= 0){
 			return false;
 		}else{
