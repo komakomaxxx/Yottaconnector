@@ -10,11 +10,9 @@ import com.example.core.SendSocket;
 import com.example.sample.message.*;
 
 public class MessageACK {
-	private static String tag = "MessageACK";
 	
 	public static void cntrol(Packet packet){
 		
-		Log.d(tag,"cntrol"+packet.getOriginalSourceMac());
 		//OriginalDestinationMacが自分宛のパケットでない場合
 		if(packet.getOriginalDestinationMac().compareTo(YottaConnector.MyNode.getMACAddr()) != 0){
 			
@@ -31,7 +29,6 @@ public class MessageACK {
 	public static void sendMessageACK(Packet packet){
 		MessageRoot root;
 		
-		Log.d(tag,"sendMessageAck");
 		
 		packet.setType(Packet.MessageAck);
 		packet.setHopLimit(Packet.HopLimitMax);
@@ -40,11 +37,9 @@ public class MessageACK {
 		//ルートテーブル作成であれば
 		if(Message.checkFlg(packet.getTypeNum())){
 			setSimplexRootTable(packet);
-		Log.d(tag,"sendMessageAck:CreateRootTable");
 		}else{
 		//ルートテーブル使用であれば
 			root = updateSimplexRootTable(packet);
-		Log.d(tag,"sendMessageAck:UseRootTable["+root);
 			if(root == null){
 				setSimplexRootTable(packet);
 			}
@@ -54,7 +49,6 @@ public class MessageACK {
 		
 		packet.setData(null);
 		
-		Log.d(tag,"[packet]"+packet.getOriginalSourceMac()+">"+packet.getOriginalDestinationMac());
 		//パケット送信
 		SendSocket send = new SendSocket(YottaConnector.ip);
 		send.makeNewPacket(packet);
@@ -66,23 +60,19 @@ public class MessageACK {
 		//セッションテーブルからセッション取得
 		session = MessageSessionList.getSessionACK(packet);
 		
-		Log.d(tag,"reseptMessageACK");
 		//セッションがなければ
 		if(session == null){
 			return;
 		}
 		
-		Log.d(tag,"reseptMessageACK:sessionOK");
 		//セッション削除
 		MessageSessionList.removeSession(session,true);
 		
-		Log.d(tag,"[receptMessageACKpacket]"+packet.getOriginalSourceMac()+">"+packet.getOriginalDestinationMac()+":"+packet.getSourceMac());
 		//パケット送信
 		//ルーティングテーブル作成であれば
 		if(Message.checkFlg(packet.getTypeNum())){
 			//ルーティングテーブルを作成する
 			setSimplexRootTableRe(packet);
-		Log.d(tag,"reseptMessageACK:rootOK");
 		}else{
 		//ルートテーブルを使用であれば
 			updateSimlexRootTableRe(packet);
@@ -100,10 +90,8 @@ public class MessageACK {
 			
 			//セッションテーブルがなければ
 			if(session == null){
-				Log.d(tag,"[packetRelay] session is null");
 				return;
 			}
-				Log.d(tag,"[packetRelay] session is not null");
 				
 			packet.exMac();
 			packet.setDestinationMac(session.getSourceMac());
@@ -116,10 +104,8 @@ public class MessageACK {
 			root = MessageRootTable.getRoot(packet);
 			
 			if(root == null){
-				Log.d(tag,"[packetRelay] root is null");
 				return;
 			}
-				Log.d(tag,"[packetRelay] root is not null");
 			
 			packet.exMac();
 			packet.setDestinationMac(root.getForwardMac());

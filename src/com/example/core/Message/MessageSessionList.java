@@ -20,8 +20,6 @@ public class MessageSessionList {
 		MessageSession result = new MessageSession(packet);
 		SessionList.add(result);
 		result.timerStart();
-		String tag = "addSession";
-		Log.d(tag,result.getOriginalSourceMac());
 	}
 	
 	static public synchronized MessageSession getSession(Packet packet){
@@ -52,8 +50,6 @@ public class MessageSessionList {
 	}
 	
 	static public synchronized void removeSession(MessageSession messageSession,boolean flg){
-		String tag = "removeMessageSession";
-		Log.d(tag,messageSession.getOriginalSourceMac());
 		messageSession.timerClear();
 		SessionList.remove(messageSession);
 		if(messageSession.getOriginalSourceMac().compareTo(YottaConnector.MyNode.getMACAddr()) == 0){
@@ -61,11 +57,8 @@ public class MessageSessionList {
 			int status;
 			if(flg){
 				status = MessageManager.Message.SUCCESS;
-		Log.d(tag,"true["+status);
 			}else{
 				status = MessageManager.Message.FAILED;
-		Log.d(tag,"false["+status);
-		Log.d(tag,"rootclear["+messageSession.getOriginalSourceMac()+">>"+messageSession.getOriginalDestinationMac());
 			MessageRootTable.removeRoot(MessageRootTable.getRoot(messageSession.getOriginalSourceMac(), messageSession.getOriginalDestinationMac()));
 			}
 			MessageManager.getWaitMessage().setState(status);
