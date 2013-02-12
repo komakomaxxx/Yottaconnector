@@ -24,7 +24,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.example.yottaconnecter.Node;
 import com.example.yottaconnecter.NodeList;

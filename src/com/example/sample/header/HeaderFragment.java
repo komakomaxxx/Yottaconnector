@@ -1,8 +1,5 @@
 package com.example.sample.header;
 
-import java.util.Date;
-
-
 import com.example.sample.message.MessageFragment;
 import com.example.sample.message.MessageManager;
 import com.example.yottaconnecter.Node;
@@ -30,6 +27,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
+@SuppressWarnings("deprecation")
 public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 	private ImageView receiveMessageIcon;
 	private TextView receiveCount;

@@ -4,7 +4,6 @@ package com.example.sample.header;
 public class ReceiveMessageNotify implements Runnable {
 
 	private ReceiveMessageListener listener;
-	private ReceiveMessageManager manager;
 	private Thread thread;
 
 	public ReceiveMessageNotify(ReceiveMessageListener listener) {
