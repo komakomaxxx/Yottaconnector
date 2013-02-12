@@ -1,6 +1,5 @@
 package com.example.yottaconnecter;
 
-import android.util.Log;
 
 
 public class NodeListListenerNotify implements Runnable{

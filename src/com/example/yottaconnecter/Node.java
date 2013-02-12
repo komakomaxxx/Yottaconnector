@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 public class Node implements Parcelable {
 	private String MACAddr;
@@ -158,7 +157,6 @@ public class Node implements Parcelable {
 		dist = d * 2500; // テスト用に距離を短縮
 		azim = getDirection(cido, ckeido, ido, keido);
 		
-		Log.d("Node" + this.Name, "azim = " + azim + "  dist=" + dist + "  keido=" + this.keido);
 	}
 
 	private double getDirection(double lat1, double lng1, double lat2,
@@ -217,7 +215,6 @@ public class Node implements Parcelable {
         options.inJustDecodeBounds = false;
         float max = Math.max((float) options.outWidth * scale / MaxWidth,
                 (float) options.outHeight * scale / MaxHeight);
-        Log.e("log_w", Float.toString(max));
         max = (float) Math.floor(max);
         if (max > 1) {
             options.inSampleSize = (int) max;

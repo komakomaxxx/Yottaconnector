@@ -3,23 +3,16 @@ package com.example.yottaconnecter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import android.R.string;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -32,10 +25,8 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.core.Socket_listen;
@@ -44,7 +35,6 @@ import com.example.core.Image.ImageSessionSYN;
 import com.example.core.NodeExchange.NodeExchangeReqest;
 import com.example.sample.Radar.RadarFragment;
 import com.example.sample.friendlist.FriendListManager;
-import com.example.sample.timeline.TimelineFragment;
 import com.example.yottaconnecter.R;
 
 
@@ -62,8 +52,8 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 	public static String ip = "192.168.0.101";
 	public static ViewPager mPager;
 	
-	private double ido=0;
-	private double keido=0;
+	private double ido=35.625014;
+	private double keido=139.341337;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,7 +95,6 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		new Socket_listen(ip);
 
       	//画像送受信処理開始
-      	Log.d("Image","Start Image Session");
       	ImageSessionSYN.sendImageSYN();
 
       	//Helloの定期送信
@@ -221,13 +210,9 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 		   int eventType = xpp.getEventType();
 		   while (eventType != XmlPullParser.END_DOCUMENT) {
 			   if (eventType == XmlPullParser.START_DOCUMENT) {
-				   Log.d("ReadXML", "START");
 			   } else if (eventType == XmlPullParser.START_TAG) {
-				   Log.d("ReadXML","Start tag " + xpp.getName());
 			   } else if (eventType == XmlPullParser.END_TAG) {
-				   Log.d("ReadXML","End tag " + xpp.getName());
 			   } else if (eventType == XmlPullParser.TEXT) {
-				   Log.d("ReadXML","Text " + xpp.getText());
 				   data[i] = xpp.getText();
 				   i++;
 			   }
@@ -278,6 +263,5 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 	public void onFirstNodeGet() {
 		// TODO 自動生成されたメソッド・スタブ
 		Toast.makeText(this, "get first node", Toast.LENGTH_SHORT).show();
-		Log.d("FIRST NODE", "GET NODE");
 	}
 }

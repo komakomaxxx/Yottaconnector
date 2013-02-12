@@ -11,7 +11,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.Config;
-import android.util.Log;
 
 public class NodeList {
 	public static List<Node> nodelist;
@@ -31,7 +30,6 @@ public class NodeList {
 		removelist.removeAll(nearNodelist);
 
 
-Log.d("NodeRemove","remove size:"+removelist.size());
 
 		nodelist.removeAll(removelist);
 		//ノードの追加更新
@@ -45,7 +43,6 @@ Log.d("NodeRemove","remove size:"+removelist.size());
 		removelist.removeAll(newNearNodeList);
 
 
-Log.d("NodeRemove hello ","remove size:"+removelist.size());
 		nodelist.removeAll(removelist);
 		
 		nearNodelist = new ArrayList<Node>(newNearNodeList);

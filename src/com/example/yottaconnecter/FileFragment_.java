@@ -18,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 
-public class FileFragment extends Fragment  {
-	public FileFragment() {
+public class FileFragment_ extends Fragment  {
+	public FileFragment_() {
 		// TODO Auto-generated constructor stub
 	}
 	
