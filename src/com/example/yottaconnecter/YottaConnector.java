@@ -62,6 +62,9 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 	public static String ip = "192.168.0.101";
 	public static ViewPager mPager;
 	
+	private double ido=0;
+	private double keido=0;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,11 +145,8 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 
 	public void onLocationChanged(Location location) {
 		// TODO 自動生成されたメソッド・スタブ
-//		
 //		double ido = location.getLatitude();
 //		double keido = location.getLongitude();
-		double ido = location.getLatitude();
-		double keido = location.getLongitude();
 		MyNode.setIdo(ido);
 		MyNode.setKeido(keido);
 		for (Node nodedata : NodeList.nodelist) {
