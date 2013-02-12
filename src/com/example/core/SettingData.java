@@ -86,9 +86,9 @@ public class SettingData implements Runnable{
 		
 		
 		//ブロックするデバイス
-		//String hanawa=3085a9df87d1
-		//String komai=3083a9dae2f7
-		//String togo=3085a9dd58af
+		//String hanawa="3085a9df87d1";
+		//String komai="3083a9dae2f7";
+		//String togo="3085a9dd58af";
 		//if(tmpSM.equals(arg0)){
 		//	return;
 		//}
