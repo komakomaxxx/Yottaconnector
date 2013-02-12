@@ -57,8 +57,8 @@ Log.d(tag, "NoSession"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourc
 		sendPacket.setSourceMac(YottaConnector.MyNode.getMACAddr());
 		sendPacket.setDestinationMac(session.getSrcMac());
 		
-//		new SendSocket().makeRaleyPacket(sendPacket);
-		new SendSocket().makeRaleyPacket(sendPacket);
+		SendSocket.RelaySend(sendPacket);
+		//new SendSocket().makeRaleyPacket(sendPacket);
 	}
 	public static void  sendReplay(Packet recvPacket) {
 		//パケット生成
@@ -80,35 +80,10 @@ Log.d(tag, "NoSession"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourc
 		//data部設定
 		sendPacket.createData(dataList);
 
-		
-		new SendSocket().makeNewPacket(sendPacket);	
+		SendSocket.newSend(sendPacket);
+		//new SendSocket().makeNewPacket(sendPacket);	
 Log.d(tag,"send"+recvPacket.getTypeNum() +":"+ sendPacket.getOriginalSourceMac()+"->"+sendPacket.getSourceMac()+"->"+sendPacket.getDestinationMac()+"->"+sendPacket.getOriginalDestinationMac());
 		
 	}
-	private static void newSend(Packet sendPacket) {
-		int sNum = SendSocket.getSequenceNUM();
-		sendPacket.setSequenceNum(sNum);
-
-		for(int i=0;i<5;i++){
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			sendPacket.setHopLimit(sendPacket.getHopLimit()+1);
-			new SendSocket().makeRaleyPacket(sendPacket);
-		}
-	}
-	private static void RelaySend(Packet sendPacket) {
-		for(int i=0;i<5;i++){
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			new SendSocket().makeRaleyPacket(sendPacket);
-		}
-	}
+	
 }

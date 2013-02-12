@@ -77,7 +77,8 @@ Log.d(tag,""+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->
 Log.d(tag,"relay:"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
 
 		//送信
-		new SendSocket().makeRaleyPacket(recvPacket);
+		SendSocket.RelaySend(recvPacket);
+		//new SendSocket().makeRaleyPacket(recvPacket);
 		//new SendSocket().makeRaleyPacket(recvPacket);
 	}
 	//起点として送信
@@ -103,8 +104,9 @@ Log.d(tag,"relay:"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac
 		
 	
 Log.d(tag, "start send "+sendPacket.getTypeNum());
-		new SendSocket().makeNewPacket(sendPacket);
+		//new SendSocket().makeNewPacket(sendPacket);
 		
+		SendSocket.newSend(sendPacket);
 		
 	}
 	
