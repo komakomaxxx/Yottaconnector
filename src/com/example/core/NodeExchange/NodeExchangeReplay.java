@@ -47,7 +47,8 @@ Log.d(tag,"recv"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()
 			}	
 		}
 		else{
-Log.d(tag, "NoSession");
+Log.d(tag, "NoSession"+recvPacket.getTypeNum() +":"+ recvPacket.getOriginalSourceMac()+"->"+recvPacket.getSourceMac()+"->"+recvPacket.getOriginalDestinationMac());
+
 		}
 	}
 	public static void relay(Packet sendPacket,NodeExchangeSessionData session) {
@@ -77,7 +78,6 @@ Log.d(tag, "NoSession");
 		//paketと生成
 		Packet sendPacket = new Packet(Packet.NodeExREP,srcMac,oDstMac,srcMac,dstMac,hopLimit,sessionNum);
 		//data部設定
-		sendPacket.setSequenceNum(recvPacket.getSequenceNum());
 		sendPacket.createData(dataList);
 
 		
