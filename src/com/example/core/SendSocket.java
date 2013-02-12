@@ -172,4 +172,30 @@ public class SendSocket implements Runnable{
 		SessionCtl.addSession(p.getOriginalSourceMac(), Integer.parseInt(ssnum,16));
 		return cBuf;
 	}
+	public static void newSend(Packet sendPacket) {
+		int sNum = SendSocket.getSequenceNUM();
+		sendPacket.setSequenceNum(sNum);
+
+		for(int i=0;i<3;i++){
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			sendPacket.setHopLimit(sendPacket.getHopLimit()+1);
+			new SendSocket().makeRaleyPacket(sendPacket);
+		}
+	}
+	public static void RelaySend(Packet sendPacket) {
+		for(int i=0;i<3;i++){
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			new SendSocket().makeRaleyPacket(sendPacket);
+		}
+	}
 }
