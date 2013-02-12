@@ -89,6 +89,7 @@ public class SettingData implements Runnable{
 		//String hanawa="3085a9df87d1";
 		//String komai="3083a9dae2f7";
 		//String togo="3085a9dd58af";
+		//String hasegawa="08606e2837e5";
 		//if(tmpSM.equals(arg0)){
 		//	return;
 		//}
