@@ -194,10 +194,15 @@ public class ImageData{
 						
 						List<Integer> tempImageBuf = new ArrayList<Integer>(imageBuf);
 						List<Character> CharacterImage = new ArrayList<Character>();
+						char[] kara = new char[2];
+						kara[0] = 0xffd8;
+						kara[1] = 0xffd9;
 						
+						CharacterImage.add(kara[0]);
 						for (Integer i : tempImageBuf) {
 							CharacterImage.add((char)(i.intValue()));
 						}
+						CharacterImage.add(kara[1]);
 						
 						char[] ca = new char[CharacterImage.size()];
 						
