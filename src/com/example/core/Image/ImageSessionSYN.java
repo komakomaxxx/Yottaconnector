@@ -30,7 +30,9 @@ public class ImageSessionSYN {
 			
 			//要求ノードの画像を自分が保持していれば
 			Node node = NodeList.getNode(packet.getOriginalDestinationMac());
-			if(node != null && node.getIcon() != null){
+			
+			//テスト用条件常にfalse
+			if(false && node != null && node.getIcon() != null){
 		Log.d(tag,"find Icon");
 				//ACKを送信
 				ImageSessionACK.sendACK(packet);
