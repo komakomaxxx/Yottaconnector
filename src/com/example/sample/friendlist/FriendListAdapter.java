@@ -1,6 +1,8 @@
 package com.example.sample.friendlist;
 
 import java.util.List;
+
+import com.example.yottaconnecter.NodeList;
 import com.example.yottaconnecter.R;
 
 import android.content.Context;
@@ -65,6 +67,7 @@ public final class FriendListAdapter extends ArrayAdapter<FriendNode> {
 		}
 		
 	    FriendNode currentFriendNode = getItem(position);
+	    if(NodeList.getNode(currentFriendNode.getMACAddr()) != null) currentFriendNode.setOnlineState(true);
 	    if(currentFriendNode.isOnline()) {
 	    	IconTask statTask = new IconTask(holder.friendOnlineState);
 	    	statTask.execute(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.online));
