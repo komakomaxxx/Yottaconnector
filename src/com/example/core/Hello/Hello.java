@@ -139,7 +139,7 @@ public class Hello {
 }
 class HelloNodeData  extends Node{
 
-	private int ttl = 2;
+	private int ttl = 6*5;
 	
 
 	HelloNodeData(String MACAddr, String Name, double ido, double keido,Bitmap Icon, String profile) {

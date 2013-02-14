@@ -79,13 +79,13 @@ public class SettingData implements Runnable{
 		String tmpData = new String(dbuf,0,countMax);
 		
 		//ブロックするデバイス
-		String hanawa="3085a9df87d1";
+		//String hanawa="3085a9df87d1";
 		//String komai="3085a9dae2f7";
 		//String togo="3085a9dd58af";
 
-		if(tmpSM.equals(hanawa)){
-			return;
-		}
+//		if(tmpSM.equals(komai)){
+//			return;
+//		}
 		//セッションチェック
 		if(SessionCtl.sreachSession(tmpOSM,Integer.parseInt(tmpSN,16)) == true){	
 			return;

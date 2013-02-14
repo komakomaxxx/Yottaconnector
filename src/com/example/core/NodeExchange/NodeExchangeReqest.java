@@ -257,7 +257,7 @@ class NodeExchangeSessionData{
 }
 class NodeExData  extends Node{
 
-	private int ttl = 2;
+	private int ttl = 6*5;
 	
 
 	NodeExData(String MACAddr, String Name, double ido, double keido,Bitmap Icon, String profile) {
