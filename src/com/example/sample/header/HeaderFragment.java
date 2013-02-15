@@ -37,12 +37,12 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 	ListView messageList;
 	static TextView fragmentName;
 	SlidingDrawer slider;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = getActivity().getLayoutInflater().inflate(R.layout.header_fragment, null);
-		
+
 		return v;
 	}
 
@@ -52,18 +52,18 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 		super.onActivityCreated(savedInstanceState);
 		messageList = (ListView) getActivity().findViewById(R.id.h_MessageList);
 		messageList.setOnItemClickListener(new ClickEvent());
-		
+
 		slider = (SlidingDrawer)getActivity().findViewById(R.id.h_MessageSliding);
-		
+
 		new ReceiveMessageNotify(this);
 		handler = new Handler();
 
 		receiveMessageIcon = (ImageView) getActivity().findViewById(R.id.H_Message_icon);
-		
+
 		receiveCount = (TextView) getActivity().findViewById(
 				R.id.receive_message_countIcon);
 		 fragmentName= (TextView) getActivity().findViewById(R.id.fragment_name);
-		 
+
 		getActivity().findViewById(R.id.H_Message_icon).setOnClickListener(
 				new OnClickListener() {
 					public void onClick(View v) {
@@ -86,12 +86,12 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 				new OnClickListener() {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						
+
 						DialogFragment dialog = new Setting_fragment();
 						dialog.show(getActivity().getFragmentManager(), null);
 					}
 				});
-		
+
 	}
 
 	public void onReceiveChangeListener(final int len) {
@@ -99,19 +99,23 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 
 			public void run() {
 				int length = len;
-				if (length == 0) {
-					receiveCount.setText("");
-					receiveMessageIcon.setVisibility(View.INVISIBLE);
-				} else {
-					receiveCount.setText(Integer.toString(length));
-					receiveMessageIcon.setVisibility(View.VISIBLE);
-				}
-				adapter = new HeaderMessageAdapter(getActivity(),
-						R.layout.header_message_row,
-						ReceiveMessageManager.getReceiveList());
-				messageList.setAdapter(adapter);
-				if(ReceiveMessageManager.size() == 0){
-					closeSlider();
+				try {
+					if (length == 0) {
+						receiveCount.setText("");
+						receiveMessageIcon.setVisibility(View.INVISIBLE);
+					} else {
+						receiveCount.setText(Integer.toString(length));
+						receiveMessageIcon.setVisibility(View.VISIBLE);
+					}
+					adapter = new HeaderMessageAdapter(getActivity(),
+							R.layout.header_message_row,
+							ReceiveMessageManager.getReceiveList());
+					messageList.setAdapter(adapter);
+					if(ReceiveMessageManager.size() == 0){
+						closeSlider();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
 				}
 			}
 		});
@@ -119,7 +123,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 	}
 	public static void  setFragmentName(String s) {
 		fragmentName.setText(s);
-		
+
 	}
 	private void closeSlider() {
 		slider.animateClose();
@@ -131,7 +135,7 @@ public class HeaderFragment extends Fragment implements ReceiveMessageListener {
 			ListView listView = (ListView) adapter;
 			MessageManager.Message item = (MessageManager.Message) listView.getItemAtPosition(position);
 		//	ReceiveMessageManager.removeReceiveMessage(item.getMACAddr());
-			
+
 			Node node = NodeList.getNode(item.getMACAddr());
 			if(node != null) {
 				new MessageFragment.Builder().create(node).show(getFragmentManager(), getTag());

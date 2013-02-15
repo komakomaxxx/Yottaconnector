@@ -25,6 +25,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
 import android.widget.Toast;
@@ -52,9 +53,8 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 	public static String ip = "192.168.0.101";
 	public static ViewPager mPager;
 	
-	private double ido=35.625014;
-	private double keido=139.341337;
-	
+	private double ido=35.62511;
+	private double keido=139.342099;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +104,9 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
       	// フレンドリスト読み込み
         FriendListManager.onLoadFriendList(this);
         
+        view_flag = true;
+
+        
     }
 
     @Override
@@ -143,6 +146,7 @@ public class YottaConnector extends FragmentActivity implements SensorEventListe
 			//nodedata.setNodeDirection(35.624937, 139.341917);
 		}
 		view_flag = true;
+		Log.d("Radar", "get location");
 	}
 
 	public void onProviderDisabled(String provider) {
